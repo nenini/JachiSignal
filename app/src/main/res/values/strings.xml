@@ -1,3 +1,7 @@
 <resources>
     <string name="app_name">JachiSignal</string>
+
+    <string name="hello">안녕</string>
+
+    <string name="cry">ㅜㅜㅜ</string>
 </resources>
