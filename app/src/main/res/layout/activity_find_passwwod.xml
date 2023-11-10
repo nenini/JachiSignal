@@ -31,7 +31,7 @@
                 android:gravity="center"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="비밀번호 찾기"
+                android:text="아이디 찾기"
                 android:textStyle="bold"
                 android:textSize="25dp"
                 android:textColor="#3c567b"/>
@@ -96,4 +96,6 @@
         android:textStyle="bold"
         android:background="@drawable/id_pass_btn"
         android:layout_alignParentBottom="true"/>
+</RelativeLayout>
+
 </RelativeLayout>
