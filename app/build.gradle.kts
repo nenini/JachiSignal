@@ -7,7 +7,7 @@ plugins {
 
 android {
     namespace = "com.example.jachisignal"
-    compileSdk = 33
+    compileSdk = 34
 
     defaultConfig {
         applicationId = "com.example.jachisignal"
@@ -31,6 +31,9 @@ android {
     compileOptions {
         sourceCompatibility = JavaVersion.VERSION_1_8
         targetCompatibility = JavaVersion.VERSION_1_8
+    }
+    viewBinding{
+        enable=true
     }
 }
 
