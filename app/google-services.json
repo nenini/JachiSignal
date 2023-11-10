@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "784411107452",
+    "project_id": "jachisignal-c6bd9",
+    "storage_bucket": "jachisignal-c6bd9.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:784411107452:android:e2257c49b090c1981e29f9",
+        "android_client_info": {
+          "package_name": "com.example.jachisignal"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCBnifPouI7EeijO_wmcHfwACVg2FlUqY0"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
