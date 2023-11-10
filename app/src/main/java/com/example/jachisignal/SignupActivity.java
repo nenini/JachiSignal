@@ -62,9 +62,9 @@ public class SignupActivity extends AppCompatActivity {
                 });
     }
 
-    private void updateUI(FirebaseUser user) {
+    public void updateUI(FirebaseUser user) {
         if (user != null) {
-            Intent intent = new Intent(this, MainActivity.class);
+            Intent intent = new Intent(this, HomeActivity.class);
             intent.putExtra("USER_PROFILE", "email: " + user.getEmail() + "\n" + "uid: " + user.getUid());
 
             startActivity(intent);

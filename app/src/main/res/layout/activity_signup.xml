@@ -47,7 +47,6 @@
             android:hint="이메일 입력"
             android:textColorHint="#6983A9"/>
         <TextView
-            android:id="@+id/password_edit_txt"
             android:layout_marginTop="10dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -56,7 +55,7 @@
             android:textStyle="bold"
             android:textColor="#3c567b"/>
         <EditText
-            android:id="@+id/password_check_edit_txt"
+            android:id="@+id/password_edit_txt"
             android:layout_marginTop="5dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
