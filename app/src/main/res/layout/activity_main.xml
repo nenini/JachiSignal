@@ -20,7 +20,7 @@
         android:textColor="#3c567b"
         android:gravity="end"
         android:layout_marginEnd="50dp"
-        android:layout_marginTop="15dpdp"
+        android:layout_marginTop="10dp"
         android:textStyle="bold"
         android:textSize="18sp"/>
     <RelativeLayout
