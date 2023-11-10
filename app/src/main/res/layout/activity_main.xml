@@ -42,7 +42,7 @@
                 android:layout_marginEnd="30dp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="ID"
+                android:text="E-mail"
                 android:textColor="#3c567b"
                 android:textStyle="bold"
                 android:textSize="20sp"/>
@@ -51,7 +51,7 @@
                 android:layout_marginEnd="30dp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="Enter ID"
+                android:hint="Enter E-mail"
                 android:textColorHint="#B0B0B0"
                 android:backgroundTint="#3c567b"/>
             <TextView
