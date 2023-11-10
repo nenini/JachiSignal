@@ -93,20 +93,7 @@
         android:layout_height="wrap_content"
         android:gravity="center"
         android:orientation="horizontal">
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="아이디찾기"
-            android:textStyle="bold"
-            android:textColor="#3c567b"/>
-        <TextView
-            android:layout_marginStart="5dp"
-            android:layout_marginEnd="5dp"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="/"
-            android:textStyle="bold"
-            android:textColor="#3c567b"/>
+
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
