@@ -97,5 +97,3 @@
         android:background="@drawable/id_pass_btn"
         android:layout_alignParentBottom="true"/>
 </RelativeLayout>
-
-</RelativeLayout>
