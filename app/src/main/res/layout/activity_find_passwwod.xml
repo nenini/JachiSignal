@@ -4,96 +4,91 @@
     android:layout_height="match_parent"
     android:padding="20dp">
 
-    <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    <ImageView
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:src="@drawable/baseline_arrow_back_24"/>
+    <TextView
+        android:id="@+id/text_Jachi"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:padding="20dp">
-        <ImageView
-            android:layout_width="40dp"
-            android:layout_height="40dp"
-            android:src="@drawable/baseline_arrow_back_24"/>
+        android:layout_height="wrap_content"
+        android:text="자취시그널"
+        android:gravity="center"
+        android:textSize="35sp"
+        android:textStyle="bold"
+        android:textColor="#3c567b"/>
+    <LinearLayout
+        android:layout_alignBaseline="@id/text_Jachi"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
         <TextView
-            android:id="@+id/text_Jachi"
+            android:layout_marginTop="5dp"
+            android:gravity="center"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="자취시그널"
-            android:gravity="center"
-            android:textSize="35sp"
+            android:text="비밀번호 찾기"
+            android:textStyle="bold"
+            android:textSize="25dp"
+            android:textColor="#3c567b"/>
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="이름"
+            android:textSize="20dp"
             android:textStyle="bold"
             android:textColor="#3c567b"/>
-        <LinearLayout
-            android:layout_alignBaseline="@id/text_Jachi"
+        <EditText
+            android:layout_marginTop="5dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical">
-            <TextView
-                android:layout_marginTop="5dp"
-                android:gravity="center"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="아이디 찾기"
-                android:textStyle="bold"
-                android:textSize="25dp"
-                android:textColor="#3c567b"/>
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="이름"
-                android:textSize="20dp"
-                android:textStyle="bold"
-                android:textColor="#3c567b"/>
-            <EditText
-                android:layout_marginTop="5dp"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:background="@drawable/id_password_edit"
-                android:hint="이름 입력"
-                android:textColorHint="#6983A9"/>
-            <TextView
-                android:layout_marginTop="10dp"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="이메일"
-                android:textSize="20dp"
-                android:textStyle="bold"
-                android:textColor="#3c567b"/>
-            <EditText
-                android:layout_marginTop="5dp"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:background="@drawable/id_password_edit"
-                android:hint="이메일 입력"
-                android:textColorHint="#6983A9"/>
-            <TextView
-                android:layout_marginTop="10dp"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="전화번호"
-                android:textSize="20dp"
-                android:textStyle="bold"
-                android:textColor="#3c567b"/>
-            <EditText
-                android:layout_marginTop="5dp"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:background="@drawable/id_password_edit"
-                android:hint="전화번호 입력"
-                android:textColorHint="#6983A9"/>
+            android:background="@drawable/id_password_edit"
+            android:hint="이름 입력"
+            android:textColorHint="#6983A9"/>
+        <TextView
+            android:layout_marginTop="10dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="이메일"
+            android:textSize="20dp"
+            android:textStyle="bold"
+            android:textColor="#3c567b"/>
+        <EditText
+            android:layout_marginTop="5dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/id_password_edit"
+            android:hint="이메일 입력"
+            android:textColorHint="#6983A9"/>
+        <TextView
+            android:layout_marginTop="10dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="전화번호"
+            android:textSize="20dp"
+            android:textStyle="bold"
+            android:textColor="#3c567b"/>
+        <EditText
+            android:layout_marginTop="5dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/id_password_edit"
+            android:hint="전화번호 입력"
+            android:textColorHint="#6983A9"/>
 
 
 
-        </LinearLayout>
+    </LinearLayout>
 
 
-    </RelativeLayout>
     <Button
-        android:layout_width="300dp"
-        android:layout_centerHorizontal="true"
-        android:layout_height="wrap_content"
-        android:text="회원가입 완료"
-        android:textSize="20sp"
-        android:textColor="@color/white"
-        android:textStyle="bold"
-        android:background="@drawable/id_pass_btn"
-        android:layout_alignParentBottom="true"/>
+    android:layout_width="300dp"
+    android:layout_centerHorizontal="true"
+    android:layout_height="wrap_content"
+    android:text="회원가입 완료"
+    android:textSize="20sp"
+    android:textColor="@color/white"
+    android:textStyle="bold"
+    android:background="@drawable/id_pass_btn"
+    android:layout_alignParentBottom="true"/>
 </RelativeLayout>
