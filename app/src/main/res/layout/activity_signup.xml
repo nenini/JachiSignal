@@ -33,7 +33,7 @@
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="아이디"
+            android:text="이메일"
             android:textSize="20dp"
             android:textStyle="bold"
             android:textColor="#3c567b"/>
@@ -48,7 +48,7 @@
             android:layout_marginTop="10dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="아이디"
+            android:text="비밀번호 입력"
             android:textSize="20dp"
             android:textStyle="bold"
             android:textColor="#3c567b"/>
@@ -57,10 +57,64 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@drawable/id_password_edit"
-            android:hint="이메일 입력"
+            android:hint="비밀번호 입력(숫자,영문 조합 최소 6자)"
+            android:textColorHint="#6983A9"/>
+        <TextView
+            android:layout_marginTop="10dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="닉네임"
+            android:textSize="20dp"
+            android:textStyle="bold"
+            android:textColor="#3c567b"/>
+        <EditText
+            android:layout_marginTop="5dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/id_password_edit"
+            android:hint="닉네임"
+            android:textColorHint="#6983A9"/>
+        <TextView
+            android:layout_marginTop="10dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="이름"
+            android:textSize="20dp"
+            android:textStyle="bold"
+            android:textColor="#3c567b"/>
+        <EditText
+            android:layout_marginTop="5dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/id_password_edit"
+            android:hint="이름 입력"
+            android:textColorHint="#6983A9"/>
+        <TextView
+            android:layout_marginTop="10dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="전화번호"
+            android:textSize="20dp"
+            android:textStyle="bold"
+            android:textColor="#3c567b"/>
+        <EditText
+            android:layout_marginTop="5dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/id_password_edit"
+            android:hint="전화번호 입력"
             android:textColorHint="#6983A9"/>
 
-
     </LinearLayout>
+    <Button
+        android:layout_width="300dp"
+        android:layout_centerHorizontal="true"
+        android:layout_height="wrap_content"
+        android:text="회원가입 완료"
+        android:textSize="20sp"
+        android:textColor="@color/white"
+        android:textStyle="bold"
+        android:background="@drawable/id_pass_btn"
+        android:layout_alignParentBottom="true"/>
 
 </RelativeLayout>
