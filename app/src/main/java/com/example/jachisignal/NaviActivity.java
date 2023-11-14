@@ -16,6 +16,7 @@ public class NaviActivity extends AppCompatActivity {
     private FragmentManager fragmentManager=getSupportFragmentManager();
     private FragmentHome fragmentHome=new FragmentHome();
     private FragmentCommunity fragmentCommunity=new FragmentCommunity();
+    private FragmentMyPage fragmentMyPage=new FragmentMyPage();
 
 
     @Override
@@ -40,6 +41,9 @@ public class NaviActivity extends AppCompatActivity {
             }
             if(menuItem.getItemId()==R.id.communityFragment){
                 transaction.replace(R.id.menu_frame_layout, fragmentCommunity).commitAllowingStateLoss();
+            }
+            if(menuItem.getItemId()==R.id.myPageFragment){
+                transaction.replace(R.id.menu_frame_layout, fragmentMyPage).commitAllowingStateLoss();
             }
 
             return true;
