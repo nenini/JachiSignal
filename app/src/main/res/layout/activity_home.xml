@@ -159,18 +159,18 @@
             android:layout_weight="1"
             android:layout_width="30dp"
             android:layout_height="30dp"
-            android:src="@drawable/community_img"/>
+            android:src="@drawable/community"/>
         <ImageView
             android:layout_weight="1"
             android:layout_width="30dp"
             android:layout_height="30dp"
-            android:src="@drawable/user_img"/>
+            android:src="@drawable/user"/>
 
         <ImageView
             android:layout_width="23dp"
             android:layout_height="23dp"
             android:layout_weight="1"
-            android:src="@drawable/setting_img" />
+            android:src="@drawable/setting" />
 
     </LinearLayout>
 

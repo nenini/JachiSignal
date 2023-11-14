@@ -2,19 +2,19 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
     <item
         android:id="@+id/homeFragment"
-        android:icon="@drawable/homeimg"
+        android:icon="@drawable/home"
         android:title="홈" />
     <item
         android:id="@+id/communityFragment"
-        android:icon="@drawable/community_img"
-        android:title="홈" />
+        android:icon="@drawable/community"
+        android:title=" " />
     <item
         android:id="@+id/myPageFragment"
-        android:icon="@drawable/user_img"
-        android:title="홈" />
+        android:icon="@drawable/user"
+        android:title=" " />
     <item
         android:id="@+id/settingFragment"
-        android:icon="@drawable/setting_img"
-        android:title="홈" />
+        android:icon="@drawable/setting"
+        android:title=" " />
 
 </menu>
