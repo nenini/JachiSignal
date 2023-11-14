@@ -2,7 +2,8 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    android:layout_marginBottom="100dp">
     <LinearLayout
         android:layout_weight="90"
         android:layout_width="match_parent"
@@ -140,40 +141,5 @@
 
             </LinearLayout>
         </ScrollView>
-
     </LinearLayout>
-    <LinearLayout
-        android:layout_marginStart="10dp"
-        android:layout_marginEnd="10dp"
-        android:layout_marginBottom="10dp"
-        android:gravity="center"
-        android:layout_weight="30"
-        android:layout_width="match_parent"
-        android:layout_height="100dp">
-        <ImageView
-            android:layout_weight="1"
-            android:layout_width="30dp"
-            android:layout_height="30dp"
-            android:src="@drawable/home"/>
-        <ImageView
-            android:layout_weight="1"
-            android:layout_width="30dp"
-            android:layout_height="30dp"
-            android:src="@drawable/community_img"/>
-        <ImageView
-            android:layout_weight="1"
-            android:layout_width="30dp"
-            android:layout_height="30dp"
-            android:src="@drawable/user_img"/>
-
-        <ImageView
-            android:layout_width="23dp"
-            android:layout_height="23dp"
-            android:layout_weight="1"
-            android:src="@drawable/setting_img" />
-
-    </LinearLayout>
-
 </LinearLayout>
-
-
