@@ -20,19 +20,19 @@
             <ImageView
                 android:layout_width="50dp"
                 android:layout_height="50dp"
-                android:src="@drawable/gongguimg"
+                android:src="@drawable/_9"
                 android:background="@drawable/blue"/>
             <ImageView
                 android:layout_marginStart="30dp"
                 android:layout_width="50dp"
                 android:layout_height="50dp"
-                android:src="@drawable/gonggu"
+                android:src="@drawable/_9_1"
                 android:background="@drawable/yellow"/>
             <ImageView
                 android:layout_marginStart="30dp"
                 android:layout_width="50dp"
                 android:layout_height="50dp"
-                android:src="@drawable/playimg"
+                android:src="@drawable/baseline_sports_esports_24"
                 android:background="@drawable/pink"/>
         </LinearLayout>
 
@@ -51,9 +51,10 @@
                     android:padding="10dp"
                     android:orientation="vertical">
                     <ImageView
+                        android:layout_marginTop="2dp"
                         android:layout_width="match_parent"
-                        android:layout_height="30dp"
-                        android:src="@drawable/gongguimg"
+                        android:layout_height="28dp"
+                        android:src="@drawable/_9"
                         android:layout_gravity="center"/>
                     <TextView
                         android:layout_marginTop="10dp"
@@ -83,9 +84,10 @@
                     android:padding="10dp"
                     android:orientation="vertical">
                     <ImageView
+                        android:layout_marginTop="3dp"
                         android:layout_width="match_parent"
-                        android:layout_height="30dp"
-                        android:src="@drawable/gonggu"
+                        android:layout_height="27dp"
+                        android:src="@drawable/_9_1"
                         android:layout_gravity="center"/>
                     <TextView
                         android:layout_marginTop="10dp"
@@ -116,7 +118,7 @@
                     <ImageView
                         android:layout_width="match_parent"
                         android:layout_height="30dp"
-                        android:src="@drawable/playimg"
+                        android:src="@drawable/baseline_sports_esports_24"
                         android:layout_gravity="center"/>
                     <TextView
                         android:layout_marginTop="10dp"

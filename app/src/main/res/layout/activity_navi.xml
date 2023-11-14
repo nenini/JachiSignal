@@ -18,7 +18,7 @@
         android:layout_height="100dp"
         android:layout_weight="1"
         app:itemBackground="@color/white"
-        app:itemIconSize="35dp"
+        app:itemIconSize="30dp"
         app:itemIconTint="@drawable/menu_click_color"
         app:itemTextColor="@drawable/menu_click_color"
         app:layout_constraintBottom_toBottomOf="parent"
