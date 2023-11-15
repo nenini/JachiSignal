@@ -1,14 +1,128 @@
 <?xml version="1.0" encoding="utf-8"?>
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".FragmentSetting">
-
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
+    android:layout_marginBottom="100dp">
+    <FrameLayout
+        android:id="@+id/fragment_mypage_tab"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="@string/hello_blank_fragment" />
+        android:layout_height="wrap_content">
+        <LinearLayout
+            android:layout_weight="90"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingTop="20dp"
+            android:paddingStart="20dp"
+            android:paddingEnd="20dp"
+            android:orientation="vertical">
+            <TextView
+                android:layout_gravity="center"
+                android:layout_width="wrap_content"
+                android:layout_height="50dp"
+                android:text="Setting"
+                android:textSize="35sp"
+                android:textStyle="bold"
+                android:textColor="#3c567b"/>
+
+            <CalendarView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/calendarView"
+                android:layout_marginLeft="15dp"
+                android:layout_marginStart="15dp"
+                android:layout_marginEnd="15dp"
+                android:layout_marginRight="15dp"
+                android:layout_marginTop="30dp"
+                android:background="@drawable/outline"/>
+            <LinearLayout
+                android:id="@+id/liner_test"
+                android:layout_marginTop="10dp"
+                android:gravity="center"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="이번달 총 소비금액"
+                    android:textSize="18sp"
+                    android:textStyle="bold"
+                    android:textColor="#3c567b"/>
+                <TextView
+                    android:layout_marginStart="50dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="₩259,300"
+                    android:textSize="18sp"
+                    android:textStyle="bold"
+                    android:textColor="#3c567b"/>
+            </LinearLayout>
+            <RelativeLayout
+                android:layout_marginTop="10dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/blue">
+                <TextView
+                    android:layout_marginStart="80dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="스크랩"
+                    android:textSize="16sp"
+                    android:textStyle="bold"
+                    android:textColor="#3c567b"/>
+                <ImageView
+                    android:layout_centerVertical="true"
+                    android:layout_alignParentEnd="true"
+                    android:layout_width="200dp"
+                    android:layout_height="22dp"
+                    android:src="@drawable/star"/>
+            </RelativeLayout>
+            <RelativeLayout
+                android:layout_marginTop="10dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/pink">
+                <TextView
+                    android:layout_marginStart="70dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="내가 쓴 글"
+                    android:textSize="16sp"
+                    android:textStyle="bold"
+                    android:textColor="#3c567b"/>
+                <ImageView
+                    android:layout_centerVertical="true"
+                    android:layout_alignParentEnd="true"
+                    android:layout_width="200dp"
+                    android:layout_height="20dp"
+                    android:src="@drawable/edit"/>
+            </RelativeLayout>
+            <RelativeLayout
+                android:layout_marginTop="10dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/yellow">
+                <TextView
+                    android:layout_marginStart="75dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="MY 공구"
+                    android:textSize="16sp"
+                    android:textStyle="bold"
+                    android:textColor="#3c567b"/>
+                <ImageView
+                    android:layout_centerVertical="true"
+                    android:layout_alignParentEnd="true"
+                    android:layout_width="200dp"
+                    android:layout_height="20dp"
+                    android:src="@drawable/cart"/>
+            </RelativeLayout>
+
+
+        </LinearLayout>
+
+    </FrameLayout>
 
 </FrameLayout>
+
+
