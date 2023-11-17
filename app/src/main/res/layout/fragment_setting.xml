@@ -1,128 +1,170 @@
 <?xml version="1.0" encoding="utf-8"?>
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:layout_marginBottom="100dp">
-    <FrameLayout
-        android:id="@+id/fragment_mypage_tab"
+    tools:context=".FragmentSetting">
+
+    <LinearLayout
+        android:layout_weight="90"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-        <LinearLayout
-            android:layout_weight="90"
-            android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingTop="20dp"
+        android:paddingStart="20dp"
+        android:paddingEnd="20dp"
+        android:orientation="vertical">
+        <TextView
+            android:layout_gravity="center"
+            android:layout_width="wrap_content"
+            android:layout_height="50dp"
+            android:text="Setting"
+            android:textSize="35sp"
+            android:textStyle="bold"
+            android:textColor="#3c567b"/>
+
+
+        <ImageButton
+            android:layout_marginTop="40dp"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:paddingTop="20dp"
-            android:paddingStart="20dp"
-            android:paddingEnd="20dp"
-            android:orientation="vertical">
-            <TextView
-                android:layout_gravity="center"
+            android:src="@drawable/edit_setting"
+            android:background=""
+            android:layout_gravity="end"/>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <FrameLayout
                 android:layout_width="wrap_content"
-                android:layout_height="50dp"
-                android:text="Setting"
-                android:textSize="35sp"
-                android:textStyle="bold"
-                android:textColor="#3c567b"/>
+                android:layout_height="wrap_content">
 
-            <CalendarView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:id="@+id/calendarView"
-                android:layout_marginLeft="15dp"
-                android:layout_marginStart="15dp"
-                android:layout_marginEnd="15dp"
-                android:layout_marginRight="15dp"
-                android:layout_marginTop="30dp"
-                android:background="@drawable/outline"/>
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/cat"/>
+                <ImageButton
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/setting_mypage"
+                    android:background=""/>
+            </FrameLayout>
             <LinearLayout
-                android:id="@+id/liner_test"
-                android:layout_marginTop="10dp"
-                android:gravity="center"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal">
+                android:layout_height="match_parent"
+                android:orientation="vertical"
+                android:gravity="center">
                 <TextView
-                    android:layout_width="wrap_content"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="이번달 총 소비금액"
-                    android:textSize="18sp"
+                    android:text="이름 : 고냥이 사랑"
                     android:textStyle="bold"
-                    android:textColor="#3c567b"/>
+                    android:textSize="15sp"/>
                 <TextView
-                    android:layout_marginStart="50dp"
-                    android:layout_width="wrap_content"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="₩259,300"
-                    android:textSize="18sp"
+                    android:text="전화번호 : 010-1234-5678"
                     android:textStyle="bold"
-                    android:textColor="#3c567b"/>
+                    android:textSize="15sp"/>
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="mail : hdn1234@a.com"
+                    android:textStyle="bold"
+                    android:textSize="15sp"/>
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="주소 : 서울특별시 동작구 상도동 23-1"
+                    android:textStyle="bold"
+                    android:textSize="15sp"/>
             </LinearLayout>
-            <RelativeLayout
-                android:layout_marginTop="10dp"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:background="@drawable/blue">
-                <TextView
-                    android:layout_marginStart="80dp"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="스크랩"
-                    android:textSize="16sp"
-                    android:textStyle="bold"
-                    android:textColor="#3c567b"/>
-                <ImageView
-                    android:layout_centerVertical="true"
-                    android:layout_alignParentEnd="true"
-                    android:layout_width="200dp"
-                    android:layout_height="22dp"
-                    android:src="@drawable/star"/>
-            </RelativeLayout>
-            <RelativeLayout
-                android:layout_marginTop="10dp"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:background="@drawable/pink">
-                <TextView
-                    android:layout_marginStart="70dp"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="내가 쓴 글"
-                    android:textSize="16sp"
-                    android:textStyle="bold"
-                    android:textColor="#3c567b"/>
-                <ImageView
-                    android:layout_centerVertical="true"
-                    android:layout_alignParentEnd="true"
-                    android:layout_width="200dp"
-                    android:layout_height="20dp"
-                    android:src="@drawable/edit"/>
-            </RelativeLayout>
-            <RelativeLayout
-                android:layout_marginTop="10dp"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:background="@drawable/yellow">
-                <TextView
-                    android:layout_marginStart="75dp"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="MY 공구"
-                    android:textSize="16sp"
-                    android:textStyle="bold"
-                    android:textColor="#3c567b"/>
-                <ImageView
-                    android:layout_centerVertical="true"
-                    android:layout_alignParentEnd="true"
-                    android:layout_width="200dp"
-                    android:layout_height="20dp"
-                    android:src="@drawable/cart"/>
-            </RelativeLayout>
-
 
         </LinearLayout>
 
-    </FrameLayout>
+        <RelativeLayout
+            android:layout_marginTop="60dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/blue">
+            <ImageView
+                android:layout_marginStart="17dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/notification"/>
+            <TextView
+                android:layout_marginStart="60dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="알림설정"
+                android:textSize="16sp"
+                android:textStyle="bold"
+                android:textColor="#3c567b"/>
+            <Switch
+                android:layout_centerVertical="true"
+                android:layout_alignParentEnd="true"
+                android:layout_marginEnd="15dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+        </RelativeLayout>
+        <RelativeLayout
+            android:layout_marginTop="10dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/purple">
+            <ImageView
+                android:layout_marginStart="20dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/padlock"/>
+            <TextView
+                android:layout_marginStart="60dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="비밀번호 재설정"
+                android:textSize="16sp"
+                android:textStyle="bold"
+                android:textColor="#3c567b"/>
+        </RelativeLayout>
+        <RelativeLayout
+            android:layout_marginTop="10dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/vivid_blue">
+            <ImageView
+                android:layout_marginStart="20dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/report"/>
+            <TextView
+                android:layout_marginStart="60dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="신고"
+                android:textSize="16sp"
+                android:textStyle="bold"
+                android:textColor="#3c567b"/>
+        </RelativeLayout>
+        <RelativeLayout
+            android:layout_marginTop="10dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/orange">
+            <ImageView
+                android:layout_marginStart="20dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/infor"/>
+            <TextView
+                android:layout_marginStart="60dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="개발자 정보"
+                android:textSize="16sp"
+                android:textStyle="bold"
+                android:textColor="#3c567b"/>
+        </RelativeLayout>
+
+
+
+    </LinearLayout>
 
 </FrameLayout>
-
-
