@@ -29,55 +29,61 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
+
         <LinearLayout
             android:id="@+id/login_square"
-            android:layout_marginTop="15dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginStart="40dp"
+            android:layout_marginTop="15dp"
             android:layout_marginEnd="40dp"
-            android:orientation="vertical"
-            android:background="@drawable/login_layout_square">
+            android:background="@drawable/login_layout_square"
+            android:orientation="vertical">
+
             <TextView
-                android:layout_marginTop="15dp"
-                android:layout_marginStart="30dp"
-                android:layout_marginEnd="30dp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginStart="30dp"
+                android:layout_marginTop="15dp"
+                android:layout_marginEnd="30dp"
                 android:text="E-mail"
                 android:textColor="#3c567b"
-                android:textStyle="bold"
-                android:textSize="20sp"/>
+                android:textSize="20sp"
+                android:textStyle="bold" />
+
             <EditText
-                android:inputType="textEmailAddress"
                 android:id="@+id/email_edit_txt_main"
-                android:layout_marginStart="30dp"
-                android:layout_marginEnd="30dp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginStart="30dp"
+                android:layout_marginEnd="30dp"
+                android:backgroundTint="#3c567b"
                 android:hint="Enter E-mail"
-                android:textColorHint="#B0B0B0"
-                android:backgroundTint="#3c567b"/>
+                android:inputType="textEmailAddress"
+                android:textColorHint="#B0B0B0" />
+
             <TextView
-                android:layout_marginStart="30dp"
-                android:layout_marginEnd="30dp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginStart="30dp"
+                android:layout_marginEnd="30dp"
                 android:text="Password"
                 android:textColor="#3c567b"
-                android:textStyle="bold"
-                android:textSize="20sp"/>
+                android:textSize="20sp"
+                android:textStyle="bold" />
+
             <EditText
                 android:id="@+id/password_edit_txt_main"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
                 android:layout_marginStart="30dp"
                 android:layout_marginEnd="30dp"
                 android:layout_marginBottom="40dp"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:backgroundTint="#3c567b"
                 android:hint="Enter Password"
-                android:textColorHint="#B0B0B0"
-                android:backgroundTint="#3c567b"/>
+                android:textColorHint="#B0B0B0" />
         </LinearLayout>
+
         <Button
             android:id="@+id/btn_login"
             android:layout_width="match_parent"

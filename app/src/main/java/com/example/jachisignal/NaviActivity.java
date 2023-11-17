@@ -6,8 +6,11 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.ImageView;
 
 import com.example.jachisignal.databinding.ActivityNaviBinding;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
@@ -17,6 +20,8 @@ public class NaviActivity extends AppCompatActivity {
     private FragmentHome fragmentHome=new FragmentHome();
     private FragmentCommunity fragmentCommunity=new FragmentCommunity();
     private FragmentMyPage fragmentMyPage=new FragmentMyPage();
+
+
 
 
     @Override
@@ -30,7 +35,11 @@ public class NaviActivity extends AppCompatActivity {
         BottomNavigationView bottomNavigationView = findViewById(R.id.menu_bottom_navigation);
         bottomNavigationView.setOnItemSelectedListener(new ItemSelectedListener());
 
+
+
     }
+
+
     class ItemSelectedListener implements BottomNavigationView.OnItemSelectedListener {
         @Override
         public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
