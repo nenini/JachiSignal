@@ -70,21 +70,21 @@ public class FragmentHome extends Fragment {
         fragmentHome2=new FragmentHome2();
         fragmentHome3=new FragmentHome3();
 
-        ImageView gonggu_face=rootView.findViewById(R.id.gonggu_face);
+        ImageView gonggu_face=rootView.findViewById(R.id.home_gonggu_face_btn);
         gonggu_face.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 getChildFragmentManager().beginTransaction().replace(R.id.fragment_home_tab, fragmentHome1).commit();
             }
         });
-        ImageView gonggu_del=rootView.findViewById(R.id.gonggu_deli);
+        ImageView gonggu_del=rootView.findViewById(R.id.home_gonggu_deli_btn);
         gonggu_del.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 getChildFragmentManager().beginTransaction().replace(R.id.fragment_home_tab, fragmentHome2).commit();
             }
         });
-        ImageView playing=rootView.findViewById(R.id.playing);
+        ImageView playing=rootView.findViewById(R.id.home_playing_btn);
         playing.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

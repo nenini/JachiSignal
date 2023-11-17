@@ -22,20 +22,20 @@
                 android:layout_height="wrap_content"
                 android:orientation="horizontal">
                 <ImageView
-                    android:id="@+id/gonggu_face"
+                    android:id="@+id/home_gonggu_face_btn"
                     android:layout_width="50dp"
                     android:layout_height="50dp"
                     android:src="@drawable/_9"
                     android:background="@drawable/blue"/>
                 <ImageView
-                    android:id="@+id/gonggu_deli"
+                    android:id="@+id/home_gonggu_deli_btn"
                     android:layout_marginStart="30dp"
                     android:layout_width="50dp"
                     android:layout_height="50dp"
                     android:src="@drawable/_9_1"
                     android:background="@drawable/yellow"/>
                 <ImageView
-                    android:id="@+id/playing"
+                    android:id="@+id/home_playing_btn"
                     android:layout_marginStart="30dp"
                     android:layout_width="50dp"
                     android:layout_height="50dp"

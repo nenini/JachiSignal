@@ -21,17 +21,20 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
                 <ImageView
+                    android:id="@+id/community_commu_btn"
                     android:layout_width="50dp"
                     android:layout_height="50dp"
                     android:src="@drawable/community_1"
                     android:background="@drawable/blue"/>
                 <ImageView
+                    android:id="@+id/community_jachiItem_btn"
                     android:layout_marginStart="30dp"
                     android:layout_width="50dp"
                     android:layout_height="50dp"
                     android:src="@drawable/community_2"
                     android:background="@drawable/yellow"/>
                 <ImageView
+                    android:id="@+id/community_cook_btn"
                     android:layout_marginStart="30dp"
                     android:layout_width="50dp"
                     android:layout_height="50dp"
