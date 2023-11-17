@@ -126,12 +126,15 @@
                     android:layout_alignStart="@id/dashline"
                     android:layout_below="@id/dashline"/>
                 <TextView
+                    android:layout_marginStart="5dp"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="1/5"
                     android:textColor="#3c567b"
                     android:textStyle="bold"
-                    android:layout_toRightOf="@id/people_img"/>
+                    android:layout_toRightOf="@id/people_img"
+                    android:layout_alignBottom="@id/people_img"
+                    android:layout_marginBottom="4dp"/>
             </RelativeLayout>
 
 
