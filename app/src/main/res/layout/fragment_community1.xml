@@ -20,7 +20,7 @@
             android:id="@+id/image_cart_09"
             android:layout_width="match_parent"
             android:layout_height="33dp"
-            android:src="@drawable/play"
+            android:src="@drawable/community_1"
             android:gravity="center" />
 
         <LinearLayout
@@ -38,20 +38,51 @@
                 android:maxLines="1"
                 android:backgroundTint="#3c567b"
                 android:drawableLeft="@drawable/search"/>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:gravity="right">
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/arrow_down" />
 
+                <TextView
+                    android:layout_marginStart="10dp"
+                    android:layout_marginEnd="20dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="전체글"
+                    android:textStyle="bold"
+                    android:textColor="#3c567b"/>
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/arrow_down" />
+
+                <TextView
+                    android:layout_marginStart="10dp"
+                    android:layout_marginEnd="20dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="전체 지역"
+                    android:textStyle="bold"
+                    android:textColor="#3c567b"/>
+            </LinearLayout>
             <RelativeLayout
                 android:layout_marginTop="10dp"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
-                android:background="@drawable/pink_page">
+                android:background="@drawable/blue_page">
                 <TextView
                     android:layout_marginStart="5dp"
                     android:id="@+id/tag"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="식품"
+                    android:text="핸드폰 찾아주세요"
                     android:textStyle="bold"
-                    android:textColor="#B0B0B0"/>
+                    android:textColor="#3c567b"/>
                 <ImageView
                     android:id="@+id/gonggu_face_post_heart"
                     android:layout_marginEnd="10dp"
@@ -76,56 +107,11 @@
                     android:textStyle="bold"
                     android:textColor="#3c567b" />
 
-                <ImageView
-                    android:layout_marginStart="5dp"
-                    android:id="@+id/tag_img"
-                    android:layout_marginTop="5dp"
-                    android:layout_width="70dp"
-                    android:layout_height="70dp"
-                    android:layout_below="@+id/tag"
-                    android:src="@drawable/tissue" />
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="햇반 2종 210g(백미5 + 흑미5)"
-                    android:textColor="#3c567b"
-                    android:textStyle="bold"
-                    android:layout_marginStart="100dp"
-                    android:layout_marginTop="45dp"/>
-                <ImageView
-                    android:id="@+id/dashline"
-                    android:layout_width="250dp"
-                    android:layout_height="5dp"
-                    android:src="@drawable/drawable_dash_line"
-                    android:layout_marginStart="100dp"
-                    android:layout_marginTop="70dp"/>
-                <ImageView
-                    android:id="@+id/people_img"
-                    android:layout_marginTop="5dp"
-                    android:layout_width="24dp"
-                    android:layout_height="24dp"
-                    android:src="@drawable/people"
-                    android:layout_alignStart="@id/dashline"
-                    android:layout_below="@id/dashline"/>
-                <TextView
-                    android:id="@+id/people_count"
-                    android:layout_marginStart="5dp"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="1/5"
-                    android:textColor="#3c567b"
-                    android:textStyle="bold"
-                    android:layout_toRightOf="@id/people_img"
-                    android:layout_alignBottom="@id/people_img"
-                    android:layout_marginBottom="4dp"/>
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="고냥이사랑"
-                    android:textColor="#3c567b"
-                    android:textStyle="bold"
-                    android:layout_alignParentEnd="true"
-                    android:layout_alignBaseline="@id/people_count"/>
+
+
+
+
+
             </RelativeLayout>
 
 

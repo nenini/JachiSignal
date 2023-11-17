@@ -28,7 +28,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:src="@drawable/edit_setting"
-            android:background=""
+            android:background="@color/white"
             android:layout_gravity="end"/>
         <LinearLayout
             android:layout_width="match_parent"
@@ -45,7 +45,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:src="@drawable/setting_mypage"
-                    android:background=""/>
+                    android:background="@color/white"/>
             </FrameLayout>
             <LinearLayout
                 android:layout_width="match_parent"

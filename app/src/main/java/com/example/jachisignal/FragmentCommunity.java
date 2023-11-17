@@ -4,15 +4,22 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 
 import androidx.fragment.app.Fragment;
 
-/**
- * A simple {@link Fragment} subclass.
- * Use the {@link FragmentCommunity#newInstance} factory method to
- * create an instance of this fragment.
- */
+import com.example.jachisignal.fragmentCommunity.FragmentCommunity1;
+import com.example.jachisignal.fragmentCommunity.FragmentCommunity2;
+import com.example.jachisignal.fragmentCommunity.FragmentCommunity3;
+import com.example.jachisignal.fragmentHome.FragmentHome1;
+import com.example.jachisignal.fragmentHome.FragmentHome2;
+import com.example.jachisignal.fragmentHome.FragmentHome3;
+
+
 public class FragmentCommunity extends Fragment {
+    FragmentCommunity1 fragmentCommunity1;
+    FragmentCommunity2 fragmentCommunity2;
+    FragmentCommunity3 fragmentCommunity3;
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -33,7 +40,7 @@ public class FragmentCommunity extends Fragment {
      *
      * @param param1 Parameter 1.
      * @param param2 Parameter 2.
-     * @return A new instance of fragment FragmentCommunity.
+     * @return A new instance of fragment FragmentHome.
      */
     // TODO: Rename and change types and number of parameters
     public static FragmentCommunity newInstance(String param1, String param2) {
@@ -57,7 +64,34 @@ public class FragmentCommunity extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_community, container, false);
+        ViewGroup rootView=(ViewGroup)inflater.inflate(R.layout.fragment_community,container,false) ;
+        fragmentCommunity1=new FragmentCommunity1();
+        fragmentCommunity2=new FragmentCommunity2();
+        fragmentCommunity3=new FragmentCommunity3();
+
+        ImageView commu=rootView.findViewById(R.id.community_commu_btn);
+        commu.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                getChildFragmentManager().beginTransaction().replace(R.id.fragment_community_tab, fragmentCommunity1).commit();
+            }
+        });
+        ImageView item=rootView.findViewById(R.id.community_jachiItem_btn);
+        item.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                getChildFragmentManager().beginTransaction().replace(R.id.fragment_community_tab, fragmentCommunity2).commit();
+            }
+        });
+        ImageView cook=rootView.findViewById(R.id.community_cook_btn);
+        cook.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                getChildFragmentManager().beginTransaction().replace(R.id.fragment_community_tab, fragmentCommunity3).commit();
+            }
+        });
+
+
+        return rootView;
     }
 }
