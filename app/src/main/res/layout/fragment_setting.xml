@@ -45,7 +45,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:src="@drawable/setting_mypage"
-                    android:background="@color/white"/>
+                    android:background="@android:color/transparent"/>
             </FrameLayout>
             <LinearLayout
                 android:layout_width="match_parent"

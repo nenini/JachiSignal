@@ -53,7 +53,7 @@
                     android:textStyle="bold"
                     android:textColor="#B0B0B0"/>
                 <ImageView
-                    android:id="@+id/gonggu_face_post_heart"
+                    android:id="@+id/playing_post_heart"
                     android:layout_marginEnd="10dp"
                     android:layout_toStartOf="@id/star"
                     android:layout_width="wrap_content"
@@ -66,9 +66,9 @@
                     android:layout_height="wrap_content"
                     android:src="@drawable/star_blank"/>
                 <TextView
-                    android:layout_below="@id/gonggu_face_post_heart"
-                    android:layout_alignLeft="@id/gonggu_face_post_heart"
-                    android:layout_alignRight="@id/gonggu_face_post_heart"
+                    android:layout_below="@id/playing_post_heart"
+                    android:layout_alignLeft="@id/playing_post_heart"
+                    android:layout_alignRight="@id/playing_post_heart"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="10개"
