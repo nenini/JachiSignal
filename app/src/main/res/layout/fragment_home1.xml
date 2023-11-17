@@ -63,10 +63,12 @@
                 android:layout_height="match_parent"
                 android:background="@drawable/blue">
                 <TextView
+                    android:layout_marginStart="5dp"
                     android:id="@+id/tag"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="식품"
+                    android:textStyle="bold"
                     android:textColor="#B0B0B0"/>
                 <ImageView
                     android:id="@+id/gonggu_face_post_heart"
@@ -93,11 +95,42 @@
                     android:textColor="#3c567b" />
 
                 <ImageView
+                    android:layout_marginStart="5dp"
+                    android:id="@+id/tag_img"
                     android:layout_marginTop="5dp"
                     android:layout_width="70dp"
                     android:layout_height="70dp"
                     android:layout_below="@+id/tag"
                     android:src="@drawable/imgg" />
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="햇반 2종 210g(백미5 + 흑미5)"
+                    android:textColor="#3c567b"
+                    android:textStyle="bold"
+                    android:layout_marginStart="100dp"
+                    android:layout_marginTop="45dp"/>
+                <ImageView
+                    android:id="@+id/dashline"
+                    android:layout_width="250dp"
+                    android:layout_height="5dp"
+                    android:src="@drawable/drawable_dash_line"
+                    android:layout_marginStart="100dp"
+                    android:layout_marginTop="70dp"/>
+                <ImageView
+                    android:layout_marginTop="2dp"
+                    android:layout_width="24dp"
+                    android:layout_height="24dp"
+                    android:src="@drawable/people"
+                    android:layout_alignStart="@id/dashline"
+                    android:layout_below="@id/dashline"/>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="1/5"
+                    android:textColor="#3c567b"
+                    android:textStyle="bold"
+                    />
             </RelativeLayout>
 
 
