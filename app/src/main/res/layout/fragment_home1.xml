@@ -101,7 +101,7 @@
                     android:layout_width="70dp"
                     android:layout_height="70dp"
                     android:layout_below="@+id/tag"
-                    android:src="@drawable/imgg" />
+                    android:src="@drawable/tissue" />
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -118,6 +118,7 @@
                     android:layout_marginStart="100dp"
                     android:layout_marginTop="70dp"/>
                 <ImageView
+                    android:id="@+id/people_img"
                     android:layout_marginTop="2dp"
                     android:layout_width="24dp"
                     android:layout_height="24dp"
@@ -130,7 +131,7 @@
                     android:text="1/5"
                     android:textColor="#3c567b"
                     android:textStyle="bold"
-                    />
+                    android:layout_toRightOf="@id/people_img"/>
             </RelativeLayout>
 
 
