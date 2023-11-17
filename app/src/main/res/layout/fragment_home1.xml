@@ -119,13 +119,14 @@
                     android:layout_marginTop="70dp"/>
                 <ImageView
                     android:id="@+id/people_img"
-                    android:layout_marginTop="2dp"
+                    android:layout_marginTop="5dp"
                     android:layout_width="24dp"
                     android:layout_height="24dp"
                     android:src="@drawable/people"
                     android:layout_alignStart="@id/dashline"
                     android:layout_below="@id/dashline"/>
                 <TextView
+                    android:id="@+id/people_count"
                     android:layout_marginStart="5dp"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -135,6 +136,14 @@
                     android:layout_toRightOf="@id/people_img"
                     android:layout_alignBottom="@id/people_img"
                     android:layout_marginBottom="4dp"/>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="고냥이사랑"
+                    android:textColor="#3c567b"
+                    android:textStyle="bold"
+                    android:layout_alignParentEnd="true"
+                    android:layout_alignBaseline="@id/people_count"/>
             </RelativeLayout>
 
 
