@@ -3,12 +3,213 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".fragmentCommunity.FragmentCommunity2">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context=".fragmentHome.FragmentHome1"
+    android:background="@color/white">
 
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
+    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:text="@string/hello_blank_fragment" />
+        android:padding="20dp">
+        <ImageView
+            android:id="@+id/backBtn"
+            android:layout_width="38dp"
+            android:layout_height="38dp"
+            android:src="@drawable/baseline_arrow_back_24"/>
+        <ImageView
+            android:layout_marginTop="5dp"
+            android:id="@+id/image_cart_09"
+            android:layout_width="match_parent"
+            android:layout_height="33dp"
+            android:src="@drawable/community_2"
+            android:gravity="center" />
+
+        <LinearLayout
+            android:layout_marginTop="50dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <EditText
+                android:layout_marginStart="20dp"
+                android:layout_marginEnd="20dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:inputType="text"
+                android:maxLines="1"
+                android:backgroundTint="#3c567b"
+                android:drawableLeft="@drawable/search"/>
+            <LinearLayout
+                android:layout_marginBottom="20dp"
+                android:layout_marginTop="10dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+                <LinearLayout
+                    android:layout_weight="1"
+                    android:layout_width="90dp"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="1"
+                        android:textSize="20sp"
+                        android:textColor="#3c567b"
+                        android:gravity="center"
+                        android:textStyle="bold"/>
+
+                    <androidx.cardview.widget.CardView
+                        android:layout_gravity="center"
+                        app:cardElevation="0dp"
+                        app:cardCornerRadius="15dp"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content">
+                        <ImageView
+                            android:layout_width="90dp"
+                            android:layout_height="90dp"
+                            android:src="@drawable/test"/>
+                    </androidx.cardview.widget.CardView>
+                </LinearLayout>
+                <LinearLayout
+                    android:layout_weight="1"
+                    android:layout_width="90dp"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+                    <TextView
+                        android:textSize="20sp"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="2"
+                        android:textColor="#3c567b"
+                        android:gravity="center"
+                        android:textStyle="bold"/>
+
+                    <androidx.cardview.widget.CardView
+                        android:layout_gravity="center"
+                        app:cardElevation="0dp"
+                        app:cardCornerRadius="15dp"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content">
+                        <ImageView
+                            android:layout_width="90dp"
+                            android:layout_height="90dp"
+                            android:src="@drawable/test"/>
+                    </androidx.cardview.widget.CardView>
+                </LinearLayout>
+                <LinearLayout
+                    android:layout_weight="1"
+                    android:layout_width="90dp"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+                    <TextView
+                        android:textSize="20sp"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="3"
+                        android:textColor="#3c567b"
+                        android:gravity="center"
+                        android:textStyle="bold"/>
+
+                    <androidx.cardview.widget.CardView
+                        android:layout_gravity="center"
+                        app:cardElevation="0dp"
+                        app:cardCornerRadius="15dp"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content">
+                        <ImageView
+                            android:layout_width="90dp"
+                            android:layout_height="90dp"
+                            android:src="@drawable/test"/>
+                    </androidx.cardview.widget.CardView>
+                </LinearLayout>
+
+            </LinearLayout>
+
+            <RelativeLayout
+                android:layout_marginTop="10dp"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:background="@drawable/yellow_page">
+                <TextView
+                    android:layout_marginStart="5dp"
+                    android:id="@+id/tag"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="수납/정리 > 현관/신발정리"
+                    android:textStyle="bold"
+                    android:textColor="#B0B0B0"/>
+                <ImageView
+                    android:id="@+id/gonggu_deli_post_heart"
+                    android:layout_marginEnd="10dp"
+                    android:layout_toStartOf="@id/star"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/heart"/>
+                <ImageView
+                    android:id="@+id/star"
+                    android:layout_alignParentEnd="true"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/star_blank"/>
+                <TextView
+                    android:layout_below="@id/gonggu_deli_post_heart"
+                    android:layout_alignLeft="@id/gonggu_deli_post_heart"
+                    android:layout_alignRight="@id/gonggu_deli_post_heart"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="10개"
+                    android:textSize="10dp"
+                    android:textStyle="bold"
+                    android:textColor="#3c567b" />
+                <androidx.cardview.widget.CardView
+                    android:id="@+id/tag_img"
+                    android:layout_gravity="center"
+                    android:layout_below="@+id/tag"
+                    android:layout_marginStart="5dp"
+                    android:layout_marginTop="6dp"
+                    app:cardElevation="0dp"
+                    app:cardCornerRadius="15dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content">
+                    <ImageView
+                        android:layout_width="70dp"
+                        android:layout_height="70dp"
+                        android:src="@drawable/test" />
+                </androidx.cardview.widget.CardView>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="햇반 2종 210g(백미5 + 흑미5)"
+                    android:textColor="#3c567b"
+                    android:textStyle="bold"
+                    android:layout_marginStart="100dp"
+                    android:layout_marginTop="45dp"/>
+                <ImageView
+                    android:id="@+id/dashline"
+                    android:layout_width="250dp"
+                    android:layout_height="5dp"
+                    android:src="@drawable/drawable_dash_line"
+                    android:layout_marginStart="100dp"
+                    android:layout_marginTop="70dp"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="고냥이사랑"
+                    android:textColor="#3c567b"
+                    android:textStyle="bold"
+                    android:layout_below="@id/dashline"
+                    android:layout_alignParentEnd="true"
+                    android:layout_marginTop="5dp"/>
+            </RelativeLayout>
+
+
+        </LinearLayout>
+
+
+
+    </RelativeLayout>
 
 </FrameLayout>
