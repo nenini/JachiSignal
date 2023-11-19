@@ -52,7 +52,16 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="start"
-                    android:text="질문글"
+                    android:text="대면"
+                    android:textColor="#3c567b"
+                    android:textStyle="bold" />
+
+                <CheckBox
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="start"
+                    android:layout_marginStart="10dp"
+                    android:text="비대면"
                     android:textColor="#3c567b"
                     android:textStyle="bold" />
 
@@ -89,8 +98,10 @@
                 <EditText
                     android:layout_width="match_parent"
                     android:layout_height="350dp"
+                    android:background="@null"
                     android:gravity="top"
                     android:hint="내용을 입력해주세요" />
+
 
                 <ImageButton
                     android:layout_width="wrap_content"
@@ -99,7 +110,42 @@
                     android:background="@android:color/transparent"
                     android:src="@drawable/image" />
 
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentEnd="true"
+                    android:layout_alignParentBottom="true"
+                    android:text="#카테고리"
+                    android:textColor="#3c567b"
+                    android:textSize="20sp"
+                    android:textStyle="bold" />
+
             </RelativeLayout>
+
+            <LinearLayout
+                android:layout_width="350dp"
+                android:layout_height="50dp"
+                android:layout_gravity="center"
+                android:layout_marginTop="5dp"
+                android:background="@drawable/blue"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:gravity="center"
+                    android:text="제품명"
+                    android:textColor="#3c567b"
+                    android:textSize="20dp"
+                    android:textStyle="bold" />
+
+                <EditText
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginStart="10dp" />
+
+
+            </LinearLayout>
 
 
         </LinearLayout>
@@ -113,9 +159,9 @@
             android:background="@drawable/vivid_blue"
             android:gravity="center"
             android:text="글 등록"
-            android:textSize="23dp"
             android:textColor="#3c567b"
-            android:textStyle="bold"/>
+            android:textSize="23dp"
+            android:textStyle="bold" />
 
 
     </RelativeLayout>
