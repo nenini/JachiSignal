@@ -1,5 +1,6 @@
 package com.example.jachisignal;
 
+import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
@@ -8,7 +9,9 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.FrameLayout;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 
 import com.example.jachisignal.databinding.FragmentMyPageBinding;
 
@@ -18,6 +21,7 @@ import com.example.jachisignal.databinding.FragmentMyPageBinding;
  * create an instance of this fragment.
  */
 public class FragmentMyPage extends Fragment {
+    FragmentMyPageBinding binding;
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -53,18 +57,39 @@ public class FragmentMyPage extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
         if (getArguments() != null) {
             mParam1 = getArguments().getString(ARG_PARAM1);
             mParam2 = getArguments().getString(ARG_PARAM2);
         }
-
-
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_my_page, container, false);
+        binding=FragmentMyPageBinding.inflate(inflater,container,false);
+        binding.mypageScrapBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getActivity(),mypage_scrap.class);
+                startActivity(intent);
+            }
+        });
+        binding.mypageWriteBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getActivity(),mypage_mywrite.class);
+                startActivity(intent);
+            }
+        });
+        binding.mypageGongguBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getActivity(),mypage_gonggu.class);
+                startActivity(intent);
+            }
+        });
+        return binding.getRoot();
     }
+
 }

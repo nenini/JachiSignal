@@ -58,6 +58,7 @@
                     android:textColor="#3c567b"/>
             </LinearLayout>
             <RelativeLayout
+                android:id="@+id/mypage_scrap_btn"
                 android:layout_marginTop="10dp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -78,6 +79,7 @@
                     android:src="@drawable/star"/>
             </RelativeLayout>
             <RelativeLayout
+                android:id="@+id/mypage_write_btn"
                 android:layout_marginTop="10dp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -98,6 +100,7 @@
                     android:src="@drawable/edit"/>
             </RelativeLayout>
             <RelativeLayout
+                android:id="@+id/mypage_gonggu_btn"
                 android:layout_marginTop="10dp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
