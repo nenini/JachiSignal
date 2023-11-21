@@ -4,13 +4,20 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".fragmentHome.FragmentHome1"
-    android:background="@color/white">
+    android:background="@color/white"
+    android:padding="20dp">
+    <ImageButton
+        android:layout_width="52dp"
+        android:layout_height="52dp"
+        android:src="@drawable/writeedit"
+        android:background="@drawable/circle_button"
+        android:layout_gravity="right||bottom"
+        android:layout_marginBottom="110dp" />
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:padding="20dp">
-        <ImageView
+        android:layout_height="match_parent">
+    <ImageView
             android:id="@+id/backBtn"
             android:layout_width="38dp"
             android:layout_height="38dp"
