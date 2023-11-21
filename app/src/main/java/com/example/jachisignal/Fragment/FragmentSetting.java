@@ -1,7 +1,10 @@
 package com.example.jachisignal.Fragment;
 
+import android.content.Intent;
 import android.os.Bundle;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
 import android.text.Layout;
@@ -9,8 +12,18 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.LinearLayout;
 
+import com.example.jachisignal.FindPasswordActivity;
+import com.example.jachisignal.MainActivity;
+import com.example.jachisignal.MyPageActivity.mypage_scrap;
 import com.example.jachisignal.R;
+import com.example.jachisignal.ReportActivity;
+import com.example.jachisignal.ResetPasswordActivity;
+import com.example.jachisignal.databinding.FragmentMyPageBinding;
+import com.example.jachisignal.databinding.FragmentSettingBinding;
+import com.example.jachisignal.fragmentHome.FragmentHome1;
+import com.example.jachisignal.fragmentHome.FragmentHome2;
 import com.example.jachisignal.databinding.FragmentSettingBinding;
 import com.google.firebase.auth.FirebaseAuth;
 
@@ -20,6 +33,7 @@ import com.google.firebase.auth.FirebaseAuth;
  * create an instance of this fragment.
  */
 public class FragmentSetting extends Fragment {
+    FragmentSettingBinding binding;
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -64,8 +78,32 @@ public class FragmentSetting extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+        binding= FragmentSettingBinding.inflate(inflater,container,false);
+        binding.passwordResetting.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getActivity(), ResetPasswordActivity.class);
+                startActivity(intent);
+            }
+        });
+        binding.report.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getActivity(), ReportActivity.class);
+                startActivity(intent);
+            }
+        });
+        binding.logout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                signOut();
+                Intent intent = new Intent(getActivity(), MainActivity.class);
+                startActivity(intent);
+            }
+        });
+
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_setting, container, false);
+        return binding.getRoot();
     }
     private void signOut() {
         FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
