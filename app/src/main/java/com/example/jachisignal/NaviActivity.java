@@ -3,16 +3,15 @@ package com.example.jachisignal;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
-import android.view.View;
-import android.widget.ImageView;
 
-import com.example.jachisignal.databinding.ActivityNaviBinding;
+import com.example.jachisignal.Fragment.FragmentCommunity;
+import com.example.jachisignal.Fragment.FragmentHome;
+import com.example.jachisignal.Fragment.FragmentMyPage;
+import com.example.jachisignal.Fragment.FragmentSetting;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.navigation.NavigationBarView;
 

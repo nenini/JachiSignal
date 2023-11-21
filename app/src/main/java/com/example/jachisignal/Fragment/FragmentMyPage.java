@@ -1,4 +1,4 @@
-package com.example.jachisignal;
+package com.example.jachisignal.Fragment;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -8,12 +8,11 @@ import androidx.fragment.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.FrameLayout;
-import android.widget.ImageView;
-import android.widget.LinearLayout;
-import android.widget.RelativeLayout;
 
 import com.example.jachisignal.databinding.FragmentMyPageBinding;
+import com.example.jachisignal.mypage_gonggu;
+import com.example.jachisignal.mypage_mywrite;
+import com.example.jachisignal.mypage_scrap;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -71,21 +70,21 @@ public class FragmentMyPage extends Fragment {
         binding.mypageScrapBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(getActivity(),mypage_scrap.class);
+                Intent intent = new Intent(getActivity(), mypage_scrap.class);
                 startActivity(intent);
             }
         });
         binding.mypageWriteBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(getActivity(),mypage_mywrite.class);
+                Intent intent = new Intent(getActivity(), mypage_mywrite.class);
                 startActivity(intent);
             }
         });
         binding.mypageGongguBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(getActivity(),mypage_gonggu.class);
+                Intent intent = new Intent(getActivity(), mypage_gonggu.class);
                 startActivity(intent);
             }
         });

@@ -1,4 +1,4 @@
-package com.example.jachisignal;
+package com.example.jachisignal.Fragment;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -10,16 +10,13 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
-import com.example.jachisignal.fragmentHome.FragmentHome1;
-import com.example.jachisignal.fragmentHome.FragmentHome2;
-import com.example.jachisignal.fragmentHome.FragmentHome3;
+import com.example.jachisignal.R;
+import com.example.jachisignal.fragmentCommunity.FragmentCommunity1;
+import com.example.jachisignal.fragmentCommunity.FragmentCommunity2;
+import com.example.jachisignal.fragmentCommunity.FragmentCommunity3;
 
-/**
- * A simple {@link Fragment} subclass.
- * Use the {@link FragmentHome#newInstance} factory method to
- * create an instance of this fragment.
- */
-public class FragmentHome extends Fragment{
+
+public class FragmentCommunity extends Fragment {
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -30,7 +27,7 @@ public class FragmentHome extends Fragment{
     private String mParam1;
     private String mParam2;
 
-    public FragmentHome() {
+    public FragmentCommunity() {
         // Required empty public constructor
     }
 
@@ -43,8 +40,8 @@ public class FragmentHome extends Fragment{
      * @return A new instance of fragment FragmentHome.
      */
     // TODO: Rename and change types and number of parameters
-    public static FragmentHome newInstance(String param1, String param2) {
-        FragmentHome fragment = new FragmentHome();
+    public static FragmentCommunity newInstance(String param1, String param2) {
+        FragmentCommunity fragment = new FragmentCommunity();
         Bundle args = new Bundle();
         args.putString(ARG_PARAM1, param1);
         args.putString(ARG_PARAM2, param2);
@@ -73,35 +70,35 @@ public class FragmentHome extends Fragment{
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.fragment_home, container, false);
+        return inflater.inflate(R.layout.fragment_community, container, false);
     }
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        ImageView gonggu_face=view.findViewById(R.id.home_gonggu_face_btn);
-        gonggu_face.setOnClickListener(new View.OnClickListener() {
+        ImageView commu=view.findViewById(R.id.community_commu_btn);
+        commu.setOnClickListener(new View.OnClickListener() {
 
             @Override
             public void onClick(View v) {
-                getParentFragmentManager().beginTransaction().add(R.id.menu_frame_layout, FragmentHome1.newInstance("param1","param2")).addToBackStack(null).commit();
+                getParentFragmentManager().beginTransaction().add(R.id.menu_frame_layout, FragmentCommunity1.newInstance("param1","param2")).addToBackStack(null).commit();
 
 
             }
         });
-        ImageView gonggu_del=view.findViewById(R.id.home_gonggu_deli_btn);
-        gonggu_del.setOnClickListener(new View.OnClickListener() {
+        ImageView jachiItem=view.findViewById(R.id.community_jachiItem_btn);
+        jachiItem.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                getParentFragmentManager().beginTransaction().add(R.id.menu_frame_layout, FragmentHome2.newInstance("param1","param2")).addToBackStack(null).commit();
+                getParentFragmentManager().beginTransaction().add(R.id.menu_frame_layout, FragmentCommunity2.newInstance("param1","param2")).addToBackStack(null).commit();
             }
         });
-        ImageView playing=view.findViewById(R.id.home_playing_btn);
-        playing.setOnClickListener(new View.OnClickListener() {
+        ImageView cooking=view.findViewById(R.id.community_cook_btn);
+        cooking.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                getParentFragmentManager().beginTransaction().add(R.id.menu_frame_layout, FragmentHome3.newInstance("param1","param2")).addToBackStack(null).commit();
+                getParentFragmentManager().beginTransaction().add(R.id.menu_frame_layout, FragmentCommunity3.newInstance("param1","param2")).addToBackStack(null).commit();
             }
         });
 
