@@ -6,6 +6,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
 import com.example.jachisignal.fragmentHome.FragmentHome1;
@@ -17,10 +19,7 @@ import com.example.jachisignal.fragmentHome.FragmentHome3;
  * Use the {@link FragmentHome#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class FragmentHome extends Fragment {
-    FragmentHome1  fragmentHome1;
-    FragmentHome2 fragmentHome2;
-    FragmentHome3 fragmentHome3;
+public class FragmentHome extends Fragment{
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -60,39 +59,51 @@ public class FragmentHome extends Fragment {
             mParam1 = getArguments().getString(ARG_PARAM1);
             mParam2 = getArguments().getString(ARG_PARAM2);
         }
+//        getParentFragmentManager().setFragmentResultListener("requestKey", this, new FragmentResultListener() {
+//            @Override
+//            public void onFragmentResult(@NonNull String requestKey, @NonNull Bundle result) {
+//                // We use a String here, but any type that can be put in a Bundle is supported
+//                String resultString = result.getString("bundleKey");
+//                // Do something with the result...
+//                textView.setText(resultString);
+//            }
+//        });
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        ViewGroup rootView=(ViewGroup)inflater.inflate(R.layout.fragment_home,container,false) ;
-        fragmentHome1=new FragmentHome1();
-        fragmentHome2=new FragmentHome2();
-        fragmentHome3=new FragmentHome3();
+        return inflater.inflate(R.layout.fragment_home, container, false);
+    }
 
-        ImageView gonggu_face=rootView.findViewById(R.id.home_gonggu_face_btn);
+    @Override
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+
+        ImageView gonggu_face=view.findViewById(R.id.home_gonggu_face_btn);
         gonggu_face.setOnClickListener(new View.OnClickListener() {
+
             @Override
             public void onClick(View v) {
-                getChildFragmentManager().beginTransaction().replace(R.id.fragment_home_tab, fragmentHome1).commit();
+                getParentFragmentManager().beginTransaction().add(R.id.menu_frame_layout, FragmentHome1.newInstance("param1","param2")).addToBackStack(null).commit();
+
+
             }
         });
-        ImageView gonggu_del=rootView.findViewById(R.id.home_gonggu_deli_btn);
+        ImageView gonggu_del=view.findViewById(R.id.home_gonggu_deli_btn);
         gonggu_del.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                getChildFragmentManager().beginTransaction().replace(R.id.fragment_home_tab, fragmentHome2).commit();
+                getParentFragmentManager().beginTransaction().add(R.id.menu_frame_layout, FragmentHome2.newInstance("param1","param2")).addToBackStack(null).commit();
             }
         });
-        ImageView playing=rootView.findViewById(R.id.home_playing_btn);
+        ImageView playing=view.findViewById(R.id.home_playing_btn);
         playing.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                getChildFragmentManager().beginTransaction().replace(R.id.fragment_home_tab, fragmentHome3).commit();
+                getParentFragmentManager().beginTransaction().add(R.id.menu_frame_layout, FragmentHome3.newInstance("param1","param2")).addToBackStack(null).commit();
             }
         });
 
-
-        return rootView;
     }
 }
