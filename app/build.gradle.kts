@@ -58,5 +58,15 @@ dependencies {
     // When using the BoM, you don't specify versions in Firebase library dependencies
     implementation("com.google.firebase:firebase-auth")
 
+    // Declare the dependency for the Cloud Firestore library
+    // When using the BoM, you don't specify versions in Firebase library dependencies
+    implementation("com.google.firebase:firebase-firestore")
 
+    // FirebaseUI for Cloud Firestore
+    implementation ("com.firebaseui:firebase-ui-firestore:8.0.0")
+    implementation ("androidx.paging:paging-runtime:3.2.1")
+
+    // Add the dependency for the Cloud Storage library
+    // When using the BoM, you don't specify versions in Firebase library dependencies
+    implementation("com.google.firebase:firebase-storage")
 }

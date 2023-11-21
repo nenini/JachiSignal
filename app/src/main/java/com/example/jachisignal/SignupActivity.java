@@ -15,9 +15,19 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.firestore.CollectionReference;
+import com.google.firebase.firestore.FieldValue;
+import com.google.firebase.firestore.FirebaseFirestore;
+
+import java.util.Arrays;
+import java.util.HashMap;
+import java.util.Map;
 
 public class SignupActivity extends AppCompatActivity {
 
+    private static final String TAG = "DocSnippets";
+
+    private FirebaseFirestore db;
     private FirebaseAuth mAuth;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,9 +46,22 @@ public class SignupActivity extends AppCompatActivity {
                 String email = binding.emailEditTxt.getText().toString();
                 String password = binding.passwordEditTxt.getText().toString();
 
+                initializeCloudFirestore();
                 signUp(email,password);
+
+
+                CollectionReference users = db.collection("users");
+                Map<String, Object> data1 = new HashMap<>();
+                data1.put("email", binding.emailEditTxt.getText().toString());
+                data1.put("pw", binding.passwordEditTxt.getText().toString());
+                data1.put("nickname",binding.nicknameEditTxt.getText().toString());
+                data1.put("name", binding.nameEditTxt.getText().toString());
+                data1.put("phone", binding.phoneEditTxt.getText().toString());
+                users.document(binding.nameEditTxt.getText().toString()).set(data1);
             }
         });
+
+
     }
     private void signUp(String email, String password) {
         mAuth.createUserWithEmailAndPassword(email, password)
@@ -70,4 +93,25 @@ public class SignupActivity extends AppCompatActivity {
             startActivity(intent);
         }
     }
+
+    private void addData() {
+        CollectionReference users = db.collection("users");
+
+        Map<String, Object> data1 = new HashMap<>();
+        data1.put("name", "San Francisco");
+        data1.put("state", "CA");
+        data1.put("country", "USA");
+        data1.put("capital", false);
+        data1.put("population", 860000);
+        data1.put("regions", Arrays.asList("west_coast", "norcal"));
+        data1.put("timestamp", FieldValue.serverTimestamp());
+        users.document("SF").set(data1);
+
+    }
+
+    private void initializeCloudFirestore() {
+        // Access a Cloud Firestore instance from your Activity
+        db = FirebaseFirestore.getInstance();
+    }
+
 }
