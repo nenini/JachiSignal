@@ -22,6 +22,15 @@
             android:name=".ReportActivity"
             android:exported="false" />
         <activity
+            android:name=".Post_Inside_Community"
+            android:exported="false" />
+        <activity
+            android:name=".Post_Inside_Playing"
+            android:exported="false" />
+        <activity
+            android:name=".Post_Inside_09"
+            android:exported="false" />
+        <activity
             android:name=".ResetPasswordActivity"
             android:exported="false" />
         <activity
