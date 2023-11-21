@@ -1,8 +1,10 @@
-package com.example.jachisignal;
+package com.example.jachisignal.WritingActivity;
 
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
+
+import com.example.jachisignal.R;
 
 public class LeisureWritingActivity extends AppCompatActivity {
 

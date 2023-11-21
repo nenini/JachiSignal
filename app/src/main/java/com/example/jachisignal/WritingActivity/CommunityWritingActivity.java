@@ -1,4 +1,4 @@
-package com.example.jachisignal;
+package com.example.jachisignal.WritingActivity;
 
 import androidx.appcompat.app.AppCompatActivity;
 

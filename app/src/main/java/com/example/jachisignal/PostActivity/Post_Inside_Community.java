@@ -1,8 +1,10 @@
-package com.example.jachisignal;
+package com.example.jachisignal.PostActivity;
 
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
+
+import com.example.jachisignal.R;
 
 public class Post_Inside_Community extends AppCompatActivity {
 

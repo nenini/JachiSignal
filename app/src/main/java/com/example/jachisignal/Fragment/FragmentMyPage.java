@@ -10,9 +10,9 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.example.jachisignal.databinding.FragmentMyPageBinding;
-import com.example.jachisignal.mypage_gonggu;
-import com.example.jachisignal.mypage_mywrite;
-import com.example.jachisignal.mypage_scrap;
+import com.example.jachisignal.MyPageActivity.mypage_gonggu;
+import com.example.jachisignal.MyPageActivity.mypage_mywrite;
+import com.example.jachisignal.MyPageActivity.mypage_scrap;
 
 /**
  * A simple {@link Fragment} subclass.
