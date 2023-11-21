@@ -51,6 +51,7 @@
                     android:layout_height="wrap_content"
                     android:orientation="vertical">
                     <LinearLayout
+                        android:id="@+id/community_commu_pageBTN"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:background="@drawable/blue"
@@ -83,6 +84,7 @@
                     </LinearLayout>
 
                     <LinearLayout
+                        android:id="@+id/community_jachiItem_pageBTN"
                         android:layout_marginTop="30dp"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
@@ -114,6 +116,7 @@
                             android:text="햇반2종"/>
                     </LinearLayout>
                     <LinearLayout
+                        android:id="@+id/community_cook_pageBTN"
                         android:layout_marginTop="30dp"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"

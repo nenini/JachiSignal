@@ -5,6 +5,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -103,6 +104,36 @@ public class FragmentHome extends Fragment{
             @Override
             public void onClick(View v) {
                 getParentFragmentManager().beginTransaction().add(R.id.menu_frame_layout, FragmentHome3.newInstance("param1","param2")).addToBackStack(null).commit();
+            }
+        });
+        LinearLayout gongguPage=view.findViewById(R.id.home_gonggu_pageBTN);
+        gongguPage.setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View v) {
+                getParentFragmentManager().beginTransaction().add(R.id.menu_frame_layout, FragmentHome1.newInstance("param1","param2")).addToBackStack(null).commit();
+
+
+            }
+        });
+        LinearLayout gongguPage_deli=view.findViewById(R.id.home_gonggu_deli_pageBTN);
+        gongguPage_deli.setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View v) {
+                getParentFragmentManager().beginTransaction().add(R.id.menu_frame_layout, FragmentHome2.newInstance("param1","param2")).addToBackStack(null).commit();
+
+
+            }
+        });
+        LinearLayout playingPage=view.findViewById(R.id.home_playing_pageBTN);
+        playingPage.setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View v) {
+                getParentFragmentManager().beginTransaction().add(R.id.menu_frame_layout, FragmentHome3.newInstance("param1","param2")).addToBackStack(null).commit();
+
+
             }
         });
 

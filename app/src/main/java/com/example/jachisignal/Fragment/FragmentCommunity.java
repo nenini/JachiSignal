@@ -5,6 +5,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -14,6 +15,9 @@ import com.example.jachisignal.R;
 import com.example.jachisignal.fragmentCommunity.FragmentCommunity1;
 import com.example.jachisignal.fragmentCommunity.FragmentCommunity2;
 import com.example.jachisignal.fragmentCommunity.FragmentCommunity3;
+import com.example.jachisignal.fragmentHome.FragmentHome1;
+import com.example.jachisignal.fragmentHome.FragmentHome2;
+import com.example.jachisignal.fragmentHome.FragmentHome3;
 
 
 public class FragmentCommunity extends Fragment {
@@ -99,6 +103,38 @@ public class FragmentCommunity extends Fragment {
             @Override
             public void onClick(View v) {
                 getParentFragmentManager().beginTransaction().add(R.id.menu_frame_layout, FragmentCommunity3.newInstance("param1","param2")).addToBackStack(null).commit();
+            }
+        });
+
+
+        LinearLayout commuPage=view.findViewById(R.id.community_commu_pageBTN);
+        commuPage.setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View v) {
+                getParentFragmentManager().beginTransaction().add(R.id.menu_frame_layout, FragmentCommunity1.newInstance("param1","param2")).addToBackStack(null).commit();
+
+
+            }
+        });
+        LinearLayout jachiItemPage=view.findViewById(R.id.community_jachiItem_pageBTN);
+        jachiItemPage.setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View v) {
+                getParentFragmentManager().beginTransaction().add(R.id.menu_frame_layout, FragmentCommunity2.newInstance("param1","param2")).addToBackStack(null).commit();
+
+
+            }
+        });
+        LinearLayout cookPage=view.findViewById(R.id.community_cook_pageBTN);
+        cookPage.setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View v) {
+                getParentFragmentManager().beginTransaction().add(R.id.menu_frame_layout, FragmentCommunity3.newInstance("param1","param2")).addToBackStack(null).commit();
+
+
             }
         });
 

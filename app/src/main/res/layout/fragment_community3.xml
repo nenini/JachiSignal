@@ -12,7 +12,7 @@
         android:layout_height="52dp"
         android:src="@drawable/writeedit"
         android:background="@drawable/circle_button"
-        android:layout_gravity="right||bottom"
+        android:layout_gravity="right|bottom"
         android:layout_marginBottom="110dp" />
 
     <RelativeLayout
