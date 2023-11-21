@@ -114,6 +114,7 @@
                 android:layout_height="wrap_content"/>
         </RelativeLayout>
         <RelativeLayout
+            android:id="@+id/password_resetting"
             android:layout_marginTop="10dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -133,6 +134,7 @@
                 android:textColor="#3c567b"/>
         </RelativeLayout>
         <RelativeLayout
+            android:id="@+id/report"
             android:layout_marginTop="10dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -152,6 +154,7 @@
                 android:textColor="#3c567b"/>
         </RelativeLayout>
         <RelativeLayout
+            android:id="@+id/information"
             android:layout_marginTop="10dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
