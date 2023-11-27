@@ -1,6 +1,7 @@
 package com.example.jachisignal.Fragment;
 
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -12,8 +13,11 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.Toast;
 
+import com.bumptech.glide.Glide;
 import com.example.jachisignal.FindPasswordActivity;
 import com.example.jachisignal.MainActivity;
 import com.example.jachisignal.MyPageActivity.mypage_scrap;
@@ -25,7 +29,19 @@ import com.example.jachisignal.databinding.FragmentSettingBinding;
 import com.example.jachisignal.fragmentHome.FragmentHome1;
 import com.example.jachisignal.fragmentHome.FragmentHome2;
 import com.example.jachisignal.databinding.FragmentSettingBinding;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
+
+import java.util.Map;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -33,6 +49,7 @@ import com.google.firebase.auth.FirebaseAuth;
  * create an instance of this fragment.
  */
 public class FragmentSetting extends Fragment {
+    private FirebaseFirestore db;
     FragmentSettingBinding binding;
 
     // TODO: Rename parameter arguments, choose names that match
@@ -69,6 +86,7 @@ public class FragmentSetting extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
         if (getArguments() != null) {
             mParam1 = getArguments().getString(ARG_PARAM1);
             mParam2 = getArguments().getString(ARG_PARAM2);
@@ -109,4 +127,78 @@ public class FragmentSetting extends Fragment {
         FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
         firebaseAuth.signOut();
     }
+    String db_img;
+
+    @Override
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+
+
+
+
+
+
+        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+        DocumentReference docRef = db.collection("users").document(user.getEmail());
+        docRef.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                if (task.isSuccessful()) {
+                    DocumentSnapshot document = task.getResult();
+                    if (document.exists()) {
+                        Map<String, Object> data = document.getData();
+                        db_img = (String) data.get("img");
+                    } else {
+                        Log.d("g", "No such document");
+                    }
+                } else {
+                    Log.d("g", "get failed with ", task.getException());
+                }
+            }
+        });
+        ImageView img_test = view.findViewById(R.id.user_img);
+
+        FirebaseStorage storage = FirebaseStorage.getInstance("gs://jachisignal-c6bd9.appspot.com");
+        StorageReference storageRef = storage.getReference();
+        storageRef.child(db_img).getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
+            @Override
+            public void onSuccess(Uri uri) {
+                //이미지 로드 성공시
+
+                Glide.with(getActivity().getApplicationContext())
+                        .load(uri)
+                        .into(img_test);
+
+            }
+        }).addOnFailureListener(new OnFailureListener() {
+            @Override
+            public void onFailure(@NonNull Exception exception) {
+                //이미지 로드 실패시
+                Toast.makeText(getActivity().getApplicationContext(), "실패", Toast.LENGTH_SHORT).show();
+            }
+        });
+        super.onViewCreated(view, savedInstanceState);
+    }
+
+
+
+
+//    private void getADocument() {
+//        DocumentReference docRef = db.collection("cities").document("SF");
+//        docRef.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+//            @Override
+//            public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+//                if (task.isSuccessful()) {
+//                    DocumentSnapshot document = task.getResult();
+//                    if (document.exists()) {
+//                        Map<String, Object> data = document.getData();
+//                        String db_img = (String) data.get("img");
+//                    } else {
+//                        Log.d("g", "No such document");
+//                    }
+//                } else {
+//                    Log.d("g", "get failed with ", task.getException());
+//                }
+//            }
+//        });
+//    }
 }
