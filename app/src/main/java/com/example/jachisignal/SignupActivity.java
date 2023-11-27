@@ -57,7 +57,7 @@ public class SignupActivity extends AppCompatActivity {
                 data1.put("nickname",binding.nicknameEditTxt.getText().toString());
                 data1.put("name", binding.nameEditTxt.getText().toString());
                 data1.put("phone", binding.phoneEditTxt.getText().toString());
-                users.document(binding.nameEditTxt.getText().toString()).set(data1);
+                users.document(binding.emailEditTxt.getText().toString()).set(data1);
             }
         });
 
