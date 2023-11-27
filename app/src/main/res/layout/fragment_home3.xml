@@ -5,8 +5,10 @@
     android:layout_height="match_parent"
     tools:context=".fragmentHome.FragmentHome1"
     android:background="@color/white"
+    android:clickable="true"
     android:padding="20dp">
     <ImageButton
+        android:id="@+id/home3_write_btn"
         android:layout_width="52dp"
         android:layout_height="52dp"
         android:src="@drawable/writeedit"
