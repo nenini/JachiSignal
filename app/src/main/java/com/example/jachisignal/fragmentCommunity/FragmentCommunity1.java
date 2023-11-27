@@ -1,14 +1,19 @@
 package com.example.jachisignal.fragmentCommunity;
 
+import android.content.Intent;
 import android.os.Bundle;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageButton;
 
 import com.example.jachisignal.R;
+import com.example.jachisignal.WritingActivity.CommunityWritingActivity;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -62,5 +67,16 @@ public class FragmentCommunity1 extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_community1, container, false);
+    }
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+
+        super.onViewCreated(view, savedInstanceState);
+        ImageButton community_BTN=view.findViewById(R.id.community1_write_btn);
+        community_BTN.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(getActivity(), CommunityWritingActivity.class));
+            }
+        });
     }
 }
