@@ -32,6 +32,7 @@
             android:orientation="vertical">
 
             <EditText
+                android:id="@+id/recipe_write_title"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="20dp"
@@ -51,6 +52,7 @@
                 android:background="@drawable/whiteblue">
 
                 <EditText
+                    android:id="@+id/recipe_write_body"
                     android:layout_width="match_parent"
                     android:layout_height="430dp"
                     android:gravity="top"
@@ -80,6 +82,7 @@
 
 
         <Button
+            android:id="@+id/recipe_write_BTN"
             android:layout_width="250dp"
             android:layout_height="50dp"
             android:layout_alignParentBottom="true"

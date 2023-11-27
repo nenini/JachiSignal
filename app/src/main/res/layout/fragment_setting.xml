@@ -64,7 +64,7 @@
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="이름 : 고냥이 사랑"
+                    android:text="닉네임 : 고냥이 사랑"
                     android:textStyle="bold"
                     android:textSize="15sp"/>
                 <TextView
