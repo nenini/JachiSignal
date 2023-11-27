@@ -131,74 +131,7 @@ public class FragmentSetting extends Fragment {
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
-
-
-
-
-
-
-        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
-        DocumentReference docRef = db.collection("users").document(user.getEmail());
-        docRef.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
-            @Override
-            public void onComplete(@NonNull Task<DocumentSnapshot> task) {
-                if (task.isSuccessful()) {
-                    DocumentSnapshot document = task.getResult();
-                    if (document.exists()) {
-                        Map<String, Object> data = document.getData();
-                        db_img = (String) data.get("img");
-                    } else {
-                        Log.d("g", "No such document");
-                    }
-                } else {
-                    Log.d("g", "get failed with ", task.getException());
-                }
-            }
-        });
-        ImageView img_test = view.findViewById(R.id.user_img);
-
-        FirebaseStorage storage = FirebaseStorage.getInstance("gs://jachisignal-c6bd9.appspot.com");
-        StorageReference storageRef = storage.getReference();
-        storageRef.child(db_img).getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
-            @Override
-            public void onSuccess(Uri uri) {
-                //이미지 로드 성공시
-
-                Glide.with(getActivity().getApplicationContext())
-                        .load(uri)
-                        .into(img_test);
-
-            }
-        }).addOnFailureListener(new OnFailureListener() {
-            @Override
-            public void onFailure(@NonNull Exception exception) {
-                //이미지 로드 실패시
-                Toast.makeText(getActivity().getApplicationContext(), "실패", Toast.LENGTH_SHORT).show();
-            }
-        });
         super.onViewCreated(view, savedInstanceState);
     }
 
-
-
-
-//    private void getADocument() {
-//        DocumentReference docRef = db.collection("cities").document("SF");
-//        docRef.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
-//            @Override
-//            public void onComplete(@NonNull Task<DocumentSnapshot> task) {
-//                if (task.isSuccessful()) {
-//                    DocumentSnapshot document = task.getResult();
-//                    if (document.exists()) {
-//                        Map<String, Object> data = document.getData();
-//                        String db_img = (String) data.get("img");
-//                    } else {
-//                        Log.d("g", "No such document");
-//                    }
-//                } else {
-//                    Log.d("g", "get failed with ", task.getException());
-//                }
-//            }
-//        });
-//    }
 }
