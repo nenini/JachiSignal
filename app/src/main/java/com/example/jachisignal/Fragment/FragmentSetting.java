@@ -129,6 +129,7 @@ public class FragmentSetting extends Fragment {
     }
     String db_img;
 
+
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
