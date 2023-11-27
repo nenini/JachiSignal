@@ -110,13 +110,12 @@
             android:layout_height="50dp"
             android:layout_alignParentBottom="true"
             android:layout_centerInParent="true"
-            android:layout_marginBottom="15dp"
             android:background="@drawable/vivid_blue"
             android:gravity="center"
             android:text="글 등록"
-            android:textSize="23dp"
             android:textColor="#3c567b"
-            android:textStyle="bold"/>
+            android:textSize="23dp"
+            android:textStyle="bold" />
 
 
     </RelativeLayout>
