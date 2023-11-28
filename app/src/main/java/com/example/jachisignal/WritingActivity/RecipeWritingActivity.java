@@ -47,7 +47,7 @@ public class RecipeWritingActivity extends AppCompatActivity {
         binding.recipeWriteBTN.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                RecipeDoc recipeDoc = new RecipeDoc("",user.getEmail(),binding.recipeWriteTitle.getText().toString(),
+                RecipeDoc recipeDoc = new RecipeDoc("1111","",user.getEmail(),binding.recipeWriteTitle.getText().toString(),
                         binding.recipeWriteBody.getText().toString(),"","","",new ArrayList<String>());
                 db.collection("recipeWritings").document(binding.recipeWriteTitle.getText().toString()).set(recipeDoc);
                 finish();

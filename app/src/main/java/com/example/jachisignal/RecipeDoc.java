@@ -8,6 +8,7 @@ import java.util.List;
 public class RecipeDoc {
     private String category;
     private String contentTitle;
+    private String nickname;
 
     private String createAt;
     private String id;
@@ -18,7 +19,8 @@ public class RecipeDoc {
     @ServerTimestamp
     private Timestamp timestamp; // server timestamp
 
-    public RecipeDoc(String id, String writeId, String contentTitle, String text, String createAt, String category, String imageLink,  List<String> likeList) {
+    public RecipeDoc(String nickname,String id, String writeId, String contentTitle, String text, String createAt, String category, String imageLink,  List<String> likeList) {
+        this.nickname=nickname;
         this.id = id;
         this.likeList = likeList;
         this.text = text;
@@ -27,6 +29,10 @@ public class RecipeDoc {
         this.category = category;
         this.contentTitle = contentTitle;
         this.imageLink = imageLink;
+    }
+
+    public String getNickname() {
+        return nickname;
     }
 
     public String getWriteId() {
@@ -101,4 +107,7 @@ public class RecipeDoc {
         this.id = id;
     }
 
+    public void setNickname(String nickname) {
+        this.nickname = nickname;
+    }
 }

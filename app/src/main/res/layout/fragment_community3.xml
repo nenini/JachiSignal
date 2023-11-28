@@ -132,87 +132,12 @@
                             android:src="@drawable/test"/>
                     </androidx.cardview.widget.CardView>
                 </LinearLayout>
-
             </LinearLayout>
 
-            <RelativeLayout
-                android:layout_marginTop="10dp"
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:background="@drawable/pink_page">
-                <TextView
-                    android:layout_marginStart="5dp"
-                    android:id="@+id/tag"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="수납/정리 > 현관/신발정리"
-                    android:textStyle="bold"
-                    android:textColor="#B0B0B0"/>
-                <ImageView
-                    android:id="@+id/gonggu_deli_post_heart"
-                    android:layout_marginEnd="10dp"
-                    android:layout_toStartOf="@id/star"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:src="@drawable/heart"/>
-                <ImageView
-                    android:id="@+id/star"
-                    android:layout_alignParentEnd="true"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:src="@drawable/star_blank"/>
-                <TextView
-                    android:layout_below="@id/gonggu_deli_post_heart"
-                    android:layout_alignLeft="@id/gonggu_deli_post_heart"
-                    android:layout_alignRight="@id/gonggu_deli_post_heart"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="10개"
-                    android:textSize="10dp"
-                    android:textStyle="bold"
-                    android:textColor="#3c567b" />
-                <androidx.cardview.widget.CardView
-                    android:id="@+id/tag_img"
-                    android:layout_gravity="center"
-                    android:layout_below="@+id/tag"
-                    android:layout_marginStart="5dp"
-                    android:layout_marginTop="6dp"
-                    app:cardElevation="0dp"
-                    app:cardCornerRadius="15dp"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content">
-                    <ImageView
-                        android:layout_width="70dp"
-                        android:layout_height="70dp"
-                        android:src="@drawable/test" />
-                </androidx.cardview.widget.CardView>
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="햇반 2종 210g(백미5 + 흑미5)"
-                    android:textColor="#3c567b"
-                    android:textStyle="bold"
-                    android:layout_marginStart="100dp"
-                    android:layout_marginTop="45dp"/>
-                <ImageView
-                    android:id="@+id/dashline"
-                    android:layout_width="250dp"
-                    android:layout_height="5dp"
-                    android:src="@drawable/drawable_dash_line"
-                    android:layout_marginStart="100dp"
-                    android:layout_marginTop="70dp"/>
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="고냥이사랑"
-                    android:textColor="#3c567b"
-                    android:textStyle="bold"
-                    android:layout_below="@id/dashline"
-                    android:layout_alignParentEnd="true"
-                    android:layout_marginTop="5dp"/>
-            </RelativeLayout>
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/community3_recyclerView"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"/>
 
 
         </LinearLayout>
