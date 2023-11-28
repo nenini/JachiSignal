@@ -127,7 +127,6 @@ public class FragmentSetting extends Fragment {
         FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
         firebaseAuth.signOut();
     }
-    String db_img;
 
 
     @Override
