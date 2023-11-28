@@ -1,11 +1,16 @@
 package com.example.jachisignal.Fragment;
 
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.Canvas;
+import android.graphics.drawable.BitmapDrawable;
+import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 
 import android.text.Layout;
@@ -41,7 +46,9 @@ import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
+import com.google.firebase.storage.UploadTask;
 
+import java.io.ByteArrayOutputStream;
 import java.util.Map;
 
 /**
@@ -141,7 +148,12 @@ public class FragmentSetting extends Fragment {
             }
         });
 
-
+        String message = this.getArguments().getString("task");
+        Log.d("KYR", "데이터 넘겨받음 ");
+        Log.d("KYR", message+"ee");
+        downloadImageTo("gs://jachisignal-c6bd9.appspot.com/"+user.getUid()+"/"+user.getUid()+"_first.jpg");
+        Log.d("KYR", user.getUid());
+//        Log.d("KYR", "다운로드 됨 ");
 
         // Inflate the layout for this fragment
         return binding.getRoot();
@@ -157,7 +169,20 @@ public class FragmentSetting extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
+    }
+    private void downloadImageTo(String uri) {
+        // Get a default Storage bucket
+        FirebaseStorage storage = FirebaseStorage.getInstance();
 
+        // Create a reference to a file from a Google Cloud Storage URI
+        StorageReference gsReference = storage.getReferenceFromUrl(uri); // from gs://~~~
+        Log.d("KYR", "uri");
+
+        // Download directly from StorageReference using Glide
+        // (See MyAppGlideModule for Loader registration)
+        Glide.with(requireContext())
+                .load(gsReference)
+                .into(binding.userImg);
     }
 
 }

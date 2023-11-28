@@ -3,9 +3,12 @@ package com.example.jachisignal;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.MenuItem;
 
 import com.example.jachisignal.Fragment.FragmentCommunity;
@@ -19,6 +22,19 @@ public class NaviActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_navi);
+
+        Intent receivedIntent = getIntent();
+        String downloadRef = receivedIntent.getStringExtra("task_message");
+        FragmentManager manager = getSupportFragmentManager();
+        FragmentTransaction transaction = manager.beginTransaction();
+        Bundle bundle = new Bundle();
+        //2. 데이터 담기
+        bundle.putString("task",downloadRef);
+        //3. 프래그먼트 선언
+        FragmentSetting fragmentSetting = new FragmentSetting();
+        //4. 프래그먼트에 데이터 넘기기
+        fragmentSetting.setArguments(bundle);
+        Log.d("KYR", "데이터 넘김 ");
 
         BottomNavigationView navigationBarView = findViewById(R.id.menu_bottom_navigation);
         transferTo(FragmentHome.newInstance("param1", "param2"));

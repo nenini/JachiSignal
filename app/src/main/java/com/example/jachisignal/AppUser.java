@@ -1,6 +1,7 @@
 package com.example.jachisignal;
 
 public class AppUser {
+    private String img;
     private String name;
     private String nickname;
     private String email;
@@ -18,6 +19,10 @@ public class AppUser {
     }
 
     public AppUser(){}
+
+    public String getImg() {
+        return img;
+    }
 
     public String getPw() {
         return pw;
@@ -65,5 +70,9 @@ public class AppUser {
 
     public void setPw(String pw) {
         this.pw = pw;
+    }
+
+    public void setImg(String img) {
+        this.img = img;
     }
 }

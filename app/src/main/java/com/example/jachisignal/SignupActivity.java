@@ -2,7 +2,9 @@ package com.example.jachisignal;
 
 import android.content.Intent;
 import android.graphics.Bitmap;
+import android.graphics.Canvas;
 import android.graphics.drawable.BitmapDrawable;
+import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
@@ -11,9 +13,15 @@ import android.widget.ImageView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.content.ContextCompat;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 
+import com.example.jachisignal.Fragment.FragmentSetting;
 import com.example.jachisignal.databinding.ActivitySignupBinding;
+import com.example.jachisignal.databinding.FragmentSettingBinding;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -35,21 +43,17 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class SignupActivity extends AppCompatActivity {
+    String task_snap;
 
     private static final String TAG = "DocSnippets";
 
     private FirebaseFirestore db;
     private FirebaseAuth mAuth;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
-
-
         ActivitySignupBinding binding = ActivitySignupBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
-
         mAuth = FirebaseAuth.getInstance();
 
         binding.btnSignup.setOnClickListener(new View.OnClickListener() {
@@ -59,12 +63,13 @@ public class SignupActivity extends AppCompatActivity {
                 String password = binding.passwordEditTxt.getText().toString();
 
                 initializeCloudFirestore();
-                signUp(email,password);
+
+                uploadFromDataInMemory();
 
 
                 CollectionReference users = db.collection("users");
                 Map<String, Object> data1 = new HashMap<>();
-
+                data1.put("img",task_snap);
                 data1.put("email", binding.emailEditTxt.getText().toString());
                 data1.put("pw", binding.passwordEditTxt.getText().toString());
                 data1.put("nickname",binding.nicknameEditTxt.getText().toString());
@@ -72,8 +77,11 @@ public class SignupActivity extends AppCompatActivity {
                 data1.put("phone", binding.phoneEditTxt.getText().toString());
                 data1.put("address", binding.addressEditTxt.getText().toString());
                 users.document(binding.emailEditTxt.getText().toString()).set(data1);
+
+                signUp(email,password);
             }
         });
+
 
 
     }
@@ -103,6 +111,7 @@ public class SignupActivity extends AppCompatActivity {
         if (user != null) {
             Intent intent = new Intent(this, NaviActivity.class);
             intent.putExtra("USER_PROFILE", "email: " + user.getEmail() + "\n" + "uid: " + user.getUid());
+            intent.putExtra("task_message",task_snap);
             intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
             intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
             startActivity(intent);
@@ -112,6 +121,93 @@ public class SignupActivity extends AppCompatActivity {
     private void initializeCloudFirestore() {
         // Access a Cloud Firestore instance from your Activity
         db = FirebaseFirestore.getInstance();
+    }
+    private void uploadFromDataInMemory() {
+        // Get a default Storage bucket
+        FirebaseStorage storage = FirebaseStorage.getInstance();
+
+        // Points to the root reference
+        StorageReference storageRef = storage.getReference();
+
+        // Create a reference for a new image
+        StorageReference mountainImagesRef = storageRef.child(getPath("jpg"));
+        Log.d("KYR","test1");
+
+        Drawable drawable = ContextCompat.getDrawable(this, R.drawable.human);
+
+// Drawable을 Bitmap으로 변환합니다.
+        Bitmap bitmap = drawableToBitmap(drawable);
+        ByteArrayOutputStream baos = new ByteArrayOutputStream();
+        bitmap.compress(Bitmap.CompressFormat.JPEG, 100, baos); //0-100
+        byte[] data = baos.toByteArray();
+        Log.d("KYR","test2");
+
+
+        UploadTask uploadTask = mountainImagesRef.putBytes(data);
+        Log.d("KYR","test3");
+
+        uploadTask.addOnFailureListener(new OnFailureListener() {
+            @Override
+            public void onFailure(@NonNull Exception exception) {
+                // Handle unsuccessful uploads
+                Log.d("KYR", "이미지뷰의 이미지 업로드 실패");
+            }
+        }).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+            @Override
+            public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+                // taskSnapshot.getMetadata() contains file metadata such as size, content-type, etc.
+                // ...
+                Log.d("KYR", "이미지뷰의 이미지 업로드 성공");
+                task_snap=taskSnapshot.getMetadata().getReference().toString();
+                Log.d("KYR","task_snap");
+                Toast.makeText(getApplicationContext(), task_snap,
+                        Toast.LENGTH_LONG).show();
+//                FragmentManager manager = getSupportFragmentManager();
+//                FragmentTransaction transaction = manager.beginTransaction();
+//                Bundle bundle = new Bundle();
+//                //2. 데이터 담기
+//                bundle.putString("task",task_snap);
+//                //3. 프래그먼트 선언
+//                FragmentSetting fragmentSetting = new FragmentSetting();
+//                //4. 프래그먼트에 데이터 넘기기
+//                fragmentSetting.setArguments(bundle);
+//                Log.d("KYR", "데이터 넘김 ");
+            }
+        });
+    }
+
+    public static Bitmap drawableToBitmap(Drawable drawable) {
+        if (drawable instanceof BitmapDrawable) {
+            return ((BitmapDrawable) drawable).getBitmap();
+        }
+
+        int width = drawable.getIntrinsicWidth();
+        int height = drawable.getIntrinsicHeight();
+
+        Bitmap bitmap = Bitmap.createBitmap(width, height, Bitmap.Config.ARGB_8888);
+        Canvas canvas = new Canvas(bitmap);
+        drawable.setBounds(0, 0, canvas.getWidth(), canvas.getHeight());
+        drawable.draw(canvas);
+
+        return bitmap;
+    }
+    private String getPath(String extension) {
+        String uid = getUidOfCurrentUser();
+
+        String dir = (uid != null) ? uid : "public";
+
+        String fileName = (uid != null) ? (uid + "_" + "first" + "." + extension)
+                : ("anonymous" + "_" + "first" + "." + extension);
+
+        return dir + "/" + fileName;
+    }
+
+    private boolean hasSignedIn() {
+        return FirebaseAuth.getInstance().getCurrentUser() != null ? true : false;
+    }
+
+    private String getUidOfCurrentUser() {
+        return hasSignedIn() ? FirebaseAuth.getInstance().getCurrentUser().getUid() : null;
     }
 
 
