@@ -62,27 +62,31 @@
                 android:orientation="vertical"
                 android:gravity="center">
                 <TextView
+                    android:id="@+id/nickname_txt"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="닉네임 : 고냥이 사랑"
+                    android:text="닉네임 : "
                     android:textStyle="bold"
                     android:textSize="15sp"/>
                 <TextView
+                    android:id="@+id/phone_txt"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="전화번호 : 010-1234-5678"
+                    android:text="전화번호 : "
                     android:textStyle="bold"
                     android:textSize="15sp"/>
                 <TextView
+                    android:id="@+id/email_txt"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="mail : hdn1234@a.com"
+                    android:text="mail : "
                     android:textStyle="bold"
                     android:textSize="15sp"/>
                 <TextView
+                    android:id="@+id/address_txt"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="주소 : 서울특별시 동작구 상도동 23-1"
+                    android:text="주소 : "
                     android:textStyle="bold"
                     android:textSize="15sp"/>
             </LinearLayout>

@@ -18,6 +18,7 @@ import android.widget.LinearLayout;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
+import com.example.jachisignal.AppUser;
 import com.example.jachisignal.FindPasswordActivity;
 import com.example.jachisignal.MainActivity;
 import com.example.jachisignal.MyPageActivity.mypage_scrap;
@@ -49,7 +50,10 @@ import java.util.Map;
  * create an instance of this fragment.
  */
 public class FragmentSetting extends Fragment {
+
+    private AppUser appUser;
     private FirebaseFirestore db;
+    private FirebaseUser user;
     FragmentSettingBinding binding;
 
     // TODO: Rename parameter arguments, choose names that match
@@ -120,6 +124,25 @@ public class FragmentSetting extends Fragment {
             }
         });
 
+/**/
+        user = FirebaseAuth.getInstance().getCurrentUser();
+
+        db = FirebaseFirestore.getInstance();
+
+        DocumentReference docRef = db.collection("users").document(user.getEmail());
+        docRef.get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
+            @Override
+            public void onSuccess(DocumentSnapshot documentSnapshot) {
+                appUser = documentSnapshot.toObject(AppUser.class);
+                binding.nicknameTxt.setText("닉네임 : "+appUser.getNickname());
+                binding.phoneTxt.setText("전화번호 : "+appUser.getPhone());
+                binding.emailTxt.setText("mail : "+appUser.getEmail());
+                binding.addressTxt.setText("주소 : "+appUser.getAddress());
+            }
+        });
+
+
+
         // Inflate the layout for this fragment
         return binding.getRoot();
     }
@@ -129,9 +152,12 @@ public class FragmentSetting extends Fragment {
     }
 
 
+
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+
+
     }
 
 }
