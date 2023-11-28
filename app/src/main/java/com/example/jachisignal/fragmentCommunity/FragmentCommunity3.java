@@ -161,7 +161,8 @@ public class FragmentCommunity3 extends Fragment {
             RecipeDoc recipeDoc = recipeDocArrayList.get(position);
             holder.binding.category.setText(recipeDoc.getCategory());
             holder.binding.nickname.setText(recipeDoc.getNickname());
-            holder.binding.heartCount.setText(Integer.toString(recipeDoc.getLikeList().size())+"개");
+            holder.binding.heartCount.setText("0개");
+            //Integer.toString(recipeDoc.getLikeList().size())
 
         }
 

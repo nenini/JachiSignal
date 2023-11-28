@@ -35,20 +35,20 @@ public class RecipeWritingActivity extends AppCompatActivity {
 
         db = FirebaseFirestore.getInstance();
 
-//        DocumentReference docRef = db.collection("users").document(user.getEmail());
+        DocumentReference docRef = db.collection("users").document(user.getEmail());
 
-//        docRef.get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
-//            @Override
-//            public void onSuccess(DocumentSnapshot documentSnapshot) {
-//                appUser = documentSnapshot.toObject(AppUser.class);
-//            }
-//        });
+        docRef.get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
+            @Override
+            public void onSuccess(DocumentSnapshot documentSnapshot) {
+                appUser = documentSnapshot.toObject(AppUser.class);
+            }
+        });
 
         binding.recipeWriteBTN.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                RecipeDoc recipeDoc = new RecipeDoc("1111","",user.getEmail(),binding.recipeWriteTitle.getText().toString(),
-                        binding.recipeWriteBody.getText().toString(),"","","",new ArrayList<String>());
+                RecipeDoc recipeDoc = new RecipeDoc(appUser.getNickname(),"1",user.getEmail(),binding.recipeWriteTitle.getText().toString(),
+                        binding.recipeWriteBody.getText().toString(),"1","1","1",new ArrayList<String>());
                 db.collection("recipeWritings").document(binding.recipeWriteTitle.getText().toString()).set(recipeDoc);
                 finish();
             }
