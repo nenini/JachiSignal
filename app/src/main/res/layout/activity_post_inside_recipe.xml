@@ -19,7 +19,7 @@
             android:id="@+id/image_cart_09"
             android:layout_width="match_parent"
             android:layout_height="33dp"
-            android:src="@drawable/community_1"
+            android:src="@drawable/community_3"
             android:gravity="center" />
     </RelativeLayout>
 
@@ -60,7 +60,7 @@
                 android:orientation="vertical"
                 android:paddingLeft="20dp">
                 <TextView
-                    android:id="@+id/nickname_community_post"
+                    android:id="@+id/nickname_recipe_post"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:textColor="#3C567B"
@@ -91,7 +91,7 @@
                 android:orientation="vertical">
 
                 <TextView
-                    android:id="@+id/title_community_post"
+                    android:id="@+id/title_recipe_post"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:paddingBottom="13dp"
@@ -101,7 +101,7 @@
                     android:textStyle="bold" />
 
                 <TextView
-                    android:id="@+id/text_community_post"
+                    android:id="@+id/text_recipe_post"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:paddingBottom="13dp"
@@ -125,7 +125,7 @@
                             android:src="@drawable/heartcount" />
 
                         <TextView
-                            android:id="@+id/heartCount_community_post"
+                            android:id="@+id/heartCount_recipe_post"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:paddingLeft="10dp"

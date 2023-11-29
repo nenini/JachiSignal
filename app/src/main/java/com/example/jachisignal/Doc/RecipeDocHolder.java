@@ -38,5 +38,19 @@ public class RecipeDocHolder extends RecyclerView.ViewHolder {
         mCategory.setText(category);
     }
 
+    public TextView getmCategory() {
+        return mCategory;
+    }
 
+    public TextView getmHeartcount() {
+        return mHeartcount;
+    }
+
+    public TextView getmNickname() {
+        return mNickname;
+    }
+
+    public TextView getmTitle() {
+        return mTitle;
+    }
 }

@@ -9,11 +9,14 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
 
+import com.example.jachisignal.PostActivity.Post_Inside_Community;
+import com.example.jachisignal.PostActivity.Post_Inside_Recipe;
 import com.example.jachisignal.R;
 import com.example.jachisignal.Doc.RecipeDoc;
 import com.example.jachisignal.Doc.RecipeDocHolder;
@@ -92,6 +95,21 @@ public class FragmentCommunity3 extends Fragment {
             @Override
             protected void onBindViewHolder(@NonNull RecipeDocHolder holder, int position, @NonNull RecipeDoc model) {
                 holder.bind(model);
+                holder.itemView.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        Log.d("KSM", "Gggg");
+                        String title = holder.getmTitle().getText().toString();
+
+                        Log.d("KSM", "eeeee");
+                        Intent intent = new Intent(v.getContext(), Post_Inside_Recipe.class);
+                        intent.putExtra("COLLECTION","recipeWritings");
+                        Log.d("KSM", title);
+                        intent.putExtra("DOCUMENT",title);
+                        Log.d("KSM", title);
+                        startActivity(intent);
+                    }
+                });
             }
             @NonNull
             @Override
@@ -99,7 +117,6 @@ public class FragmentCommunity3 extends Fragment {
                 View view= LayoutInflater.from(parent.getContext())
                         .inflate(R.layout.item,parent,false);
                 return new RecipeDocHolder(view);
-
             }
         };
 
