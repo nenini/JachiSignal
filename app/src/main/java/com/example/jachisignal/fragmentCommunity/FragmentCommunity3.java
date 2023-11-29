@@ -99,6 +99,7 @@ public class FragmentCommunity3 extends Fragment {
                 View view= LayoutInflater.from(parent.getContext())
                         .inflate(R.layout.item,parent,false);
                 return new RecipeDocHolder(view);
+
             }
         };
 

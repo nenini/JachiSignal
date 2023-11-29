@@ -22,6 +22,7 @@ public class RecipeWritingActivity extends AppCompatActivity {
     private FirebaseFirestore db;
     AppUser appUser;
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

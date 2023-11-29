@@ -8,6 +8,7 @@ import java.util.List;
 public class RecipeDoc {
     private String category;
     private String contentTitle;
+
     private String nickname;
 
     private String createAt;

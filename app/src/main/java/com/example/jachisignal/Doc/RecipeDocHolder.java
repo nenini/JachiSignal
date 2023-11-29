@@ -21,6 +21,7 @@ public class RecipeDocHolder extends RecyclerView.ViewHolder {
         mTitle=itemView.findViewById(R.id.title);
         mCategory=itemView.findViewById(R.id.category);
 
+
     }
 
     public  void bind(@NonNull RecipeDoc recipeDoc){

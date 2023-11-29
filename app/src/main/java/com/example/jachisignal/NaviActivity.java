@@ -20,6 +20,7 @@ import com.google.android.material.navigation.NavigationBarView;
 
 public class NaviActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_navi);
 

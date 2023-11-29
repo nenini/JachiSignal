@@ -146,6 +146,7 @@ public class SignupActivity extends AppCompatActivity {
         UploadTask uploadTask = mountainImagesRef.putBytes(data);
         Log.d("KYR","test3");
 
+
         uploadTask.addOnFailureListener(new OnFailureListener() {
             @Override
             public void onFailure(@NonNull Exception exception) {

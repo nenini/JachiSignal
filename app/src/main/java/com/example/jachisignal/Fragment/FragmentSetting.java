@@ -145,6 +145,7 @@ public class FragmentSetting extends Fragment {
                 binding.phoneTxt.setText("전화번호 : "+appUser.getPhone());
                 binding.emailTxt.setText("mail : "+appUser.getEmail());
                 binding.addressTxt.setText("주소 : "+appUser.getAddress());
+
             }
         });
 
