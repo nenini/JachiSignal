@@ -50,6 +50,7 @@
                 android:orientation="horizontal">
 
                 <CheckBox
+                    android:id="@+id/gonggu_face_checkBox"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="start"
@@ -58,6 +59,7 @@
                     android:textStyle="bold" />
 
                 <CheckBox
+                    android:id="@+id/gonggu_deli_checkBox"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="start"

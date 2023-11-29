@@ -7,6 +7,7 @@ import android.view.View;
 
 import com.example.jachisignal.AppUser;
 import com.example.jachisignal.Doc.GongguDoc;
+import com.example.jachisignal.Doc.GongguDoc2;
 import com.example.jachisignal.Doc.LeisureDoc;
 import com.example.jachisignal.R;
 import com.example.jachisignal.databinding.ActivityGongguWritingBinding;
@@ -46,10 +47,25 @@ public class GongguWritingActivity extends AppCompatActivity {
         binding.gongguWriteBTN.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                GongguDoc gongguDoc = new GongguDoc(appUser.getNickname(),"1",user.getEmail(),binding.gongguWriteTitle.getText().toString(),
-                        binding.gongguWriteBody.getText().toString(),"1",binding.gongguWriteCategory.getText().toString(),"1",new ArrayList<String>(),binding.gongguWriteItemName.getText().toString(),binding.gongguWritePrice.getText().toString(),"1/"+binding.gongguWritePeopleCount.getText().toString(),binding.gongguWriteChatLink.getText().toString());
-                db.collection("gongu1Writings").document(binding.gongguWriteTitle.getText().toString()).set(gongguDoc);
-                finish();
+                if(binding.gongguFaceCheckBox.isChecked()&&!binding.gongguDeliCheckBox.isChecked()) {
+                    GongguDoc gongguDoc = new GongguDoc(appUser.getNickname(), "1", user.getEmail(), binding.gongguWriteTitle.getText().toString(),
+                            binding.gongguWriteBody.getText().toString(), "1", binding.gongguWriteCategory.getText().toString(), "1", new ArrayList<String>(), binding.gongguWriteItemName.getText().toString(), binding.gongguWritePrice.getText().toString(), "1/" + binding.gongguWritePeopleCount.getText().toString(), binding.gongguWriteChatLink.getText().toString());
+                    db.collection("gongu1Writings").document(binding.gongguWriteTitle.getText().toString()).set(gongguDoc);
+                    finish();
+                } else if (!binding.gongguFaceCheckBox.isChecked()&&binding.gongguDeliCheckBox.isChecked()) {
+                    GongguDoc2 gongguDoc2 = new GongguDoc2(appUser.getNickname(), "1", user.getEmail(), binding.gongguWriteTitle.getText().toString(),
+                            binding.gongguWriteBody.getText().toString(), "1", binding.gongguWriteCategory.getText().toString(), "1", new ArrayList<String>(), binding.gongguWriteItemName.getText().toString(), binding.gongguWritePrice.getText().toString(), "1/" + binding.gongguWritePeopleCount.getText().toString(), binding.gongguWriteChatLink.getText().toString());
+                    db.collection("gongu2Writings").document(binding.gongguWriteTitle.getText().toString()).set(gongguDoc2);
+                    finish();
+                } else if (binding.gongguFaceCheckBox.isChecked()&&binding.gongguDeliCheckBox.isChecked()) {
+                    GongguDoc gongguDoc = new GongguDoc(appUser.getNickname(), "1", user.getEmail(), binding.gongguWriteTitle.getText().toString(),
+                            binding.gongguWriteBody.getText().toString(), "1", binding.gongguWriteCategory.getText().toString(), "1", new ArrayList<String>(), binding.gongguWriteItemName.getText().toString(), binding.gongguWritePrice.getText().toString(), "1/" + binding.gongguWritePeopleCount.getText().toString(), binding.gongguWriteChatLink.getText().toString());
+                    db.collection("gongu1Writings").document(binding.gongguWriteTitle.getText().toString()).set(gongguDoc);
+                    GongguDoc2 gongguDoc2 = new GongguDoc2(appUser.getNickname(), "1", user.getEmail(), binding.gongguWriteTitle.getText().toString(),
+                            binding.gongguWriteBody.getText().toString(), "1", binding.gongguWriteCategory.getText().toString(), "1", new ArrayList<String>(), binding.gongguWriteItemName.getText().toString(), binding.gongguWritePrice.getText().toString(), "1/" + binding.gongguWritePeopleCount.getText().toString(), binding.gongguWriteChatLink.getText().toString());
+                    db.collection("gongu2Writings").document(binding.gongguWriteTitle.getText().toString()).set(gongguDoc2);
+                    finish();
+                }
             }
         });
     }
