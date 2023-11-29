@@ -88,6 +88,29 @@ public class FragmentCommunity3 extends Fragment {
                              Bundle savedInstanceState) {
 
         binding=FragmentCommunity3Binding.inflate(inflater,container,false);
+        Query query= FirebaseFirestore.getInstance()
+                .collection("recipeWritings")
+                .orderBy("timestamp")
+                .limit(50);
+        FirestoreRecyclerOptions<RecipeDoc> options=new FirestoreRecyclerOptions.Builder<RecipeDoc>()
+                .setQuery(query,RecipeDoc.class)
+                .build();
+        adapter=new FirestoreRecyclerAdapter<RecipeDoc, RecipeDocHolder>(options) {
+            @Override
+            protected void onBindViewHolder(@NonNull RecipeDocHolder holder, int position, @NonNull RecipeDoc model) {
+                holder.bind(model);
+            }
+            @NonNull
+            @Override
+            public RecipeDocHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+                View view= LayoutInflater.from(parent.getContext())
+                        .inflate(R.layout.item,parent,false);
+                return new RecipeDocHolder(view);
+            }
+        };
+
+        binding.community3RecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
+        binding.community3RecyclerView.setAdapter(adapter);
 
         // Inflate the layout for this fragment
         return binding.getRoot();
@@ -107,29 +130,7 @@ public class FragmentCommunity3 extends Fragment {
             }
         });
 
-        Query query= FirebaseFirestore.getInstance()
-                        .collection("recipeWritings")
-                        .orderBy("timestamp")
-                        .limit(50);
-        FirestoreRecyclerOptions<RecipeDoc> options=new FirestoreRecyclerOptions.Builder<RecipeDoc>()
-                .setQuery(query,RecipeDoc.class)
-                        .build();
-        adapter=new FirestoreRecyclerAdapter<RecipeDoc, RecipeDocHolder>(options) {
-            @Override
-            protected void onBindViewHolder(@NonNull RecipeDocHolder holder, int position, @NonNull RecipeDoc model) {
-                holder.bind(model);
-            }
-            @NonNull
-            @Override
-            public RecipeDocHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-                View view= LayoutInflater.from(parent.getContext())
-                        .inflate(R.layout.item,parent,false);
-                return new RecipeDocHolder(view);
-            }
-        };
 
-        binding.community3RecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
-        binding.community3RecyclerView.setAdapter(adapter);
     }
 
     public class MyViewHolder extends  RecyclerView.ViewHolder{
@@ -161,7 +162,7 @@ public class FragmentCommunity3 extends Fragment {
             RecipeDoc recipeDoc = recipeDocArrayList.get(position);
             holder.binding.category.setText(recipeDoc.getCategory());
             holder.binding.nickname.setText(recipeDoc.getNickname());
-            holder.binding.heartCount.setText("0개");
+            holder.binding.heartCount.setText(Integer.toString(recipeDoc.getLikeList().size())+"개");
             //Integer.toString(recipeDoc.getLikeList().size())
 
         }

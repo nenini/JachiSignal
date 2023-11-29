@@ -30,6 +30,7 @@ public class RecipeDoc {
         this.contentTitle = contentTitle;
         this.imageLink = imageLink;
     }
+    public RecipeDoc(){}
 
     public String getNickname() {
         return nickname;
