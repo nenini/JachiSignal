@@ -5,6 +5,8 @@ import com.google.firebase.firestore.ServerTimestamp;
 
 import java.util.List;
 
+import kotlinx.coroutines.stream.StreamKt;
+
 public class LeisureDoc {
     private String category;
     private String contentTitle;
@@ -16,9 +18,15 @@ public class LeisureDoc {
     private String text;
     private List<String> likeList;
     private String writeId;
+    private String place;
+    private String date;
+    private String peopleCount;
+    private String chatLink;
+
+
     @ServerTimestamp
     private Timestamp timestamp; // server timestamp
-    public LeisureDoc(String nickname,String id, String writeId, String contentTitle, String text, String createAt, String category, String imageLink,  List<String> likeList) {
+    public LeisureDoc(String nickname, String id, String writeId, String contentTitle, String text, String createAt, String category, String imageLink, List<String> likeList, String place, String date, String peopleCount, String chatLink) {
         this.nickname=nickname;
         this.id = id;
         this.likeList = likeList;
@@ -28,6 +36,10 @@ public class LeisureDoc {
         this.category = category;
         this.contentTitle = contentTitle;
         this.imageLink = imageLink;
+        this.place=place;
+        this.date=date;
+        this.peopleCount=peopleCount;
+        this.chatLink=chatLink;
     }
     public LeisureDoc(){}
 
@@ -70,6 +82,20 @@ public class LeisureDoc {
     public String getId() {
         return id;
     }
+    public String getPlace() {
+        return place;
+    }
+
+    public String getDate() {
+        return date;
+    }
+    public String getPeopleCount() {
+        return peopleCount;
+    }
+
+    public String getChatLink() {
+        return chatLink;
+    }
 
     public void setTimestamp(Timestamp timestamp) {
         this.timestamp = timestamp;
@@ -109,5 +135,19 @@ public class LeisureDoc {
 
     public void setNickname(String nickname) {
         this.nickname = nickname;
+    }
+    public void setPlace(String space) {
+        this.place = place;
+    }
+
+    public void setDate(String date) {
+        this.date = date;
+    }
+    public void setPeopleCount(String peopleCount) {
+        this.peopleCount = peopleCount;
+    }
+
+    public void setChatLink(String chatLink) {
+        this.chatLink = chatLink;
     }
 }

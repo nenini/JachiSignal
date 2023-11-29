@@ -86,15 +86,16 @@
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
                     android:gravity="center"
-                    android:text="제품명"
+                    android:text="장소"
                     android:textColor="#3c567b"
                     android:textSize="17sp"
                     android:textStyle="bold" />
 
                 <EditText
-                    android:layout_gravity="center"
+                    android:id="@+id/leisure_write_place"
                     android:layout_width="match_parent"
                     android:layout_height="30dp"
+                    android:layout_gravity="center"
                     android:layout_marginStart="10dp" />
 
             </LinearLayout>
@@ -111,12 +112,13 @@
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
                     android:gravity="center"
-                    android:text="가격"
+                    android:text="날짜/시간"
                     android:textColor="#3c567b"
                     android:textSize="17sp"
                     android:textStyle="bold" />
 
                 <EditText
+                    android:id="@+id/leisure_write_date"
                     android:layout_gravity="center"
                     android:layout_width="match_parent"
                     android:layout_height="30dp"
@@ -141,6 +143,7 @@
                     android:textStyle="bold" />
 
                 <EditText
+                    android:id="@+id/leisure_write_peopleCount"
                     android:layout_gravity="center"
                     android:layout_width="match_parent"
                     android:layout_height="30dp"
@@ -165,6 +168,7 @@
                     android:textStyle="bold" />
 
                 <EditText
+                    android:id="@+id/leisure_write_chatLink"
                     android:layout_gravity="center"
                     android:layout_width="match_parent"
                     android:layout_height="30dp"

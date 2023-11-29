@@ -14,6 +14,7 @@ public class LeisureDocHolder extends RecyclerView.ViewHolder {
     private final TextView mHeartcount;
     private final TextView mTitle;
     private final TextView mCategory;
+    private final TextView mPeopleCount;
 
     public LeisureDocHolder(@NonNull View itemView) {
         super(itemView);
@@ -21,6 +22,7 @@ public class LeisureDocHolder extends RecyclerView.ViewHolder {
         mHeartcount = itemView.findViewById(R.id.heart_count);
         mTitle = itemView.findViewById(R.id.title);
         mCategory = itemView.findViewById(R.id.category);
+        mPeopleCount=itemView.findViewById(R.id.people_count);
     }
 
     public void bind(@NonNull LeisureDoc leisureDoc) {
@@ -28,6 +30,7 @@ public class LeisureDocHolder extends RecyclerView.ViewHolder {
         setHeartCount(Integer.toString(leisureDoc.getLikeList().size()) + "개");
         setTitle(leisureDoc.getContentTitle());
         setmCategory(leisureDoc.getCategory());
+        setPeopleCount(leisureDoc.getPeopleCount());
 
     }
     private void setNickname(@Nullable String nickname){ mNickname.setText(nickname);}
@@ -36,4 +39,6 @@ public class LeisureDocHolder extends RecyclerView.ViewHolder {
     private void setmCategory(@Nullable String category){
         mCategory.setText(category);
     }
+    private void setPeopleCount(@Nullable String peopleCount){ mPeopleCount.setText(peopleCount);}
+
 }
