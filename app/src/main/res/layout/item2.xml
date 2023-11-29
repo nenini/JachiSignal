@@ -42,12 +42,12 @@
 
         <ImageView
             android:layout_marginStart="5dp"
-            android:id="@+id/tag_img"
+            android:id="@+id/img"
             android:layout_marginTop="5dp"
             android:layout_width="70dp"
             android:layout_height="70dp"
             android:layout_below="@+id/category"
-            android:src="@drawable/tissue" />
+            android:src="@drawable/pink_page" />
         <TextView
             android:id="@+id/title"
             android:layout_width="wrap_content"

@@ -9,13 +9,14 @@ public class AppUser {
     private String address;
     private String phone;
 
-    public AppUser(String email, String pw, String name, String phone, String address, String nickname) {
+    public AppUser(String email, String pw, String name, String phone, String address, String nickname,String img) {
         this.email=email;
         this.name=name;
         this.nickname = nickname;
         this.pw = pw;
         this.phone = phone;
         this.address=address;
+        this.img=img;
     }
 
     public AppUser(){}

@@ -155,47 +155,7 @@ public class SignupActivity extends AppCompatActivity {
         // Access a Cloud Firestore instance from your Activity
         db = FirebaseFirestore.getInstance();
     }
-    private void uploadFromDataInMemory() {
-        // Get a default Storage bucket
-        FirebaseStorage storage = FirebaseStorage.getInstance();
 
-        // Points to the root reference
-        StorageReference storageRef = storage.getReference();
-
-        // Create a reference for a new image
-        StorageReference mountainImagesRef = storageRef.child(getPath("jpg"));
-        Log.d("KYR","test1");
-
-        Drawable drawable = ContextCompat.getDrawable(this, R.drawable.human);
-
-        Bitmap bitmap = drawableToBitmap(drawable);
-        ByteArrayOutputStream baos = new ByteArrayOutputStream();
-        bitmap.compress(Bitmap.CompressFormat.JPEG, 100, baos); //0-100
-        byte[] data = baos.toByteArray();
-        Log.d("KYR","test2");
-
-
-        UploadTask uploadTask = mountainImagesRef.putBytes(data);
-        Log.d("KYR","test3");
-
-        uploadTask.addOnFailureListener(new OnFailureListener() {
-            @Override
-            public void onFailure(@NonNull Exception exception) {
-                // Handle unsuccessful uploads
-                Log.d("KYR", "이미지뷰의 이미지 업로드 실패");
-            }
-        }).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
-            @Override
-            public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
-                // taskSnapshot.getMetadata() contains file metadata such as size, content-type, etc.
-                // ...
-                Log.d("KYR", "이미지뷰의 이미지 업로드 성공");
-                task_snap = taskSnapshot.getMetadata().getReference().toString();
-                Log.d("KYR","task_snap");
-                Toast.makeText(getApplicationContext(), task_snap, Toast.LENGTH_LONG).show();
-            }
-        });
-    }
 
     public static Bitmap drawableToBitmap(Drawable drawable) {
         if (drawable instanceof BitmapDrawable) {

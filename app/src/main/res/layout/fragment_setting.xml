@@ -51,12 +51,14 @@
                         android:src="@drawable/cat"/>
                 </androidx.cardview.widget.CardView>
                 <ImageButton
+                    android:id="@+id/img_setting_btn"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:src="@drawable/setting_mypage"
                     android:background="@android:color/transparent"/>
             </FrameLayout>
             <LinearLayout
+                android:layout_marginStart="20dp"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:orientation="vertical"
