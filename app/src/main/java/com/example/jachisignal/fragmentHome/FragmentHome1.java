@@ -1,14 +1,31 @@
 package com.example.jachisignal.fragmentHome;
 
+import android.content.Intent;
 import android.os.Bundle;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.LinearLayoutManager;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageButton;
 
+import com.example.jachisignal.Doc.GongguDoc;
+import com.example.jachisignal.Doc.GongguDocHolder;
+import com.example.jachisignal.Doc.LeisureDoc;
+import com.example.jachisignal.Doc.LeisureDocHolder;
 import com.example.jachisignal.R;
+import com.example.jachisignal.WritingActivity.GongguWritingActivity;
+import com.example.jachisignal.WritingActivity.LeisureWritingActivity;
+import com.example.jachisignal.databinding.FragmentHome1Binding;
+import com.example.jachisignal.databinding.FragmentHome3Binding;
+import com.firebase.ui.firestore.FirestoreRecyclerAdapter;
+import com.firebase.ui.firestore.FirestoreRecyclerOptions;
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.Query;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -16,6 +33,8 @@ import com.example.jachisignal.R;
  * create an instance of this fragment.
  */
 public class FragmentHome1 extends Fragment {
+    private FirestoreRecyclerAdapter adapter;
+
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -48,19 +67,64 @@ public class FragmentHome1 extends Fragment {
         return fragment;
     }
 
-    @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        if (getArguments() != null) {
-            mParam1 = getArguments().getString(ARG_PARAM1);
-            mParam2 = getArguments().getString(ARG_PARAM2);
-        }
-    }
+    FragmentHome1Binding binding;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+        binding= FragmentHome1Binding.inflate(inflater,container,false);
+        Query query= FirebaseFirestore.getInstance()
+                .collection("gongu1Writings")
+                .orderBy("timestamp")
+                .limit(50);
+        FirestoreRecyclerOptions<GongguDoc> options=new FirestoreRecyclerOptions.Builder<GongguDoc>()
+                .setQuery(query,GongguDoc.class)
+                .build();
+        adapter=new FirestoreRecyclerAdapter<GongguDoc, GongguDocHolder>(options) {
+            @Override
+            protected void onBindViewHolder(@NonNull GongguDocHolder holder, int position, @NonNull GongguDoc model) {
+                holder.bind(model);
+            }
+            @NonNull
+            @Override
+            public GongguDocHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+                View view= LayoutInflater.from(parent.getContext())
+                        .inflate(R.layout.item09,parent,false);
+                return new GongguDocHolder(view);
+            }
+        };
+
+        binding.home1RecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
+        binding.home1RecyclerView.setAdapter(adapter);
+
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_home1, container, false);
+        return binding.getRoot();
+    }
+    @Override
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+
+        super.onViewCreated(view, savedInstanceState);
+
+        //글쓰기 버튼 click
+        ImageButton gonggu_BTN=view.findViewById(R.id.home1_write_btn);
+        gonggu_BTN.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(getActivity(), GongguWritingActivity.class));
+            }
+        });
+    }
+
+
+    @Override
+    public void onStart() {
+        super.onStart();
+        adapter.startListening();
+    }
+
+    @Override
+    public void onStop() {
+        super.onStop();
+        adapter.startListening();
     }
 }

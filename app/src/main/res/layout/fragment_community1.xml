@@ -7,15 +7,6 @@
     android:background="@color/white"
     android:clickable="true"
     android:padding="20dp">
-    <ImageButton
-        android:id="@+id/community1_write_btn"
-        android:layout_width="52dp"
-        android:layout_height="52dp"
-        android:src="@drawable/writeedit"
-        android:background="@drawable/circle_button"
-        android:layout_gravity="right|bottom"
-        android:layout_marginBottom="110dp" />
-
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
@@ -135,19 +126,16 @@
                     android:textColor="#878787"
                     android:layout_below="@id/main_text"
                     android:layout_alignStart="@id/main_text"/>
-
-
-
-
-
-
             </RelativeLayout>
-
-
         </LinearLayout>
-
-
-
     </RelativeLayout>
+    <ImageButton
+        android:id="@+id/community1_write_btn"
+        android:layout_width="52dp"
+        android:layout_height="52dp"
+        android:src="@drawable/writeedit"
+        android:background="@drawable/circle_button"
+        android:layout_gravity="right|bottom"
+        android:layout_marginBottom="110dp" />
 
 </FrameLayout>
