@@ -49,10 +49,11 @@ public class SignupActivity extends AppCompatActivity {
 
     private FirebaseFirestore db;
     private FirebaseAuth mAuth;
+    private ActivitySignupBinding binding;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        ActivitySignupBinding binding = ActivitySignupBinding.inflate(getLayoutInflater());
+        binding = ActivitySignupBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
         mAuth = FirebaseAuth.getInstance();
 
@@ -64,21 +65,8 @@ public class SignupActivity extends AppCompatActivity {
 
                 initializeCloudFirestore();
 
-                uploadFromDataInMemory();
-
-
-                CollectionReference users = db.collection("users");
-                Map<String, Object> data1 = new HashMap<>();
-                data1.put("img",task_snap);
-                data1.put("email", binding.emailEditTxt.getText().toString());
-                data1.put("pw", binding.passwordEditTxt.getText().toString());
-                data1.put("nickname",binding.nicknameEditTxt.getText().toString());
-                data1.put("name", binding.nameEditTxt.getText().toString());
-                data1.put("phone", binding.phoneEditTxt.getText().toString());
-                data1.put("address", binding.addressEditTxt.getText().toString());
-                users.document(binding.emailEditTxt.getText().toString()).set(data1);
-
-                signUp(email,password);
+//                uploadFromDataInMemory();
+                signUp(email, password);
             }
         });
 
@@ -93,8 +81,53 @@ public class SignupActivity extends AppCompatActivity {
                         if (task.isSuccessful()) {
                             // Sign in success, update UI with the signed-in user's information
                             Log.d("TAG", "createUserWithEmail:success");
-                            FirebaseUser user = mAuth.getCurrentUser();
-                            updateUI(user);
+                            FirebaseStorage storage = FirebaseStorage.getInstance();
+
+                            // Points to the root reference
+                            StorageReference storageRef = storage.getReference();
+
+                            // Create a reference for a new image
+                            StorageReference mountainImagesRef = storageRef.child(getPath("jpg"));
+                            Log.d("KYR","test1");
+
+                            Drawable drawable = ContextCompat.getDrawable(getApplicationContext(), R.drawable.human);
+
+                            Bitmap bitmap = drawableToBitmap(drawable);
+                            ByteArrayOutputStream baos = new ByteArrayOutputStream();
+                            bitmap.compress(Bitmap.CompressFormat.JPEG, 100, baos); //0-100
+                            byte[] data = baos.toByteArray();
+
+                            UploadTask uploadTask = mountainImagesRef.putBytes(data);
+                            uploadTask.addOnFailureListener(new OnFailureListener() {
+                                @Override
+                                public void onFailure(@NonNull Exception exception) {
+                                    // Handle unsuccessful uploads
+                                    Log.d("KYR", "이미지뷰의 이미지 업로드 실패");
+                                }
+                            }).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+                                @Override
+                                public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+                                    // taskSnapshot.getMetadata() contains file metadata such as size, content-type, etc.
+                                    // ...
+                                    Log.d("KYR", "이미지뷰의 이미지 업로드 성공");
+                                    task_snap = taskSnapshot.getMetadata().getReference().toString();
+                                    Log.d("KYR","task_snap");
+                                    Toast.makeText(getApplicationContext(), task_snap, Toast.LENGTH_LONG).show();
+                                    CollectionReference users = db.collection("users");
+                                    Map<String, Object> data1 = new HashMap<>();
+                                    data1.put("img",task_snap);
+                                    data1.put("email", binding.emailEditTxt.getText().toString());
+                                    data1.put("pw", binding.passwordEditTxt.getText().toString());
+                                    data1.put("nickname",binding.nicknameEditTxt.getText().toString());
+                                    data1.put("name", binding.nameEditTxt.getText().toString());
+                                    data1.put("phone", binding.phoneEditTxt.getText().toString());
+                                    data1.put("address", binding.addressEditTxt.getText().toString());
+                                    users.document(binding.emailEditTxt.getText().toString()).set(data1);
+
+                                    FirebaseUser user = mAuth.getCurrentUser();
+                                    updateUI(user);
+                                }
+                            });
                         } else {
                             // If sign in fails, display a message to the user.
                             //Log.w(TAG, "createUserWithEmail:failure", task.getException());
@@ -135,7 +168,6 @@ public class SignupActivity extends AppCompatActivity {
 
         Drawable drawable = ContextCompat.getDrawable(this, R.drawable.human);
 
-// Drawable을 Bitmap으로 변환합니다.
         Bitmap bitmap = drawableToBitmap(drawable);
         ByteArrayOutputStream baos = new ByteArrayOutputStream();
         bitmap.compress(Bitmap.CompressFormat.JPEG, 100, baos); //0-100
@@ -145,7 +177,6 @@ public class SignupActivity extends AppCompatActivity {
 
         UploadTask uploadTask = mountainImagesRef.putBytes(data);
         Log.d("KYR","test3");
-
 
         uploadTask.addOnFailureListener(new OnFailureListener() {
             @Override
@@ -159,20 +190,9 @@ public class SignupActivity extends AppCompatActivity {
                 // taskSnapshot.getMetadata() contains file metadata such as size, content-type, etc.
                 // ...
                 Log.d("KYR", "이미지뷰의 이미지 업로드 성공");
-                task_snap=taskSnapshot.getMetadata().getReference().toString();
+                task_snap = taskSnapshot.getMetadata().getReference().toString();
                 Log.d("KYR","task_snap");
-                Toast.makeText(getApplicationContext(), task_snap,
-                        Toast.LENGTH_LONG).show();
-//                FragmentManager manager = getSupportFragmentManager();
-//                FragmentTransaction transaction = manager.beginTransaction();
-//                Bundle bundle = new Bundle();
-//                //2. 데이터 담기
-//                bundle.putString("task",task_snap);
-//                //3. 프래그먼트 선언
-//                FragmentSetting fragmentSetting = new FragmentSetting();
-//                //4. 프래그먼트에 데이터 넘기기
-//                fragmentSetting.setArguments(bundle);
-//                Log.d("KYR", "데이터 넘김 ");
+                Toast.makeText(getApplicationContext(), task_snap, Toast.LENGTH_LONG).show();
             }
         });
     }

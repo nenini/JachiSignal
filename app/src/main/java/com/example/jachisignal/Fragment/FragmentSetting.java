@@ -49,6 +49,7 @@ import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 
 import java.io.ByteArrayOutputStream;
+import java.io.File;
 import java.util.Map;
 
 /**
@@ -131,7 +132,7 @@ public class FragmentSetting extends Fragment {
             }
         });
 
-/**/
+        /**/
         user = FirebaseAuth.getInstance().getCurrentUser();
 
         db = FirebaseFirestore.getInstance();
@@ -145,16 +146,20 @@ public class FragmentSetting extends Fragment {
                 binding.phoneTxt.setText("전화번호 : "+appUser.getPhone());
                 binding.emailTxt.setText("mail : "+appUser.getEmail());
                 binding.addressTxt.setText("주소 : "+appUser.getAddress());
-
+                downloadImageTo(appUser.getImg());
+//                FirebaseStorage storage = FirebaseStorage.getInstance();
+//                StorageReference storageRef = storage.getReference();
+//                storageRef.child(appUser.getImg()).getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
+//                    @Override
+//                    public void onSuccess(Uri uri) {
+//                        Glide.with(requireContext())
+//                                .load(uri)
+//                                .into(binding.userImg);
+//
+//                    }
+//                });
             }
         });
-
-        String message = this.getArguments().getString("task");
-        Log.d("KYR", "데이터 넘겨받음 ");
-        Log.d("KYR", message+"ee");
-        downloadImageTo("gs://jachisignal-c6bd9.appspot.com/"+user.getUid()+"/"+user.getUid()+"_first.jpg");
-        Log.d("KYR", user.getUid());
-//        Log.d("KYR", "다운로드 됨 ");
 
         // Inflate the layout for this fragment
         return binding.getRoot();
@@ -176,14 +181,15 @@ public class FragmentSetting extends Fragment {
         FirebaseStorage storage = FirebaseStorage.getInstance();
 
         // Create a reference to a file from a Google Cloud Storage URI
+        Log.d("KYR", uri);
         StorageReference gsReference = storage.getReferenceFromUrl(uri); // from gs://~~~
-        Log.d("KYR", "uri");
-
-        // Download directly from StorageReference using Glide
-        // (See MyAppGlideModule for Loader registration)
-        Glide.with(requireContext())
-                .load(gsReference)
-                .into(binding.userImg);
+        gsReference.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
+            @Override
+            public void onSuccess(Uri uri) {
+                Log.d("KYR", uri.toString());
+                Glide.with(requireContext()).load(uri).into(binding.userImg);
+            }
+        });
     }
 
 }
