@@ -1,11 +1,11 @@
-package com.example.jachisignal;
+package com.example.jachisignal.Doc;
 
 import com.google.firebase.Timestamp;
 import com.google.firebase.firestore.ServerTimestamp;
 
 import java.util.List;
 
-public class RecipeDoc {
+public class LeisureDoc {
     private String category;
     private String contentTitle;
     private String nickname;
@@ -18,8 +18,7 @@ public class RecipeDoc {
     private String writeId;
     @ServerTimestamp
     private Timestamp timestamp; // server timestamp
-
-    public RecipeDoc(String nickname,String id, String writeId, String contentTitle, String text, String createAt, String category, String imageLink,  List<String> likeList) {
+    public LeisureDoc(String nickname,String id, String writeId, String contentTitle, String text, String createAt, String category, String imageLink,  List<String> likeList) {
         this.nickname=nickname;
         this.id = id;
         this.likeList = likeList;
@@ -30,7 +29,7 @@ public class RecipeDoc {
         this.contentTitle = contentTitle;
         this.imageLink = imageLink;
     }
-    public RecipeDoc(){}
+    public LeisureDoc(){}
 
     public String getNickname() {
         return nickname;

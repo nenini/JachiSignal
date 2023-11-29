@@ -13,26 +13,19 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
-import android.widget.ImageView;
-import android.widget.LinearLayout;
 
-import com.example.jachisignal.FindPasswordActivity;
-import com.example.jachisignal.MainActivity;
 import com.example.jachisignal.R;
-import com.example.jachisignal.RecipeDoc;
-import com.example.jachisignal.RecipeDocHolder;
+import com.example.jachisignal.Doc.RecipeDoc;
+import com.example.jachisignal.Doc.RecipeDocHolder;
 import com.example.jachisignal.WritingActivity.RecipeWritingActivity;
 import com.example.jachisignal.databinding.FragmentCommunity3Binding;
 import com.example.jachisignal.databinding.ItemBinding;
-import com.example.jachisignal.fragmentHome.FragmentHome2;
 import com.firebase.ui.firestore.FirestoreRecyclerAdapter;
 import com.firebase.ui.firestore.FirestoreRecyclerOptions;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.Query;
 
 import java.util.ArrayList;
-import java.util.List;
-import java.util.Queue;
 
 /**
  * A simple {@link Fragment} subclass.

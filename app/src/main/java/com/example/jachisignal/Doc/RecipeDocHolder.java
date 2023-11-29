@@ -1,4 +1,4 @@
-package com.example.jachisignal;
+package com.example.jachisignal.Doc;
 
 import android.view.View;
 import android.widget.TextView;
@@ -7,7 +7,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.firebase.ui.firestore.FirestoreRecyclerAdapter;
+import com.example.jachisignal.R;
 
 public class RecipeDocHolder extends RecyclerView.ViewHolder {
     private final TextView mNickname;

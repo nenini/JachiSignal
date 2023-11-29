@@ -1,14 +1,38 @@
 package com.example.jachisignal.fragmentHome;
 
+import android.content.Intent;
 import android.os.Bundle;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageButton;
 
+import com.example.jachisignal.Doc.LeisureDoc;
+import com.example.jachisignal.Doc.LeisureDocHolder;
+import com.example.jachisignal.Doc.RecipeDoc;
+import com.example.jachisignal.Doc.RecipeDocHolder;
 import com.example.jachisignal.R;
+import com.example.jachisignal.WritingActivity.LeisureWritingActivity;
+import com.example.jachisignal.WritingActivity.RecipeWritingActivity;
+import com.example.jachisignal.databinding.FragmentCommunity3Binding;
+import com.example.jachisignal.databinding.FragmentHome3Binding;
+import com.example.jachisignal.databinding.Item2Binding;
+import com.example.jachisignal.databinding.ItemBinding;
+import com.example.jachisignal.fragmentCommunity.FragmentCommunity3;
+import com.firebase.ui.firestore.FirestoreRecyclerAdapter;
+import com.firebase.ui.firestore.FirestoreRecyclerOptions;
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.Query;
+
+import java.util.ArrayList;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -16,6 +40,7 @@ import com.example.jachisignal.R;
  * create an instance of this fragment.
  */
 public class FragmentHome3 extends Fragment {
+    private FirestoreRecyclerAdapter adapter;
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -56,11 +81,64 @@ public class FragmentHome3 extends Fragment {
             mParam2 = getArguments().getString(ARG_PARAM2);
         }
     }
+    FragmentHome3Binding binding;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+        binding= FragmentHome3Binding.inflate(inflater,container,false);
+        Query query= FirebaseFirestore.getInstance()
+                .collection("leisureWritings")
+                .orderBy("timestamp")
+                .limit(50);
+        FirestoreRecyclerOptions<LeisureDoc> options=new FirestoreRecyclerOptions.Builder<LeisureDoc>()
+                .setQuery(query,LeisureDoc.class)
+                .build();
+        adapter=new FirestoreRecyclerAdapter<LeisureDoc, LeisureDocHolder>(options) {
+            @Override
+            protected void onBindViewHolder(@NonNull LeisureDocHolder holder, int position, @NonNull LeisureDoc model) {
+                holder.bind(model);
+            }
+            @NonNull
+            @Override
+            public LeisureDocHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+                View view= LayoutInflater.from(parent.getContext())
+                        .inflate(R.layout.item2,parent,false);
+                return new LeisureDocHolder(view);
+            }
+        };
+
+        binding.home3RecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
+        binding.home3RecyclerView.setAdapter(adapter);
+
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_home3, container, false);
+        return binding.getRoot();
+    }
+    @Override
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+
+        super.onViewCreated(view, savedInstanceState);
+
+        //글쓰기 버튼 click
+        ImageButton leisure_BTN=view.findViewById(R.id.home3_write_btn);
+        leisure_BTN.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(getActivity(), LeisureWritingActivity.class));
+            }
+        });
+    }
+
+
+    @Override
+    public void onStart() {
+        super.onStart();
+        adapter.startListening();
+    }
+
+    @Override
+    public void onStop() {
+        super.onStop();
+        adapter.startListening();
     }
 }
