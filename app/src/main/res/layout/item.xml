@@ -42,9 +42,11 @@
             android:textColor="#3c567b" />
         <ImageView
             android:id="@+id/img"
+            android:layout_marginTop="10dp"
             android:layout_width="70dp"
             android:layout_height="70dp"
-            android:src="@drawable/orange" />
+            android:src="@drawable/orange"
+            android:layout_below="@+id/category" />
 
         <TextView
             android:id="@+id/title"

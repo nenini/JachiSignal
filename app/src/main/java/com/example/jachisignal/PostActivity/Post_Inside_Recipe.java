@@ -3,9 +3,12 @@ package com.example.jachisignal.PostActivity;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
 
+import com.bumptech.glide.Glide;
 import com.example.jachisignal.Doc.RecipeDoc;
 import com.example.jachisignal.R;
 import com.example.jachisignal.databinding.ActivityPostInsideCommunityBinding;
@@ -14,16 +17,20 @@ import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
 
 public class Post_Inside_Recipe extends AppCompatActivity {
+    private Uri uri;
 
     private RecipeDoc recipeDoc;
     FirebaseFirestore db;
+    ActivityPostInsideRecipeBinding binding;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        ActivityPostInsideRecipeBinding binding = ActivityPostInsideRecipeBinding.inflate(getLayoutInflater());
+        binding = ActivityPostInsideRecipeBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
         Intent intent = getIntent();
         String collectionName = intent.getStringExtra("COLLECTION");
@@ -46,8 +53,24 @@ public class Post_Inside_Recipe extends AppCompatActivity {
                 binding.heartCountRecipePost.setText(Integer.toString(recipeDoc.getLikeList().size()) + "개");
 
                 binding.nicknameRecipePost.setText(recipeDoc.getNickname());
+                downloadImageTo(recipeDoc.getImageLink());
+
             }
         });
+    }
+    private void downloadImageTo(String uri) {
+        // Get a default Storage bucket
+        FirebaseStorage storage = FirebaseStorage.getInstance();
 
+        // Create a reference to a file from a Google Cloud Storage URI
+        Log.d("KYR", "포스트 레시피");
+        StorageReference gsReference = storage.getReferenceFromUrl(uri); // from gs://~~~
+        gsReference.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
+            @Override
+            public void onSuccess(Uri uri) {
+                Log.d("KYR", "포스트레시피 url"+uri.toString());
+                Glide.with(Post_Inside_Recipe.this).load(uri).into(binding.downloadedImageview);
+            }
+        });
     }
 }

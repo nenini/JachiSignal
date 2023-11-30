@@ -169,11 +169,9 @@
                     </LinearLayout>
 
                     <LinearLayout
-                        android:layout_width="wrap_content"
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_gravity=""
-                        android:layout_marginLeft="220dp"
-                        android:gravity="left"
+                        android:gravity="right"
                         android:orientation="horizontal">
 
                         <ImageView
@@ -191,15 +189,14 @@
             </LinearLayout>
         </LinearLayout>
         <Button
-            android:layout_marginLeft="283dp"
+            android:layout_gravity="right"
             android:layout_marginTop="13dp"
-            android:layout_width="wrap_content"
+            android:layout_width="100dp"
             android:layout_height="35dp"
             android:text="참여하기"
             android:textStyle="bold"
             android:textSize="18dp"
             android:background="@drawable/yellowbtn_background"/>
-
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"

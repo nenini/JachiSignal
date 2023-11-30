@@ -108,8 +108,14 @@
                     android:text="방금 동작역쪽에서 핸드폰 잃어버렸는데 혹시 보신 분 있으실까요ㅠㅠㅠ 사례금 드릴게요ㅠㅜㅜ"
                     android:textColor="#687F9F"
                     android:textStyle="bold" />
+                <ImageView
+                    android:id="@+id/downloaded_imageview"
+                    android:layout_width="wrap_content"
+                    android:layout_height="100dp" />
+
 
                 <LinearLayout
+                    android:layout_marginTop="10dp"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="horizontal">
@@ -134,11 +140,9 @@
                     </LinearLayout>
 
                     <LinearLayout
-                        android:layout_width="wrap_content"
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_gravity=""
-                        android:layout_marginLeft="220dp"
-                        android:gravity="left"
+                        android:gravity="right"
                         android:orientation="horizontal">
 
                         <ImageView
@@ -155,16 +159,6 @@
                 </LinearLayout>
             </LinearLayout>
         </LinearLayout>
-        <Button
-            android:layout_marginLeft="283dp"
-            android:layout_marginTop="13dp"
-            android:layout_width="wrap_content"
-            android:layout_height="35dp"
-            android:text="참여하기"
-            android:textStyle="bold"
-            android:textSize="18dp"
-            android:background="@drawable/yellowbtn_background"/>
-
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"

@@ -60,6 +60,7 @@
                     android:background="@null"/>
 
                 <ImageButton
+                    android:id="@+id/recipe_write_imgBTN"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignParentBottom="true"
