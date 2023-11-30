@@ -6,16 +6,24 @@ import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.LinearLayoutManager;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
 
+import com.example.jachisignal.Doc.JachiDoc;
+import com.example.jachisignal.Doc.JachiDocHolder;
 import com.example.jachisignal.R;
 import com.example.jachisignal.WritingActivity.CommunityWritingActivity;
 import com.example.jachisignal.WritingActivity.JachitemWritingActivity;
 import com.example.jachisignal.WritingActivity.RecipeWritingActivity;
+import com.example.jachisignal.databinding.FragmentCommunity2Binding;
+import com.firebase.ui.firestore.FirestoreRecyclerAdapter;
+import com.firebase.ui.firestore.FirestoreRecyclerOptions;
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.Query;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -23,6 +31,8 @@ import com.example.jachisignal.WritingActivity.RecipeWritingActivity;
  * create an instance of this fragment.
  */
 public class FragmentCommunity2 extends Fragment {
+    private FirestoreRecyclerAdapter adapter;
+
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -63,12 +73,38 @@ public class FragmentCommunity2 extends Fragment {
             mParam2 = getArguments().getString(ARG_PARAM2);
         }
     }
-
+    FragmentCommunity2Binding binding;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+        binding=FragmentCommunity2Binding.inflate(inflater,container,false);
+        Query query= FirebaseFirestore.getInstance()
+                .collection("jachitemWritings")
+                .orderBy("timestamp")
+                .limit(50);
+        FirestoreRecyclerOptions<JachiDoc> options=new FirestoreRecyclerOptions.Builder<JachiDoc>()
+                .setQuery(query,JachiDoc.class)
+                .build();
+        adapter=new FirestoreRecyclerAdapter<JachiDoc, JachiDocHolder>(options) {
+            @Override
+            protected void onBindViewHolder(@NonNull JachiDocHolder holder, int position, @NonNull JachiDoc model) {
+                holder.bind(model);
+            }
+            @NonNull
+            @Override
+            public JachiDocHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+                View view= LayoutInflater.from(parent.getContext())
+                        .inflate(R.layout.item_jachi,parent,false);
+                return new JachiDocHolder(view);
+            }
+        };
+
+        binding.community2RecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
+        binding.community2RecyclerView.setAdapter(adapter);
+
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_community2, container, false);
+        return binding.getRoot();
+
     }
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
 
@@ -81,4 +117,17 @@ public class FragmentCommunity2 extends Fragment {
             }
         });
     }
+    @Override
+    public void onStart() {
+        super.onStart();
+        adapter.startListening();
+    }
+
+    @Override
+    public void onStop() {
+        super.onStop();
+        adapter.startListening();
+    }
+
+
 }

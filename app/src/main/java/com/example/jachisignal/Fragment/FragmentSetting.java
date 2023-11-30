@@ -224,17 +224,21 @@ public class FragmentSetting extends Fragment {
                             db = FirebaseFirestore.getInstance();
 
                             DocumentReference docRef = db.collection("users").document(user.getEmail());
-                            docRef.get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
+                            docRef.update("img", uri).addOnSuccessListener(new OnSuccessListener<Void>() {
                                 @Override
-                                public void onSuccess(DocumentSnapshot documentSnapshot) {
-                                    appUser = documentSnapshot.toObject(AppUser.class);
+                                public void onSuccess(Void aVoid) {
+                                    appUser.setImg(uri.toString());
+                                    // Image URL updated successfully, now download and display the image
+                                    downloadImageTo(appUser.getImg());
+                                }
+                            }).addOnFailureListener(new OnFailureListener() {
+                                @Override
+                                public void onFailure(@NonNull Exception e) {
+                                    Log.e("KYR", "이미지 URL 업데이트에 실패했습니다.", e);
                                 }
                             });
-                            docRef.update("img", uri);
-
                         }
                     });
-                    downloadImageTo(appUser.getImg());
                 }
                 else {
                     Log.d("KYR","업로드에 실패했습니다.");

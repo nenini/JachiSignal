@@ -7,7 +7,7 @@
         android:layout_marginTop="10dp"
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
-        android:background="@drawable/pink_page">
+        android:background="@drawable/yellow_page">
         <TextView
             android:layout_marginStart="5dp"
             android:id="@+id/category"
@@ -55,7 +55,7 @@
                 android:id="@+id/img"
                 android:layout_width="70dp"
                 android:layout_height="70dp"
-                android:src="@drawable/pink_page" />
+                android:src="@drawable/yellow_page" />
         </androidx.cardview.widget.CardView>
 
         <TextView

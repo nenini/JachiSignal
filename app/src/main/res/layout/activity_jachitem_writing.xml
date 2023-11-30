@@ -32,6 +32,7 @@
             android:orientation="vertical">
 
             <EditText
+                android:id="@+id/jachi_write_title"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="20dp"
@@ -51,6 +52,7 @@
                 android:background="@drawable/whiteblue">
 
                 <EditText
+                    android:id="@+id/jachi_write_body"
                     android:layout_width="match_parent"
                     android:layout_height="430dp"
                     android:gravity="top"
@@ -58,20 +60,20 @@
                     android:background="@null"/>
 
                 <ImageButton
+                    android:id="@+id/jachi_write_imgBTN"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignParentBottom="true"
+                    android:layout_marginBottom="6dp"
                     android:background="@android:color/transparent"
                     android:src="@drawable/image" />
-                <TextView
+                <EditText
+                    android:id="@+id/jachi_write_category"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="#카테고리"
+                    android:hint="#카테고리"
                     android:layout_alignParentEnd="true"
-                    android:layout_alignParentBottom="true"
-                    android:textStyle="bold"
-                    android:textSize="20sp"
-                    android:textColor="#3c567b"/>
+                    android:layout_alignParentBottom="true" />
 
             </RelativeLayout>
 
@@ -80,6 +82,7 @@
 
 
         <Button
+            android:id="@+id/jachi_write_BTN"
             android:layout_width="250dp"
             android:layout_height="50dp"
             android:layout_alignParentBottom="true"
@@ -87,9 +90,9 @@
             android:background="@drawable/vivid_blue"
             android:gravity="center"
             android:text="글 등록"
-            android:textSize="23dp"
             android:textColor="#3c567b"
-            android:textStyle="bold"/>
+            android:textSize="23dp"
+            android:textStyle="bold" />
 
 
     </RelativeLayout>
