@@ -166,9 +166,10 @@
                         android:orientation="horizontal">
 
                         <ImageView
+                            android:id="@+id/post_09_heart"
                             android:layout_width="20dp"
                             android:layout_height="20dp"
-                            android:src="@drawable/heartcount" />
+                            android:src="@drawable/heart" />
 
                         <TextView
                             android:layout_width="wrap_content"
