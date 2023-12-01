@@ -184,6 +184,7 @@ public class FragmentCommunity3 extends Fragment {
         }
     }
 
+
     @Override
     public void onStart() {
         super.onStart();
@@ -193,6 +194,6 @@ public class FragmentCommunity3 extends Fragment {
     @Override
     public void onStop() {
         super.onStop();
-        adapter.startListening();
+        adapter.stopListening();
     }
 }

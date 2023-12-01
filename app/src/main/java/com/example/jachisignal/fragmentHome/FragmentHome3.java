@@ -139,6 +139,6 @@ public class FragmentHome3 extends Fragment {
     @Override
     public void onStop() {
         super.onStop();
-        adapter.startListening();
+        adapter.stopListening();
     }
 }

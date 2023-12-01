@@ -126,8 +126,9 @@ public class FragmentCommunity2 extends Fragment {
     @Override
     public void onStop() {
         super.onStop();
-        adapter.startListening();
+        adapter.stopListening();
     }
+
 
 
 }
