@@ -53,7 +53,7 @@ public class Post_Inside_Recipe extends AppCompatActivity {
                 binding.heartCountRecipePost.setText(Integer.toString(recipeDoc.getLikeList().size()) + "개");
 
                 binding.nicknameRecipePost.setText(recipeDoc.getNickname());
-                downloadImageTo(recipeDoc.getImageLink());
+                if(recipeDoc.getImageLink()!=null){ downloadImageTo(recipeDoc.getImageLink());}
 
             }
         });
