@@ -89,6 +89,12 @@ public class Post_Inside_Recipe extends AppCompatActivity {
 
                 binding.nicknameRecipePost.setText(recipeDoc.getNickname());
                 if(recipeDoc.getImageLink()!=null){ downloadImageTo(recipeDoc.getImageLink());}
+                if(recipeDoc.getLikeList().contains(uid)){
+                    binding.heartRecipePost.setImageResource(R.drawable.heartcount);
+                }
+                else binding.heartRecipePost.setImageResource(R.drawable.heart);
+
+
                 binding.heartRecipePost.setOnClickListener(new View.OnClickListener() {
                     //좋아요 버튼 click
                     @Override
@@ -104,6 +110,7 @@ public class Post_Inside_Recipe extends AppCompatActivity {
                         else
                             binding.heartRecipePost.setImageResource(R.drawable.heart);
                     }
+
                 });
 
 
@@ -136,9 +143,11 @@ public class Post_Inside_Recipe extends AppCompatActivity {
 //            docRef.update("likelist",FieldValue.arrayRemove(uid));
 
         }
-        else
+        else{
             recipeDoc.getLikeList().add(uid);
             db.collection("recipeWritings").document(documentName).set(recipeDoc);
+        }
+        binding.heartCountRecipePost.setText(Integer.toString(recipeDoc.getLikeList().size())+"개");
 
 
 //            docRef.update("likelist",FieldValue.arrayUnion(uid));

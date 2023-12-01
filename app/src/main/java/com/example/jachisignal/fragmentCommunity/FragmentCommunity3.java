@@ -25,6 +25,7 @@ import com.example.jachisignal.databinding.FragmentCommunity3Binding;
 import com.example.jachisignal.databinding.ItemBinding;
 import com.firebase.ui.firestore.FirestoreRecyclerAdapter;
 import com.firebase.ui.firestore.FirestoreRecyclerOptions;
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.Query;
 
@@ -142,6 +143,7 @@ public class FragmentCommunity3 extends Fragment {
         });
 
 
+
     }
 
     public class MyViewHolder extends  RecyclerView.ViewHolder{
@@ -174,6 +176,13 @@ public class FragmentCommunity3 extends Fragment {
             holder.binding.category.setText(recipeDoc.getCategory());
             holder.binding.nickname.setText(recipeDoc.getNickname());
             holder.binding.heartCount.setText(Integer.toString(recipeDoc.getLikeList().size())+"개");
+//            Log.d("KYR", "test: "+recipeDoc.getLikeList().toString());
+//            if(recipeDoc.getLikeList().contains(uid)){
+//                Log.d("KYR","게시그글 하트 바꾸기");
+//                holder.binding.heart.setImageResource(R.drawable.heartcount);
+//            }else {
+//                holder.binding.heart.setImageResource(R.drawable.heart);
+//                Log.d("KYR","게시그글 하트 바꾸기");}
             //Integer.toString(recipeDoc.getLikeList().size())
 
         }
