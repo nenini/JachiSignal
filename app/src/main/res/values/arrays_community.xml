@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="dialog_array_community">
+        <item>전체글</item>
+        <item>게시글</item>
+        <item>질문글</item>
+    </string-array>
+</resources>

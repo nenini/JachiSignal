@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+    <RelativeLayout
+        android:layout_marginTop="10dp"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:background="@drawable/blue_page">
+        <TextView
+            android:layout_marginStart="5dp"
+            android:id="@+id/title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="핸드폰 찾아주세요"
+            android:textSize="16sp"
+            android:textStyle="bold"
+            android:textColor="#3c567b"/>
+        <ImageView
+            android:id="@+id/commu_post_heart"
+            android:layout_marginEnd="10dp"
+            android:layout_toStartOf="@id/star"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/heart"/>
+        <ImageView
+            android:id="@+id/star"
+            android:layout_alignParentEnd="true"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/star_blank"/>
+        <TextView
+            android:id="@+id/heart_count"
+            android:layout_below="@id/commu_post_heart"
+            android:layout_alignLeft="@id/commu_post_heart"
+            android:layout_alignRight="@id/commu_post_heart"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="10개"
+            android:textSize="10dp"
+            android:textStyle="bold"
+            android:textColor="#3c567b" />
+        <TextView
+            android:id="@+id/community_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="방금 동작역쪽에서 핸드폰 잃어버렸는데 혹시 보신 분 있으실까요ㅜㅜㅜ 사례금 드릴게요ㅜㅜㅜ"
+            android:textColor="#3c567b"
+            android:layout_alignStart="@id/title"
+            android:layout_below="@id/heart_count"/>
+        <TextView
+            android:id="@+id/community_time"
+            android:layout_marginTop="5dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="10분전"
+            android:textSize="13sp"
+            android:textStyle="bold"
+            android:textColor="#878787"
+            android:layout_below="@id/community_text"
+            android:layout_alignStart="@id/community_text"/>
+    </RelativeLayout>
+
+
+</androidx.cardview.widget.CardView>
