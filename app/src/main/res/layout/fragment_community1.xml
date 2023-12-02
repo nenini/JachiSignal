@@ -6,7 +6,8 @@
     tools:context=".fragmentHome.FragmentHome1"
     android:background="@color/white"
     android:clickable="true"
-    android:padding="20dp">
+    android:padding="20dp"
+    android:id="@+id/CommunityFragment">
     <RelativeLayout
         android:layout_marginBottom="80dp"
         android:layout_width="match_parent"
@@ -66,11 +67,20 @@
                     android:text="전체 지역"
                     android:textStyle="bold"
                     android:textColor="#3c567b"/>
+
+                <Button
+                    android:id="@+id/community_update"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="update"
+                    android:textStyle="bold"
+                    android:textColor="#3c567b"/>
             </LinearLayout>
-            <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/community1_recyclerView"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"/>
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/community1_recyclerView"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"/>
         </LinearLayout>
     </RelativeLayout>
     <ImageButton

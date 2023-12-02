@@ -58,6 +58,7 @@ public class CommunityWritingActivity extends AppCompatActivity {
                     finish();
                 }
             }
+
         });
     }
 
@@ -70,3 +71,8 @@ public class CommunityWritingActivity extends AppCompatActivity {
     }
 
 }
+
+
+
+
+
