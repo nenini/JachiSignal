@@ -6,14 +6,12 @@ import com.google.firebase.firestore.ServerTimestamp;
 import java.util.List;
 
 public class CommunityDoc {
-
     private String category;
     private String contentTitle;
-
     private String nickname;
 
     private String createAt;
-    private String id;
+
     private String imageLink;
     private String text;
     private List<String> likeList;
@@ -21,11 +19,8 @@ public class CommunityDoc {
     @ServerTimestamp
     private Timestamp timestamp; // server timestamp
 
-    private String isQuestion;
-
-    public CommunityDoc(String nickname,String id, String writeId, String contentTitle, String text, String createAt, String category, String imageLink,  List<String> likeList, String isQuestion) {
+    public CommunityDoc(String nickname, String writeId, String contentTitle, String text, String createAt, String category, String imageLink,  List<String> likeList) {
         this.nickname=nickname;
-        this.id = id;
         this.likeList = likeList;
         this.text = text;
         this.createAt = createAt;
@@ -33,9 +28,7 @@ public class CommunityDoc {
         this.category = category;
         this.contentTitle = contentTitle;
         this.imageLink = imageLink;
-        this.isQuestion = isQuestion;
     }
-
     public CommunityDoc(){}
 
     public String getNickname() {
@@ -74,18 +67,6 @@ public class CommunityDoc {
         return text;
     }
 
-    public String getId() {
-        return id;
-    }
-
-    public String getIsQuestion(){
-        return isQuestion;
-    }
-
-    public void setIsQuestion(String isQuestion) {
-        this.isQuestion = isQuestion;
-    }
-
     public void setTimestamp(Timestamp timestamp) {
         this.timestamp = timestamp;
     }
@@ -118,14 +99,7 @@ public class CommunityDoc {
         this.text = text;
     }
 
-    public void setId(String id) {
-        this.id = id;
-    }
-
     public void setNickname(String nickname) {
         this.nickname = nickname;
     }
-
-
-
 }

@@ -19,7 +19,7 @@
             android:id="@+id/image_cart_09"
             android:layout_width="match_parent"
             android:layout_height="33dp"
-            android:src="@drawable/baseline_sports_esports_24"
+            android:src="@drawable/community_2"
             android:gravity="center" />
     </RelativeLayout>
 
@@ -38,7 +38,7 @@
             android:orientation="horizontal">
 
             <androidx.cardview.widget.CardView
-                android:id="@+id/dogImg"
+                android:id="@+id/catImg"
                 android:layout_gravity="center"
                 app:cardElevation="0dp"
                 app:cardCornerRadius="15dp"
@@ -49,73 +49,32 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:scaleType="centerInside"
-                    android:src="@drawable/dog" />
+                    android:src="@drawable/cat" />
             </androidx.cardview.widget.CardView>
             <LinearLayout
                 android:id="@+id/post_userText"
                 android:gravity="bottom"
-                android:layout_toRightOf="@+id/dogImg"
+                android:layout_toRightOf="@+id/catImg"
                 android:layout_width="230dp"
                 android:layout_height="match_parent"
                 android:orientation="vertical"
                 android:paddingLeft="20dp">
+
                 <TextView
-                    android:id="@+id/nickname_leisure"
+                    android:id="@+id/nickname_jachitem"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:text="고양이 사랑"
                     android:textColor="#3C567B"
-                    android:textStyle="bold"
                     android:textSize="17dp"
-                    android:text="강아지 사랑"/>
+                    android:textStyle="bold" />
                 <TextView
-                    android:id="@+id/timestamp_leisure"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="2023.10.23 11:15"
+                    android:text="2023.10.20 12:33"
                     android:textSize="13dp"/>
             </LinearLayout>
-            <Button
-                android:layout_alignBottom="@id/post_userText"
-                android:background="@drawable/button_round"
-                android:backgroundTint="#DFE9EB"
-                android:layout_toRightOf="@id/post_userText"
-                android:layout_width="wrap_content"
-                android:layout_height="30dp"
-                android:drawableLeft="@drawable/people"
-
-                android:text="3/6" />
         </RelativeLayout>
-
-
-        <LinearLayout
-            android:background="@drawable/post_background"
-            android:gravity="center_vertical"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="vertical"
-            android:paddingLeft="20dp"
-            android:layout_marginTop="15dp">
-            <TextView
-                android:id="@+id/place_leisure"
-                android:paddingTop="10dp"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textColor="#3C567B"
-                android:textStyle="bold"
-                android:textSize="20dp"
-                android:text="장소 : 롯데월드"/>
-            <TextView
-                android:id="@+id/meeting_time_leisure"
-                android:paddingTop="8dp"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textColor="#3C567B"
-                android:textStyle="bold"
-                android:textSize="20dp"
-                android:text="날짜/시간 : 10월 31일 8시"
-                android:paddingBottom="10dp"/>
-        </LinearLayout>
-
 
         <LinearLayout
             android:padding="19dp"
@@ -133,25 +92,31 @@
                 android:orientation="vertical">
 
                 <TextView
-                    android:id="@+id/title_leisure"
+                    android:id="@+id/title_jachitem"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:paddingBottom="13dp"
-                    android:text="롯데월드 같이 갈 친구들 구해요"
+                    android:text="핸드폰 찾아주세요ㅠㅠ"
                     android:textColor="#3C567B"
                     android:textSize="23dp"
                     android:textStyle="bold" />
 
                 <TextView
-                    android:id="@+id/text_leisure"
+                    android:id="@+id/text_jachitem"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:paddingBottom="13dp"
-                    android:text="날씨가 시원해져서 놀이공원이 가고싶은데... 같이 가실 분 있으신가요ㅎㅎ 아무나 환영입니다!!"
+                    android:text="방금 동작역쪽에서 핸드폰 잃어버렸는데 혹시 보신 분 있으실까요ㅠㅠㅠ 사례금 드릴게요ㅠㅜㅜ"
                     android:textColor="#687F9F"
                     android:textStyle="bold" />
+                <ImageView
+                    android:id="@+id/downloaded_imageview"
+                    android:layout_width="wrap_content"
+                    android:layout_height="100dp" />
+
 
                 <LinearLayout
+                    android:layout_marginTop="10dp"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="horizontal">
@@ -167,11 +132,11 @@
                             android:src="@drawable/heartcount" />
 
                         <TextView
-                            android:id="@+id/heartCount_leisure"
+                            android:id="@+id/heartCount_jachitem"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:paddingLeft="10dp"
-                            android:text="15개"
+                            android:text="10개"
                             android:textColor="#3C567B" />
                     </LinearLayout>
 
@@ -184,26 +149,17 @@
                         <ImageView
                             android:layout_width="20dp"
                             android:layout_height="20dp"
-                            android:src="@drawable/heart" />
+                            android:src="@drawable/heartcount" />
 
                         <ImageView
                             android:layout_width="20dp"
                             android:layout_height="20dp"
                             android:layout_marginLeft="10dp"
-                            android:src="@drawable/star_blank" />
+                            android:src="@drawable/star" />
                     </LinearLayout>
                 </LinearLayout>
             </LinearLayout>
         </LinearLayout>
-        <Button
-            android:layout_gravity="right"
-            android:layout_marginTop="13dp"
-            android:layout_width="100dp"
-            android:layout_height="35dp"
-            android:text="참여하기"
-            android:textStyle="bold"
-            android:textSize="18dp"
-            android:background="@drawable/yellowbtn_background"/>
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -234,18 +190,18 @@
                         android:textColor="#3C567B"
                         android:textStyle="bold"
                         android:textSize="16dp"
-                        android:text="내 꿈은 램지"/>
+                        android:text="옥지얌"/>
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:textColor="#3C567B"
                         android:textStyle="bold"
                         android:textSize="14dp"
-                        android:text="너무 좋아요!!"/>
+                        android:text="헐.. 핸드폰 기종이 아이폰인가요?"/>
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="2023.10.23 13:30"
+                        android:text="2023.10.20 19:00"
                         android:textSize="13dp"/>
                 </LinearLayout>
                 <TextView
@@ -278,14 +234,14 @@
                         android:textColor="#3C567B"
                         android:textStyle="bold"
                         android:textSize="14dp"
-                        android:text="강아지 사랑"/>
+                        android:text="고양이 사랑"/>
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:textColor="#3C567B"
                         android:textStyle="bold"
                         android:textSize="14dp"
-                        android:text="바로 연락 주세요!! ㄱㄱ"/>
+                        android:text="아니요..ㅜㅠ 갤럭시요ㅠㅠ"/>
                 </LinearLayout>
             </LinearLayout>
         </LinearLayout>

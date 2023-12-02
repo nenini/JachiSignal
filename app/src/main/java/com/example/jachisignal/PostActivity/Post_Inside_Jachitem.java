@@ -6,27 +6,23 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 
-import com.example.jachisignal.Doc.LeisureDoc;
-import com.example.jachisignal.Doc.RecipeDoc;
+import com.example.jachisignal.Doc.JachiDoc;
 import com.example.jachisignal.R;
-import com.example.jachisignal.databinding.ActivityPostInsidePlayingBinding;
-import com.example.jachisignal.databinding.ActivityPostInsideRecipeBinding;
+import com.example.jachisignal.databinding.ActivityPostInsideJachitemBinding;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 
-public class Post_Inside_Playing extends AppCompatActivity {
-    private LeisureDoc leisureDoc;
-    private static final String TAG = "KSM";
+public class Post_Inside_Jachitem extends AppCompatActivity {
     FirebaseFirestore db;
-
-    ActivityPostInsidePlayingBinding binding;
+    JachiDoc jachiDoc;
+    ActivityPostInsideJachitemBinding binding;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        binding = ActivityPostInsidePlayingBinding.inflate(getLayoutInflater());
+        binding = ActivityPostInsideJachitemBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
         Intent intent = getIntent();
@@ -40,13 +36,11 @@ public class Post_Inside_Playing extends AppCompatActivity {
         docRef.get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
             @Override
             public void onSuccess(DocumentSnapshot documentSnapshot) {
-                leisureDoc = documentSnapshot.toObject(LeisureDoc.class);
-                binding.placeLeisure.setText(leisureDoc.getPlace());
-                binding.meetingTimeLeisure.setText(leisureDoc.getDate());
-                binding.nicknameLeisure.setText(leisureDoc.getNickname());
-                binding.heartCountLeisure.setText(Integer.toString(leisureDoc.getLikeList().size()) + "개");
-                binding.textLeisure.setText(leisureDoc.getText());
-                binding.titleLeisure.setText(leisureDoc.getContentTitle());
+                jachiDoc = documentSnapshot.toObject(JachiDoc.class);
+                binding.titleJachitem.setText(jachiDoc.getContentTitle());
+                binding.textJachitem.setText(jachiDoc.getText());
+                binding.heartCountJachitem.setText(Integer.toString(jachiDoc.getLikeList().size()) + "개");
+                binding.nicknameJachitem.setText(jachiDoc.getNickname());
             }
         });
     }

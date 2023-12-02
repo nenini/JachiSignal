@@ -82,5 +82,27 @@ public class LeisureDocHolder extends RecyclerView.ViewHolder {
         });
     }
 
+    public TextView getmNickname() {
+        return mNickname;
+    }
 
+    public TextView getmHeartcount() {
+        return mHeartcount;
+    }
+
+    public TextView getmCategory() {
+        return mCategory;
+    }
+
+    public TextView getmTitle() {
+        return mTitle;
+    }
+
+    public ImageView getmImg() {
+        return mImg;
+    }
+
+    public TextView getmPeopleCount() {
+        return mPeopleCount;
+    }
 }

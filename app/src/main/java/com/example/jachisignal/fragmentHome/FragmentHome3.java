@@ -19,6 +19,8 @@ import com.example.jachisignal.Doc.LeisureDoc;
 import com.example.jachisignal.Doc.LeisureDocHolder;
 import com.example.jachisignal.Doc.RecipeDoc;
 import com.example.jachisignal.Doc.RecipeDocHolder;
+import com.example.jachisignal.PostActivity.Post_Inside_Jachitem;
+import com.example.jachisignal.PostActivity.Post_Inside_Playing;
 import com.example.jachisignal.R;
 import com.example.jachisignal.WritingActivity.LeisureWritingActivity;
 import com.example.jachisignal.WritingActivity.RecipeWritingActivity;
@@ -98,6 +100,18 @@ public class FragmentHome3 extends Fragment {
             @Override
             protected void onBindViewHolder(@NonNull LeisureDocHolder holder, int position, @NonNull LeisureDoc model) {
                 holder.bind(model);
+                holder.itemView.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        String title = holder.getmTitle().getText().toString();
+
+                        Intent intent = new Intent(v.getContext(), Post_Inside_Playing.class);
+                        intent.putExtra("COLLECTION","leisureWritings");
+                        intent.putExtra("DOCUMENT",title);
+                        Log.d("KSM", "인텐트 전달");
+                        startActivity(intent);
+                    }
+                });
             }
             @NonNull
             @Override

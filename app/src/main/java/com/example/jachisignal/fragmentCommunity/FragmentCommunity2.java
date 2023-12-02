@@ -8,6 +8,7 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,6 +16,8 @@ import android.widget.ImageButton;
 
 import com.example.jachisignal.Doc.JachiDoc;
 import com.example.jachisignal.Doc.JachiDocHolder;
+import com.example.jachisignal.PostActivity.Post_Inside_Jachitem;
+import com.example.jachisignal.PostActivity.Post_Inside_Recipe;
 import com.example.jachisignal.R;
 import com.example.jachisignal.WritingActivity.CommunityWritingActivity;
 import com.example.jachisignal.WritingActivity.JachitemWritingActivity;
@@ -89,6 +92,18 @@ public class FragmentCommunity2 extends Fragment {
             @Override
             protected void onBindViewHolder(@NonNull JachiDocHolder holder, int position, @NonNull JachiDoc model) {
                 holder.bind(model);
+                holder.itemView.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        String title = holder.getmTitle().getText().toString();
+
+                        Intent intent = new Intent(v.getContext(), Post_Inside_Jachitem.class);
+                        intent.putExtra("COLLECTION","jachitemWritings");
+                        intent.putExtra("DOCUMENT",title);
+                        Log.d("KSM", "인텐트 전달");
+                        startActivity(intent);
+                    }
+                });
             }
             @NonNull
             @Override
