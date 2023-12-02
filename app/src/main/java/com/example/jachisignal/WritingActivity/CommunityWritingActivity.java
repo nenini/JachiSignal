@@ -47,12 +47,12 @@ public class CommunityWritingActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 if (binding.communityCheckbox.isChecked()) {
-                    CommunityDoc communityDoc = new CommunityDoc(appUser.getNickname(), user.getEmail(), binding.communityWriteTitle.getText().toString(),
+                    CommunityDoc communityDoc = new CommunityDoc(appUser.getNickname(), "1",user.getEmail(), binding.communityWriteTitle.getText().toString(),
                             binding.communityWriteBody.getText().toString(), "1", "1", "1", new ArrayList<String>(), true);
                     db.collection("communityWritings").document(binding.communityWriteTitle.getText().toString()).set(communityDoc);
                     finish();
                 } else {
-                    CommunityDoc communityDoc = new CommunityDoc(appUser.getNickname(), user.getEmail(), binding.communityWriteTitle.getText().toString(),
+                    CommunityDoc communityDoc = new CommunityDoc(appUser.getNickname(), "1",user.getEmail(), binding.communityWriteTitle.getText().toString(),
                             binding.communityWriteBody.getText().toString(), "1", "1", "1", new ArrayList<String>(), false);
                     db.collection("communityWritings").document(binding.communityWriteTitle.getText().toString()).set(communityDoc);
                     finish();

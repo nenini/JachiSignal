@@ -9,8 +9,9 @@ public class CommunityDoc {
     private String category;
     private String contentTitle;
     private String nickname;
-
     private String createAt;
+    private String id;
+
 
     private String imageLink;
     private String text;
@@ -20,8 +21,9 @@ public class CommunityDoc {
     @ServerTimestamp
     private Timestamp timestamp; // server timestamp
 
-    public CommunityDoc(String nickname, String writeId, String contentTitle, String text, String createAt, String category, String imageLink,  List<String> likeList, boolean isQuestion) {
+    public CommunityDoc(String nickname, String id,String writeId, String contentTitle, String text, String createAt, String category, String imageLink,  List<String> likeList, boolean isQuestion) {
         this.nickname=nickname;
+        this.id=id;
         this.likeList = likeList;
         this.text = text;
         this.createAt = createAt;
@@ -76,6 +78,10 @@ public class CommunityDoc {
         return text;
     }
 
+    public String getId() {
+        return id;
+    }
+
 
     public void setTimestamp(Timestamp timestamp) {
         this.timestamp = timestamp;
@@ -112,4 +118,9 @@ public class CommunityDoc {
     public void setNickname(String nickname) {
         this.nickname = nickname;
     }
+    public void setId(String id) {
+        this.id = id;
+    }
+
+
 }
