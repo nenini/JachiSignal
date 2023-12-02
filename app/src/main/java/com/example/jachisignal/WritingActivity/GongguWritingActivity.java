@@ -66,20 +66,20 @@ public class GongguWritingActivity extends AppCompatActivity {
             public void onClick(View v) {
                 if(binding.gongguFaceCheckBox.isChecked()&&!binding.gongguDeliCheckBox.isChecked()) {
                     Log.d("KYR","Doc");
-                    GongguDoc gongguDoc = new GongguDoc(appUser.getNickname(), "1", user.getEmail(), binding.gongguWriteTitle.getText().toString(),
+                    GongguDoc gongguDoc = new GongguDoc(appUser.getNickname(), "1_"+binding.gongguWriteItemName.getText().toString(), user.getEmail(), binding.gongguWriteTitle.getText().toString(),
                             binding.gongguWriteBody.getText().toString(), "1", binding.gongguWriteCategory.getText().toString(), imgLink, new ArrayList<String>(), binding.gongguWriteItemName.getText().toString(), binding.gongguWritePrice.getText().toString(), "1/" + binding.gongguWritePeopleCount.getText().toString(), binding.gongguWriteChatLink.getText().toString());
                     db.collection("gongu1Writings").document(binding.gongguWriteItemName.getText().toString()).set(gongguDoc);
                     finish();
                 } else if (!binding.gongguFaceCheckBox.isChecked()&&binding.gongguDeliCheckBox.isChecked()) {
-                    GongguDoc2 gongguDoc2 = new GongguDoc2(appUser.getNickname(), "1", user.getEmail(), binding.gongguWriteTitle.getText().toString(),
+                    GongguDoc2 gongguDoc2 = new GongguDoc2(appUser.getNickname(), "2_"+binding.gongguWriteItemName.getText().toString(), user.getEmail(), binding.gongguWriteTitle.getText().toString(),
                             binding.gongguWriteBody.getText().toString(), "1", binding.gongguWriteCategory.getText().toString(), imgLink, new ArrayList<String>(), binding.gongguWriteItemName.getText().toString(), binding.gongguWritePrice.getText().toString(), "1/" + binding.gongguWritePeopleCount.getText().toString(), binding.gongguWriteChatLink.getText().toString());
                     db.collection("gongu2Writings").document(binding.gongguWriteItemName.getText().toString()).set(gongguDoc2);
                     finish();
                 } else if (binding.gongguFaceCheckBox.isChecked()&&binding.gongguDeliCheckBox.isChecked()) {
-                    GongguDoc gongguDoc = new GongguDoc(appUser.getNickname(), "1", user.getEmail(), binding.gongguWriteTitle.getText().toString(),
+                    GongguDoc gongguDoc = new GongguDoc(appUser.getNickname(), "1_"+binding.gongguWriteItemName.getText().toString(), user.getEmail(), binding.gongguWriteTitle.getText().toString(),
                             binding.gongguWriteBody.getText().toString(), "1", binding.gongguWriteCategory.getText().toString(), imgLink, new ArrayList<String>(), binding.gongguWriteItemName.getText().toString(), binding.gongguWritePrice.getText().toString(), "1/" + binding.gongguWritePeopleCount.getText().toString(), binding.gongguWriteChatLink.getText().toString());
                     db.collection("gongu1Writings").document(binding.gongguWriteItemName.getText().toString()).set(gongguDoc);
-                    GongguDoc2 gongguDoc2 = new GongguDoc2(appUser.getNickname(), "1", user.getEmail(), binding.gongguWriteTitle.getText().toString(),
+                    GongguDoc2 gongguDoc2 = new GongguDoc2(appUser.getNickname(), "2_"+binding.gongguWriteItemName.getText().toString(), user.getEmail(), binding.gongguWriteTitle.getText().toString(),
                             binding.gongguWriteBody.getText().toString(), "1", binding.gongguWriteCategory.getText().toString(), imgLink, new ArrayList<String>(), binding.gongguWriteItemName.getText().toString(), binding.gongguWritePrice.getText().toString(), "1/" + binding.gongguWritePeopleCount.getText().toString(), binding.gongguWriteChatLink.getText().toString());
                     db.collection("gongu2Writings").document(binding.gongguWriteItemName.getText().toString()).set(gongguDoc2);
                     finish();
