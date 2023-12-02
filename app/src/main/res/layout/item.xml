@@ -17,7 +17,7 @@
             android:textStyle="bold"
             android:textColor="#B0B0B0"/>
         <ImageView
-            android:id="@+id/gonggu_deli_post_heart"
+            android:id="@+id/heart"
             android:layout_marginEnd="10dp"
             android:layout_toStartOf="@id/star"
             android:layout_width="wrap_content"
@@ -31,12 +31,12 @@
             android:src="@drawable/star_blank"/>
         <TextView
             android:id="@+id/heart_count"
-            android:layout_below="@id/gonggu_deli_post_heart"
-            android:layout_alignLeft="@id/gonggu_deli_post_heart"
-            android:layout_alignRight="@id/gonggu_deli_post_heart"
+            android:layout_below="@id/heart"
+            android:layout_alignLeft="@id/heart"
+            android:layout_alignRight="@id/heart"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="10개"
+            android:text="0개"
             android:textSize="10dp"
             android:textStyle="bold"
             android:textColor="#3c567b" />
