@@ -11,10 +11,13 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.text.method.CharacterPickerDialog;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.ImageButton;
@@ -73,6 +76,7 @@ public class FragmentCommunity1 extends Fragment {
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
+        Log.d("ksh", "onCreate: 여기인가");
         super.onCreate(savedInstanceState);
         if (getArguments() != null) {
             mParam1 = getArguments().getString(ARG_PARAM1);
@@ -81,19 +85,47 @@ public class FragmentCommunity1 extends Fragment {
     }
 
     FragmentCommunity1Binding binding;
+    CheckBox checkBox;
+
+    Button update_BTN;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         binding=FragmentCommunity1Binding.inflate(inflater,container,false);
-        CheckBox checkBox = binding.communityQuestionShow;
+        checkBox = binding.communityQuestionShow;
+        update_BTN = binding.communityUpdate;
+
+//        String str;
+//        Bundle bundle = getArguments();
+//        if(bundle != null) {
+//            str = bundle.getString("checked");
+//            Log.d("ksh", "onCreateView: bundle 들어옴 "+ str);
+//            if("true".equals(str)){
+//                updateQuery(true);
+//            }
+//        }
+
         checkBox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 updateQuery(isChecked);
             }
+
+            public void checkCheck(boolean isChecked) {
+                updateQuery(isChecked);
+            }
         });
+
+        update_BTN.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                updateQuery(checkBox.isChecked());
+            }
+        });
+
+
 
         updateQuery(false);
         // Inflate the layout for this fragment
@@ -103,7 +135,8 @@ public class FragmentCommunity1 extends Fragment {
     }
 
 
-    private void updateQuery(boolean isChecked) {
+    public void updateQuery(boolean isChecked) {
+        Log.d("ksh", "updateQuery");
         Query baseQuery = FirebaseFirestore.getInstance()
                 .collection("communityWritings")
                 .orderBy("timestamp");
@@ -149,12 +182,13 @@ public class FragmentCommunity1 extends Fragment {
             adapter.updateOptions(options);
             binding.community1RecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
             binding.community1RecyclerView.setAdapter(adapter);
+
         }
     }
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
 
         super.onViewCreated(view, savedInstanceState);
-        ImageButton community_BTN=view.findViewById(R.id.community1_write_btn);
+        ImageButton community_BTN = view.findViewById(R.id.community1_write_btn);
         community_BTN.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -163,8 +197,28 @@ public class FragmentCommunity1 extends Fragment {
         });
 
 
+//        binding.getRoot().setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                Log.d("ksh", "onClick: 클릭함");
+//                updateQuery(checkBox.isChecked());
+//            }
+//        });
+
+//        binding.getRoot().setOnTouchListener(new View.OnTouchListener() {
+//            @Override
+//            public boolean onTouch(View v, MotionEvent event) {
+//                if (event.getAction() == MotionEvent.ACTION_DOWN) {
+//                    updateQuery(checkBox.isChecked());
+//                }
+//                return false;
+//            }
+//        });
+
+
 
     }
+
 
     public void onStart() {
         super.onStart();
@@ -179,3 +233,5 @@ public class FragmentCommunity1 extends Fragment {
 
 
 }
+
+
