@@ -25,6 +25,8 @@ import android.widget.TextView;
 
 import com.example.jachisignal.Doc.CommunityDoc;
 import com.example.jachisignal.Doc.CommunityDocHolder;
+import com.example.jachisignal.PostActivity.Post_Inside_Community;
+import com.example.jachisignal.PostActivity.Post_Inside_Jachitem;
 import com.example.jachisignal.R;
 import com.example.jachisignal.WritingActivity.CommunityWritingActivity;
 import com.example.jachisignal.databinding.FragmentCommunity1Binding;
@@ -143,7 +145,7 @@ public class FragmentCommunity1 extends Fragment {
 
         if(isChecked) {
             Log.d("ksh", "updateQuery: 나중에 질문글 체크했을때");
-            baseQuery = baseQuery.whereEqualTo("isQuestion","true");
+            baseQuery = baseQuery.whereEqualTo("isQuestion",true);
         }
         Query finalQuery = baseQuery.limit(50);
 
@@ -164,6 +166,18 @@ public class FragmentCommunity1 extends Fragment {
                 @Override
                 protected void onBindViewHolder(@NonNull CommunityDocHolder holder, int position, @NonNull CommunityDoc model) {
                     holder.bind(model);
+                    holder.itemView.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            String title = holder.getmTitle().getText().toString();
+
+                            Intent intent = new Intent(v.getContext(), Post_Inside_Community.class);
+                            intent.putExtra("COLLECTION","communityWritings");
+                            intent.putExtra("DOCUMENT",title);
+                            Log.d("KSM", "인텐트 전달");
+                            startActivity(intent);
+                        }
+                    });
                 }
 
                 @NonNull

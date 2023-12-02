@@ -64,4 +64,20 @@ public class CommunityDocHolder extends RecyclerView.ViewHolder {
             mTimeStamp.setText("No timestamp available"); // 예외 처리: timestamp가 null인 경우 대체 값 설정
         }
     }
+
+    public TextView getmHeartcount() {
+        return mHeartcount;
+    }
+
+    public TextView getmTitle() {
+        return mTitle;
+    }
+
+    public TextView getmText() {
+        return mText;
+    }
+
+    public TextView getmTimeStamp() {
+        return mTimeStamp;
+    }
 }

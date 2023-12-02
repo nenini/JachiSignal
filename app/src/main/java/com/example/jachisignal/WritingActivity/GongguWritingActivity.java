@@ -68,20 +68,20 @@ public class GongguWritingActivity extends AppCompatActivity {
                     Log.d("KYR","Doc");
                     GongguDoc gongguDoc = new GongguDoc(appUser.getNickname(), "1", user.getEmail(), binding.gongguWriteTitle.getText().toString(),
                             binding.gongguWriteBody.getText().toString(), "1", binding.gongguWriteCategory.getText().toString(), imgLink, new ArrayList<String>(), binding.gongguWriteItemName.getText().toString(), binding.gongguWritePrice.getText().toString(), "1/" + binding.gongguWritePeopleCount.getText().toString(), binding.gongguWriteChatLink.getText().toString());
-                    db.collection("gongu1Writings").document(binding.gongguWriteTitle.getText().toString()).set(gongguDoc);
+                    db.collection("gongu1Writings").document(binding.gongguWriteItemName.getText().toString()).set(gongguDoc);
                     finish();
                 } else if (!binding.gongguFaceCheckBox.isChecked()&&binding.gongguDeliCheckBox.isChecked()) {
                     GongguDoc2 gongguDoc2 = new GongguDoc2(appUser.getNickname(), "1", user.getEmail(), binding.gongguWriteTitle.getText().toString(),
                             binding.gongguWriteBody.getText().toString(), "1", binding.gongguWriteCategory.getText().toString(), imgLink, new ArrayList<String>(), binding.gongguWriteItemName.getText().toString(), binding.gongguWritePrice.getText().toString(), "1/" + binding.gongguWritePeopleCount.getText().toString(), binding.gongguWriteChatLink.getText().toString());
-                    db.collection("gongu2Writings").document(binding.gongguWriteTitle.getText().toString()).set(gongguDoc2);
+                    db.collection("gongu2Writings").document(binding.gongguWriteItemName.getText().toString()).set(gongguDoc2);
                     finish();
                 } else if (binding.gongguFaceCheckBox.isChecked()&&binding.gongguDeliCheckBox.isChecked()) {
                     GongguDoc gongguDoc = new GongguDoc(appUser.getNickname(), "1", user.getEmail(), binding.gongguWriteTitle.getText().toString(),
                             binding.gongguWriteBody.getText().toString(), "1", binding.gongguWriteCategory.getText().toString(), imgLink, new ArrayList<String>(), binding.gongguWriteItemName.getText().toString(), binding.gongguWritePrice.getText().toString(), "1/" + binding.gongguWritePeopleCount.getText().toString(), binding.gongguWriteChatLink.getText().toString());
-                    db.collection("gongu1Writings").document(binding.gongguWriteTitle.getText().toString()).set(gongguDoc);
+                    db.collection("gongu1Writings").document(binding.gongguWriteItemName.getText().toString()).set(gongguDoc);
                     GongguDoc2 gongguDoc2 = new GongguDoc2(appUser.getNickname(), "1", user.getEmail(), binding.gongguWriteTitle.getText().toString(),
                             binding.gongguWriteBody.getText().toString(), "1", binding.gongguWriteCategory.getText().toString(), imgLink, new ArrayList<String>(), binding.gongguWriteItemName.getText().toString(), binding.gongguWritePrice.getText().toString(), "1/" + binding.gongguWritePeopleCount.getText().toString(), binding.gongguWriteChatLink.getText().toString());
-                    db.collection("gongu2Writings").document(binding.gongguWriteTitle.getText().toString()).set(gongguDoc2);
+                    db.collection("gongu2Writings").document(binding.gongguWriteItemName.getText().toString()).set(gongguDoc2);
                     finish();
                 }
             }

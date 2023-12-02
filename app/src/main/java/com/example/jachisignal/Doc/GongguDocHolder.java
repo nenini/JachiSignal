@@ -85,4 +85,29 @@ public class GongguDocHolder extends RecyclerView.ViewHolder{
             }
         });
     }
+
+    public TextView getmHeartcount() {
+        return mHeartcount;
+    }
+
+    public TextView getmPeopleCount() {
+        return mPeopleCount;
+    }
+
+    public ImageView getmImg() {
+        return mImg;
+    }
+
+    public TextView getmCategory() {
+        return mCategory;
+    }
+
+    public TextView getmNickname() {
+        return mNickname;
+    }
+
+    public TextView getmTitle() {
+        return mTitle;
+    }
+
 }

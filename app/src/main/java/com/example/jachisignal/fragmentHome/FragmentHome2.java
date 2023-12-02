@@ -8,6 +8,7 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -17,6 +18,8 @@ import com.example.jachisignal.Doc.GongguDoc;
 import com.example.jachisignal.Doc.GongguDoc2;
 import com.example.jachisignal.Doc.GongguDocHolder;
 import com.example.jachisignal.Doc.GongguDocHolder2;
+import com.example.jachisignal.PostActivity.Post_Inside_09;
+import com.example.jachisignal.PostActivity.Post_Inside_09_2;
 import com.example.jachisignal.R;
 import com.example.jachisignal.WritingActivity.GongguWritingActivity;
 import com.example.jachisignal.databinding.FragmentHome1Binding;
@@ -91,6 +94,18 @@ public class FragmentHome2 extends Fragment {
             @Override
             protected void onBindViewHolder(@NonNull GongguDocHolder2 holder, int position, @NonNull GongguDoc2 model) {
                 holder.bind(model);
+                holder.itemView.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        String title = holder.getmTitle().getText().toString();
+
+                        Intent intent = new Intent(v.getContext(), Post_Inside_09_2.class);
+                        intent.putExtra("COLLECTION","gongu2Writings");
+                        intent.putExtra("DOCUMENT",title);
+                        Log.d("KSM", "인텐트 전달");
+                        startActivity(intent);
+                    }
+                });
             }
             @NonNull
             @Override
