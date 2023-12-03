@@ -1,5 +1,9 @@
 package com.example.jachisignal;
 
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
+
 public class AppUser {
     private String img;
     private String name;
@@ -8,8 +12,9 @@ public class AppUser {
     private String pw;
     private String address;
     private String phone;
+    private List<String> scrap;
 
-    public AppUser(String email, String pw, String name, String phone, String address, String nickname,String img) {
+    public AppUser(String email, String pw, String name, String phone, String address, String nickname,String img,List<String> scrap) {
         this.email=email;
         this.name=name;
         this.nickname = nickname;
@@ -17,6 +22,7 @@ public class AppUser {
         this.phone = phone;
         this.address=address;
         this.img=img;
+        this.scrap=scrap;
     }
 
     public AppUser(){}
@@ -48,6 +54,7 @@ public class AppUser {
     public String getAddress() {
         return address;
     }
+    public List<String> getScrap(){return scrap;}
 
     public void setAddress(String address) {
         this.address = address;
@@ -73,7 +80,6 @@ public class AppUser {
         this.pw = pw;
     }
 
-    public void setImg(String img) {
-        this.img = img;
-    }
+    public void setImg(String img) { this.img = img; }
+    public void setScrap(List<String> scrap){this.scrap=scrap;}
 }

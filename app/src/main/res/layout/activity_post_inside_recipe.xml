@@ -153,10 +153,11 @@
                             android:src="@drawable/heart" />
 
                         <ImageView
+                            android:id="@+id/star_recipe_post"
                             android:layout_width="20dp"
                             android:layout_height="20dp"
                             android:layout_marginLeft="10dp"
-                            android:src="@drawable/star" />
+                            android:src="@drawable/star_blank" />
                     </LinearLayout>
                 </LinearLayout>
             </LinearLayout>

@@ -38,8 +38,10 @@ import com.google.firebase.storage.UploadTask;
 
 import java.io.ByteArrayOutputStream;
 import java.io.File;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 public class SignupActivity extends AppCompatActivity {
@@ -112,9 +114,11 @@ public class SignupActivity extends AppCompatActivity {
                                     Log.d("KYR", "이미지뷰의 이미지 업로드 성공");
                                     task_snap = taskSnapshot.getMetadata().getReference().toString();
                                     Log.d("KYR","task_snap");
-                                    Toast.makeText(getApplicationContext(), task_snap, Toast.LENGTH_LONG).show();
+//                                    Toast.makeText(getApplicationContext(), task_snap, Toast.LENGTH_LONG).show();
+                                    List<String> scrap=new ArrayList<>();
                                     CollectionReference users = db.collection("users");
                                     Map<String, Object> data1 = new HashMap<>();
+                                    data1.put("scrap",scrap);
                                     data1.put("img",task_snap);
                                     data1.put("email", binding.emailEditTxt.getText().toString());
                                     data1.put("pw", binding.passwordEditTxt.getText().toString());

@@ -15,12 +15,13 @@ public class RecipeDoc {
     private String id;
     private String imageLink;
     private String text;
+    private List<String> scrapList;
     private List<String> likeList;
     private String writeId;
     @ServerTimestamp
     private Timestamp timestamp; // server timestamp
 
-    public RecipeDoc(String nickname,String id, String writeId, String contentTitle, String text, String createAt, String category, String imageLink,  List<String> likeList) {
+    public RecipeDoc(String nickname,String id, String writeId, String contentTitle, String text, String createAt, String category, String imageLink,  List<String> likeList,List<String> scrapList) {
         this.nickname=nickname;
         this.id = id;
         this.likeList = likeList;
@@ -30,6 +31,7 @@ public class RecipeDoc {
         this.category = category;
         this.contentTitle = contentTitle;
         this.imageLink = imageLink;
+        this.scrapList=scrapList;
     }
     public RecipeDoc(){}
 
@@ -64,6 +66,7 @@ public class RecipeDoc {
     public List<String> getLikeList() {
         return likeList;
     }
+    public List<String> getScrapList(){return scrapList; }
 
     public String getText() {
         return text;
@@ -79,6 +82,9 @@ public class RecipeDoc {
 
     public void setLikeList(List<String> likeList) {
         this.likeList = likeList;
+    }
+    public void setScrapList(List<String> scrapList) {
+        this.scrapList = scrapList;
     }
 
     public void setImageLink(String imageLink) {

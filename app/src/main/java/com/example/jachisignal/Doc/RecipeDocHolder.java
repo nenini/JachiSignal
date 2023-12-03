@@ -27,6 +27,7 @@ public class RecipeDocHolder extends RecyclerView.ViewHolder {
     private final TextView mCategory;
     private final ImageView mImg;
     private final ImageView mhaert;
+    private final ImageView mStar;
 
     public RecipeDocHolder(@NonNull View itemView) {
         super(itemView);
@@ -36,6 +37,7 @@ public class RecipeDocHolder extends RecyclerView.ViewHolder {
         mCategory=itemView.findViewById(R.id.category);
         mImg=itemView.findViewById(R.id.img);
         mhaert=itemView.findViewById(R.id.heart);
+        mStar=itemView.findViewById(R.id.star);
 
     }
 
@@ -46,6 +48,7 @@ public class RecipeDocHolder extends RecyclerView.ViewHolder {
         setmCategory(recipeDoc.getCategory());
         setImgLink(recipeDoc.getImageLink());
         setHeart(recipeDoc.getLikeList().contains(uid));
+        setStar(recipeDoc.getScrapList().contains(uid));
 
     }
     private void setNickname(@Nullable String nickname){ mNickname.setText(nickname);}
@@ -60,7 +63,12 @@ public class RecipeDocHolder extends RecyclerView.ViewHolder {
             mhaert.setImageResource(R.drawable.heartcount);
         }
         else mhaert.setImageResource(R.drawable.heart);
-
+    }
+    private void setStar(@Nullable boolean star_TF){
+        if(star_TF){
+            mStar.setImageResource(R.drawable.star);
+        }
+        else mStar.setImageResource(R.drawable.star_blank);
     }
     private void downloadImageTo(String uri) {
         // Get a default Storage bucket

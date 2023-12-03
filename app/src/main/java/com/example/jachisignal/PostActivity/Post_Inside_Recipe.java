@@ -9,18 +9,23 @@ import android.util.Log;
 import android.view.View;
 
 import com.bumptech.glide.Glide;
+import com.example.jachisignal.AppUser;
 import com.example.jachisignal.Doc.RecipeDoc;
 import com.example.jachisignal.R;
 import com.example.jachisignal.databinding.ActivityPostInsideCommunityBinding;
 import com.example.jachisignal.databinding.ActivityPostInsideRecipeBinding;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FieldValue;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class Post_Inside_Recipe extends AppCompatActivity {
     private Uri uri;
@@ -30,7 +35,8 @@ public class Post_Inside_Recipe extends AppCompatActivity {
     FirebaseFirestore db;
     ActivityPostInsideRecipeBinding binding;
     String uid = getUidOfCurrentUser();
-    DocumentReference docRef;
+    AppUser appUser;
+
 
 
     @Override
@@ -42,40 +48,9 @@ public class Post_Inside_Recipe extends AppCompatActivity {
         String collectionName = intent.getStringExtra("COLLECTION");
         documentName = intent.getStringExtra("DOCUMENT");
         Log.d("KSM", collectionName + "  " + documentName);
-//        binding.heartRecipePost.setOnClickListener(new View.OnClickListener() {
-//            //좋아요 버튼 click
-//            @Override
-//            public void onClick(View v) {
-//                likeEvent();
-//                Log.d("KYR","recipeDoc.getLikeList():" +recipeDoc.getLikeList());
-//
-//                if(recipeDoc.getLikeList().contains(uid)){
-//                    binding.heartRecipePost.setImageResource(R.drawable.heart);
-//                }
-//                else
-//                    binding.heartRecipePost.setImageResource(R.drawable.heartcount);
-//            }
-//        });
-//        binding.heartRecipePost.setOnClickListener(new View.OnClickListener() {
-//            //좋아요 버튼 click
-//            @Override
-//            public void onClick(View v) {
-//                likeEvent();
-//                Log.d("KYR","recipeDoc.getLikeList():" +recipeDoc.getLikeList());
-////                Log.d("KYR", String.valueOf(recipeDoc.getLikeList().contains(uid)));
-//
-//                if(recipeDoc.getLikeList().contains(uid)){
-//                    binding.heartRecipePost.setImageResource(R.drawable.heartcount);
-//                    Log.d("KYR","heart로 바꾸기");
-//                }
-//                else
-//                    binding.heartRecipePost.setImageResource(R.drawable.heart);
-//            }
-//        });
         db = FirebaseFirestore.getInstance();
 
         DocumentReference docRef = db.collection("recipeWritings").document(documentName);
-//        docRef.update("likelist", FieldValue.arrayUnion(uid));
         docRef.get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
             @Override
             public void onSuccess(DocumentSnapshot documentSnapshot) {
@@ -89,20 +64,24 @@ public class Post_Inside_Recipe extends AppCompatActivity {
 
                 binding.nicknameRecipePost.setText(recipeDoc.getNickname());
                 if(recipeDoc.getImageLink()!=null){ downloadImageTo(recipeDoc.getImageLink());}
+
+                //하트 색 바뀜
                 if(recipeDoc.getLikeList().contains(uid)){
                     binding.heartRecipePost.setImageResource(R.drawable.heartcount);
                 }
                 else binding.heartRecipePost.setImageResource(R.drawable.heart);
+                //스크랩 색 바뀜
+                if(recipeDoc.getScrapList().contains(uid)){
+                    binding.starRecipePost.setImageResource(R.drawable.star);
+                }
+                else binding.starRecipePost.setImageResource(R.drawable.star_blank);
 
-
+                //좋아요 버튼 click
                 binding.heartRecipePost.setOnClickListener(new View.OnClickListener() {
-                    //좋아요 버튼 click
                     @Override
                     public void onClick(View v) {
                         likeEvent();
                         Log.d("KYR","recipeDoc.getLikeList():" +recipeDoc.getLikeList());
-//                Log.d("KYR", String.valueOf(recipeDoc.getLikeList().contains(uid)));
-
                         if(recipeDoc.getLikeList().contains(uid)){
                             binding.heartRecipePost.setImageResource(R.drawable.heartcount);
                             Log.d("KYR","heart로 바꾸기");
@@ -110,11 +89,15 @@ public class Post_Inside_Recipe extends AppCompatActivity {
                         else
                             binding.heartRecipePost.setImageResource(R.drawable.heart);
                     }
-
                 });
 
-
-
+                //스크랩 버튼 click
+                binding.starRecipePost.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        scrapEvent();
+                    }
+                });
             }
         });
     }
@@ -136,21 +119,53 @@ public class Post_Inside_Recipe extends AppCompatActivity {
 
     //좋아요함수
     private void likeEvent(){
-        //눌렸는데 uid가 있었던 경우
+        //눌렸는데 uid가 있었던 경우->uid 삭제
         if(recipeDoc.getLikeList().contains(uid)){
             recipeDoc.getLikeList().remove(uid);
             db.collection("recipeWritings").document(documentName).set(recipeDoc);
-//            docRef.update("likelist",FieldValue.arrayRemove(uid));
-
         }
-        else{
+        else{//uid 없었음->uid 추가
             recipeDoc.getLikeList().add(uid);
             db.collection("recipeWritings").document(documentName).set(recipeDoc);
         }
         binding.heartCountRecipePost.setText(Integer.toString(recipeDoc.getLikeList().size())+"개");
+    }
+    //스크랩 함수
+    private void scrapEvent(){
+        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+        DocumentReference docRef = db.collection("users").document(user.getEmail());
+        docRef.get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
+            @Override
+            public void onSuccess(DocumentSnapshot documentSnapshot) {
+                appUser = documentSnapshot.toObject(AppUser.class);
+                //눌렸는데 uid가 있었던 경우->uid 삭제
+                if(recipeDoc.getScrapList().contains(uid)){
+                    recipeDoc.getScrapList().remove(uid);
+                    db.collection("recipeWritings").document(documentName).set(recipeDoc);
+                    //눌렸는데 uid가 있었던 경우->게시물 id 삭제
+                    List<String> scrap_id=appUser.getScrap();
+                    scrap_id.remove(recipeDoc.getId());
+                    appUser.setScrap(scrap_id);
+                    db.collection("users").document(user.getEmail()).set(appUser);
+                }
+                else {//눌렸는데 uid가 없었던 경우->uid 추가
+                    recipeDoc.getScrapList().add(uid);
+                    db.collection("recipeWritings").document(documentName).set(recipeDoc);
+                    List<String> scrap_id=appUser.getScrap();
+                    scrap_id.add(recipeDoc.getId());
+                    appUser.setScrap(scrap_id);
+                    db.collection("users").document(user.getEmail()).set(appUser);
+                }
+                Log.d("KYR","recipeDoc.scrapList():" +recipeDoc.getScrapList());
+                if(recipeDoc.getScrapList().contains(uid)){
+                    binding.starRecipePost.setImageResource(R.drawable.star);
+                    Log.d("KYR","star 바꾸기");
+                }
+                else
+                    binding.starRecipePost.setImageResource(R.drawable.star_blank);
+            }
+        });
 
-
-//            docRef.update("likelist",FieldValue.arrayUnion(uid));
     }
 
     private boolean hasSignedIn() {
