@@ -175,83 +175,16 @@
                 android:textStyle="bold"
                 android:textSize="19dp"
                 android:textColor="#3C567B"/>
-            <RelativeLayout
-                android:padding="8dp"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:background="@drawable/post_background"
-                android:layout_marginTop="15dp">
-                <LinearLayout
-                    android:id="@+id/comment"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:orientation="vertical">
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:textColor="#3C567B"
-                        android:textStyle="bold"
-                        android:textSize="16dp"
-                        android:text="옥지얌"/>
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:textColor="#3C567B"
-                        android:textStyle="bold"
-                        android:textSize="14dp"
-                        android:text="헐.. 핸드폰 기종이 아이폰인가요?"/>
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="2023.10.20 19:00"
-                        android:textSize="13dp"/>
-                </LinearLayout>
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="대댓글 달기"
-                    android:layout_alignParentEnd="true"
-                    android:layout_alignBottom="@id/comment"/>
 
-            </RelativeLayout>
-
-            <LinearLayout
-                android:paddingTop="10dp"
-                android:paddingLeft="30dp"
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/chat_recyclerView_jachitem"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal">
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="ㄴ "
-                    android:textStyle="bold"/>
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="vertical">
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:textColor="#3C567B"
-                        android:textStyle="bold"
-                        android:textSize="14dp"
-                        android:text="고양이 사랑"/>
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:textColor="#3C567B"
-                        android:textStyle="bold"
-                        android:textSize="14dp"
-                        android:text="아니요..ㅜㅠ 갤럭시요ㅠㅠ"/>
-                </LinearLayout>
-            </LinearLayout>
+                android:layout_height="match_parent"/>
         </LinearLayout>
 
     </LinearLayout>
 
-    <EditText
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="40dp"
         android:layout_alignParentBottom="true"
@@ -260,10 +193,23 @@
         android:layout_marginEnd="15dp"
         android:layout_marginBottom="15dp"
         android:background="@drawable/text_background"
-        android:drawableRight="@drawable/send"
-        android:hint="댓글을 입력하세요."
-        android:textSize="15dp"
         android:paddingLeft="30dp"
-        android:paddingRight="15dp" />
+        android:paddingRight="15dp"
+        android:orientation="horizontal">
+        <EditText
+            android:id="@+id/chat_text"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@android:color/transparent"
+            android:layout_weight="1"
+            android:hint="댓글을 입력하세요."/>
+        <ImageButton
+            android:id="@+id/send_btn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@android:color/transparent"
+            android:layout_gravity="center"
+            android:src="@drawable/send"/>
+    </LinearLayout>
 
 </RelativeLayout>
