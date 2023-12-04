@@ -101,6 +101,7 @@ public class Post_Inside_Recipe extends AppCompatActivity {
             }
         });
     }
+
     private void downloadImageTo(String uri) {
         // Get a default Storage bucket
         FirebaseStorage storage = FirebaseStorage.getInstance();
