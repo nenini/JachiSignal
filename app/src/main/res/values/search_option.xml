@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="community_search_option">
+        <item>title</item>
+        <item>category</item>
+    </string-array>
+</resources>

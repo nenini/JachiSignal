@@ -13,8 +13,10 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.EditText;
 import android.widget.ImageButton;
 
+import com.example.jachisignal.Doc.GongguDoc;
 import com.example.jachisignal.Doc.LeisureDoc;
 import com.example.jachisignal.Doc.LeisureDocHolder;
 import com.example.jachisignal.Doc.RecipeDoc;
@@ -31,6 +33,7 @@ import com.example.jachisignal.databinding.ItemBinding;
 import com.example.jachisignal.fragmentCommunity.FragmentCommunity3;
 import com.firebase.ui.firestore.FirestoreRecyclerAdapter;
 import com.firebase.ui.firestore.FirestoreRecyclerOptions;
+import com.google.firebase.firestore.Filter;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.Query;
 
@@ -43,6 +46,8 @@ import java.util.ArrayList;
  */
 public class FragmentHome3 extends Fragment {
     private FirestoreRecyclerAdapter adapter;
+
+    private FirestoreRecyclerOptions<LeisureDoc> options;
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -85,48 +90,90 @@ public class FragmentHome3 extends Fragment {
     }
     FragmentHome3Binding binding;
 
+    EditText home3_search_text;
+
+    ImageButton search_BTN;
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         binding= FragmentHome3Binding.inflate(inflater,container,false);
-        Query query= FirebaseFirestore.getInstance()
-                .collection("leisureWritings")
-                .orderBy("timestamp")
-                .limit(50);
-        FirestoreRecyclerOptions<LeisureDoc> options=new FirestoreRecyclerOptions.Builder<LeisureDoc>()
-                .setQuery(query,LeisureDoc.class)
-                .build();
-        adapter=new FirestoreRecyclerAdapter<LeisureDoc, LeisureDocHolder>(options) {
+        search_BTN = binding.searchBtnHome3;
+        home3_search_text = binding.searchTextHome3;
+
+        search_BTN.setOnClickListener(new View.OnClickListener() {
             @Override
-            protected void onBindViewHolder(@NonNull LeisureDocHolder holder, int position, @NonNull LeisureDoc model) {
-                holder.bind(model);
-                holder.itemView.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        String title = holder.getmTitle().getText().toString();
-
-                        Intent intent = new Intent(v.getContext(), Post_Inside_Playing.class);
-                        intent.putExtra("COLLECTION","leisureWritings");
-                        intent.putExtra("DOCUMENT",title);
-                        Log.d("KSM", "인텐트 전달");
-                        startActivity(intent);
-                    }
-                });
+            public void onClick(View v) {
+                updateQuery(home3_search_text.getText().toString());
             }
-            @NonNull
-            @Override
-            public LeisureDocHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-                View view= LayoutInflater.from(parent.getContext())
-                        .inflate(R.layout.item2,parent,false);
-                return new LeisureDocHolder(view);
-            }
-        };
 
-        binding.home3RecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
-        binding.home3RecyclerView.setAdapter(adapter);
+        });
 
-        // Inflate the layout for this fragment
+        updateQuery("");
+
         return binding.getRoot();
+    }
+
+    public void updateQuery(String text) {
+
+        Query baseQuery= FirebaseFirestore.getInstance()
+                .collection("leisureWritings")
+                .orderBy("timestamp");
+        if (text.getBytes().length > 0) {
+            Log.d("ksh", "updateQuery: text 들어옴");
+            baseQuery = baseQuery.where(Filter.or(
+                    Filter.equalTo("contentTitle", text),
+                    Filter.equalTo("category", text),
+                    Filter.equalTo("place", text)
+            ));
+        }
+        Query finalQuery = baseQuery.limit(50);
+
+        FirestoreRecyclerOptions<LeisureDoc> options=new FirestoreRecyclerOptions.Builder<LeisureDoc>()
+                .setQuery(finalQuery,LeisureDoc.class)
+                .build();
+
+        updateAdapter(options);
+    }
+
+    private void updateAdapter(FirestoreRecyclerOptions<LeisureDoc> options) {
+        if(adapter == null) {
+            adapter = new FirestoreRecyclerAdapter<LeisureDoc, LeisureDocHolder>(options) {
+                @Override
+                protected void onBindViewHolder(@NonNull LeisureDocHolder holder, int position, @NonNull LeisureDoc model) {
+                    holder.bind(model);
+                    holder.itemView.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            String title = holder.getmTitle().getText().toString();
+
+                            Intent intent = new Intent(v.getContext(), Post_Inside_Playing.class);
+                            intent.putExtra("COLLECTION", "leisureWritings");
+                            intent.putExtra("DOCUMENT", title);
+                            Log.d("KSM", "인텐트 전달");
+                            startActivity(intent);
+                        }
+                    });
+                }
+
+                @NonNull
+                @Override
+                public LeisureDocHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+                    View view = LayoutInflater.from(parent.getContext())
+                            .inflate(R.layout.item2, parent, false);
+                    return new LeisureDocHolder(view);
+                }
+            };
+
+            binding.home3RecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
+            binding.home3RecyclerView.setAdapter(adapter);
+        }else {
+            adapter.updateOptions(options);
+            binding.home3RecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
+            binding.home3RecyclerView.setAdapter(adapter);
+        }
+
+
     }
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {

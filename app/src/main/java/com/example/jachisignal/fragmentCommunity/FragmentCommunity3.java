@@ -13,8 +13,12 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
+import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.Spinner;
 
+import com.example.jachisignal.Doc.CommunityDoc;
 import com.example.jachisignal.PostActivity.Post_Inside_Community;
 import com.example.jachisignal.PostActivity.Post_Inside_Recipe;
 import com.example.jachisignal.R;
@@ -26,6 +30,7 @@ import com.example.jachisignal.databinding.ItemBinding;
 import com.firebase.ui.firestore.FirestoreRecyclerAdapter;
 import com.firebase.ui.firestore.FirestoreRecyclerOptions;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.firestore.Filter;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.Query;
 
@@ -37,7 +42,12 @@ import java.util.ArrayList;
  * create an instance of this fragment.
  */
 public class FragmentCommunity3 extends Fragment {
+
+    //Spinner spinner;
+
+
     private FirestoreRecyclerAdapter adapter;
+    private FirestoreRecyclerOptions<RecipeDoc> options;
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -80,52 +90,129 @@ public class FragmentCommunity3 extends Fragment {
     }
     FragmentCommunity3Binding binding;
 
+    EditText frag3_search_text;
+
+    ImageButton search_BTN;
+    //String search_option_string = "title";
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-
         binding=FragmentCommunity3Binding.inflate(inflater,container,false);
-        Query query= FirebaseFirestore.getInstance()
-                .collection("recipeWritings")
-                .orderBy("timestamp")
-                .limit(50);
-        FirestoreRecyclerOptions<RecipeDoc> options=new FirestoreRecyclerOptions.Builder<RecipeDoc>()
-                .setQuery(query,RecipeDoc.class)
-                .build();
-        adapter=new FirestoreRecyclerAdapter<RecipeDoc, RecipeDocHolder>(options) {
-            @Override
-            protected void onBindViewHolder(@NonNull RecipeDocHolder holder, int position, @NonNull RecipeDoc model) {
-                holder.bind(model);
-                holder.itemView.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        Log.d("KSM", "Gggg");
-                        String title = holder.getmTitle().getText().toString();
 
-                        Log.d("KSM", "eeeee");
-                        Intent intent = new Intent(v.getContext(), Post_Inside_Recipe.class);
-                        intent.putExtra("COLLECTION","recipeWritings");
-                        Log.d("KSM", title);
-                        intent.putExtra("DOCUMENT",title);
-                        Log.d("KSM", title);
-                        startActivity(intent);
-                    }
-                });
-            }
-            @NonNull
-            @Override
-            public RecipeDocHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-                View view= LayoutInflater.from(parent.getContext())
-                        .inflate(R.layout.item,parent,false);
-                return new RecipeDocHolder(view);
-            }
-        };
+//        spinner = binding.spinner;
+//        // spinner.setOnItemSelectedListener(this);
+//        spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+//            @Override
+//            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+//                switch(spinner.getItemAtPosition(position).toString()) {
+//                    case "title" :
+//                        search_option_string = "title";
+//                        break;
+//
+//                    case "category" :
+//                        search_option_string = "category";
+//                        break;
+//                }
+//            }
+//            @Override
+//            public void onNothingSelected(AdapterView<?> parent) {
+//            }
+//        });
 
-        binding.community3RecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
-        binding.community3RecyclerView.setAdapter(adapter);
+        search_BTN = binding.searchBtnRecipe;
+        frag3_search_text= binding.searchText;
+
+
+
+        search_BTN.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                updateQuery(frag3_search_text.getText().toString());
+            }
+
+        });
+
+
+        updateQuery("");
+
+        Log.d("ksh", "onCreateView: 맨처음 다 뜨게");
+
+
 
         // Inflate the layout for this fragment
         return binding.getRoot();
+    }
+
+    public void updateQuery(String text) {
+        Log.d("ksh", "updateQuery"+text);
+
+        Query baseQuery= FirebaseFirestore.getInstance()
+                .collection("recipeWritings")
+                .orderBy("timestamp");
+
+        if(text.getBytes().length > 0) {
+            Log.d("ksh", "updateQuery: text 들어옴");
+            baseQuery = baseQuery.where(Filter.or(
+                    Filter.equalTo("contentTitle",text),
+                    Filter.equalTo("category",text)
+            ));
+        }
+        Query finalQuery = baseQuery.limit(50);
+
+        FirestoreRecyclerOptions<RecipeDoc> options=new FirestoreRecyclerOptions.Builder<RecipeDoc>()
+                .setQuery(finalQuery,RecipeDoc.class)
+                .build();
+
+        updateAdapter(options);
+
+    }
+
+    private  void updateAdapter(FirestoreRecyclerOptions<RecipeDoc> options) {
+        Log.d("ksh", "updateAdapter: 들어옴1");
+
+        if(adapter == null) {
+            Log.d("ksh", "updateAdapter: 들어옴 null");
+            adapter=new FirestoreRecyclerAdapter<RecipeDoc, RecipeDocHolder>(options) {
+                @Override
+                protected void onBindViewHolder(@NonNull RecipeDocHolder holder, int position, @NonNull RecipeDoc model) {
+                    holder.bind(model);
+                    holder.itemView.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            Log.d("KSM", "Gggg");
+                            String title = holder.getmTitle().getText().toString();
+
+                            Log.d("KSM", "eeeee");
+                            Intent intent = new Intent(v.getContext(), Post_Inside_Recipe.class);
+                            intent.putExtra("COLLECTION","recipeWritings");
+                            Log.d("KSM", title);
+                            intent.putExtra("DOCUMENT",title);
+                            Log.d("KSM", title);
+                            startActivity(intent);
+                        }
+                    });
+                }
+                @NonNull
+                @Override
+                public RecipeDocHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+                    Log.d("ksh", "onCreateViewHolder: 들어옴");
+                    View view= LayoutInflater.from(parent.getContext())
+                            .inflate(R.layout.item,parent,false);
+                    return new RecipeDocHolder(view);
+                }
+            };
+
+
+            Log.d("ksh", "updateAdapter: setLayoutManager");
+            binding.community3RecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
+            binding.community3RecyclerView.setAdapter(adapter);
+        } else {
+            Log.d("ksh", "updateAdapter: 들어옴 else");
+            adapter.updateOptions(options);
+            binding.community3RecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
+            binding.community3RecyclerView.setAdapter(adapter);
+        }
     }
 
     @Override
@@ -146,43 +233,44 @@ public class FragmentCommunity3 extends Fragment {
 
     }
 
-    public class MyViewHolder extends  RecyclerView.ViewHolder{
-        private ItemBinding binding;
-
-
-        private  MyViewHolder(ItemBinding binding){
-            super(binding.getRoot());
-            this.binding=binding;
-        }
-    }
-
-    private class MyAdapter extends RecyclerView.Adapter<MyViewHolder>{
-        ArrayList<RecipeDoc> recipeDocArrayList;
-
-        public MyAdapter(ArrayList<RecipeDoc> recipeDocArrayList){
-            this.recipeDocArrayList=recipeDocArrayList;
-        }
-
-        @NonNull
-        @Override
-        public MyViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-            ItemBinding binding=ItemBinding.inflate(LayoutInflater.from(parent.getContext()),parent,false);
-            return new MyViewHolder(binding);
-        }
-
-        @Override
-        public void onBindViewHolder(@NonNull MyViewHolder holder, int position) {
-            RecipeDoc recipeDoc = recipeDocArrayList.get(position);
-            holder.binding.category.setText(recipeDoc.getCategory());
-            holder.binding.nickname.setText(recipeDoc.getNickname());
-            holder.binding.heartCount.setText(Integer.toString(recipeDoc.getLikeList().size())+"개");
-        }
-
-        @Override
-        public int getItemCount() {
-            return recipeDocArrayList.size();
-        }
-    }
+//    public class MyViewHolder extends  RecyclerView.ViewHolder{
+//        private ItemBinding binding;
+//
+//
+//        private  MyViewHolder(ItemBinding binding){
+//            super(binding.getRoot());
+//            this.binding=binding;
+//        }
+//    }
+//
+//    private class MyAdapter extends RecyclerView.Adapter<MyViewHolder>{
+//        ArrayList<RecipeDoc> recipeDocArrayList;
+//
+//        public MyAdapter(ArrayList<RecipeDoc> recipeDocArrayList){
+//            this.recipeDocArrayList=recipeDocArrayList;
+//        }
+//
+//        @NonNull
+//        @Override
+//        public MyViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+//            ItemBinding binding=ItemBinding.inflate(LayoutInflater.from(parent.getContext()),parent,false);
+//            return new MyViewHolder(binding);
+//        }
+//
+//        @Override
+//        public void onBindViewHolder(@NonNull MyViewHolder holder, int position) {
+//            RecipeDoc recipeDoc = recipeDocArrayList.get(position);
+//            holder.binding.category.setText(recipeDoc.getCategory());
+//            holder.binding.nickname.setText(recipeDoc.getNickname());
+//            holder.binding.heartCount.setText(Integer.toString(recipeDoc.getLikeList().size())+"개");
+//        }
+//
+//        @Override
+//        public int getItemCount() {
+//            return recipeDocArrayList.size();
+//        }
+//
+//    }
 
 
     @Override
