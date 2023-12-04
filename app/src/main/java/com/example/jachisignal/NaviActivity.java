@@ -24,19 +24,6 @@ public class NaviActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_navi);
 
-//        Intent receivedIntent = getIntent();
-//        String downloadRef = receivedIntent.getStringExtra("task_message");
-//        FragmentManager manager = getSupportFragmentManager();
-//        FragmentTransaction transaction = manager.beginTransaction();
-//        Bundle bundle = new Bundle();
-//        //2. 데이터 담기
-//        bundle.putString("task",downloadRef);
-//        //3. 프래그먼트 선언
-//        FragmentSetting fragmentSetting = new FragmentSetting();
-//        //4. 프래그먼트에 데이터 넘기기
-//        fragmentSetting.setArguments(bundle);
-//        Log.d("KYR", "데이터 넘김 ");
-
         BottomNavigationView navigationBarView = findViewById(R.id.menu_bottom_navigation);
         transferTo(FragmentHome.newInstance("param1", "param2"));
 
