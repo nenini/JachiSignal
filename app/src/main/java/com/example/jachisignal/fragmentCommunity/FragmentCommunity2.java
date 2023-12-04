@@ -12,10 +12,12 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.EditText;
 import android.widget.ImageButton;
 
 import com.example.jachisignal.Doc.JachiDoc;
 import com.example.jachisignal.Doc.JachiDocHolder;
+import com.example.jachisignal.Doc.RecipeDoc;
 import com.example.jachisignal.PostActivity.Post_Inside_Jachitem;
 import com.example.jachisignal.PostActivity.Post_Inside_Recipe;
 import com.example.jachisignal.R;
@@ -25,6 +27,7 @@ import com.example.jachisignal.WritingActivity.RecipeWritingActivity;
 import com.example.jachisignal.databinding.FragmentCommunity2Binding;
 import com.firebase.ui.firestore.FirestoreRecyclerAdapter;
 import com.firebase.ui.firestore.FirestoreRecyclerOptions;
+import com.google.firebase.firestore.Filter;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.Query;
 
@@ -35,6 +38,8 @@ import com.google.firebase.firestore.Query;
  */
 public class FragmentCommunity2 extends Fragment {
     private FirestoreRecyclerAdapter adapter;
+
+    private FirestoreRecyclerOptions<JachiDoc> options;
 
 
     // TODO: Rename parameter arguments, choose names that match
@@ -77,50 +82,96 @@ public class FragmentCommunity2 extends Fragment {
         }
     }
     FragmentCommunity2Binding binding;
+
+    EditText frag2_search_text;
+
+    ImageButton search_BTN;
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        binding=FragmentCommunity2Binding.inflate(inflater,container,false);
-        Query query= FirebaseFirestore.getInstance()
-                .collection("jachitemWritings")
-                .orderBy("timestamp")
-                .limit(50);
-        FirestoreRecyclerOptions<JachiDoc> options=new FirestoreRecyclerOptions.Builder<JachiDoc>()
-                .setQuery(query,JachiDoc.class)
-                .build();
-        adapter=new FirestoreRecyclerAdapter<JachiDoc, JachiDocHolder>(options) {
+        binding = FragmentCommunity2Binding.inflate(inflater, container, false);
+
+        search_BTN = binding.searchBtnRecipe;
+        frag2_search_text = binding.searchText;
+
+
+        search_BTN.setOnClickListener(new View.OnClickListener() {
             @Override
-            protected void onBindViewHolder(@NonNull JachiDocHolder holder, int position, @NonNull JachiDoc model) {
-                holder.bind(model);
-                holder.itemView.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        String title = holder.getmTitle().getText().toString();
-
-                        Intent intent = new Intent(v.getContext(), Post_Inside_Jachitem.class);
-                        intent.putExtra("COLLECTION","jachitemWritings");
-                        intent.putExtra("DOCUMENT",title);
-                        Log.d("KSM", "인텐트 전달");
-                        startActivity(intent);
-                    }
-                });
+            public void onClick(View v) {
+                updateQuery(frag2_search_text.getText().toString());
             }
-            @NonNull
-            @Override
-            public JachiDocHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-                View view= LayoutInflater.from(parent.getContext())
-                        .inflate(R.layout.item_jachi,parent,false);
-                return new JachiDocHolder(view);
-            }
-        };
 
-        binding.community2RecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
-        binding.community2RecyclerView.setAdapter(adapter);
+        });
 
-        // Inflate the layout for this fragment
+        updateQuery("");
+
+        Log.d("ksh", "onCreateView: 맨처음 다 뜨게");
+
         return binding.getRoot();
-
     }
+
+    public void updateQuery(String text) {
+            Log.d("ksh", "updateQuery"+text);
+
+            Query baseQuery= FirebaseFirestore.getInstance()
+                    .collection("jachitemWritings")
+                    .orderBy("timestamp");
+
+            if(text.getBytes().length > 0) {
+                Log.d("ksh", "updateQuery: text 들어옴");
+                baseQuery = baseQuery.where(Filter.or(
+                        Filter.equalTo("contentTitle",text),
+                        Filter.equalTo("category",text)
+                ));
+            }
+            Query finalQuery = baseQuery.limit(50);
+
+        FirestoreRecyclerOptions<JachiDoc> options=new FirestoreRecyclerOptions.Builder<JachiDoc>()
+                .setQuery(finalQuery,JachiDoc.class)
+                .build();
+
+        updateAdapter(options);
+        }
+
+
+        private void updateAdapter(FirestoreRecyclerOptions<JachiDoc> options) {
+            if (adapter == null) {
+                adapter = new FirestoreRecyclerAdapter<JachiDoc, JachiDocHolder>(options) {
+                    @Override
+                    protected void onBindViewHolder(@NonNull JachiDocHolder holder, int position, @NonNull JachiDoc model) {
+                        holder.bind(model);
+                        holder.itemView.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+                                String title = holder.getmTitle().getText().toString();
+
+                                Intent intent = new Intent(v.getContext(), Post_Inside_Jachitem.class);
+                                intent.putExtra("COLLECTION", "jachitemWritings");
+                                intent.putExtra("DOCUMENT", title);
+                                Log.d("KSM", "인텐트 전달");
+                                startActivity(intent);
+                            }
+                        });
+                    }
+
+                    @NonNull
+                    @Override
+                    public JachiDocHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+                        View view = LayoutInflater.from(parent.getContext())
+                                .inflate(R.layout.item_jachi, parent, false);
+                        return new JachiDocHolder(view);
+                    }
+                };
+
+                binding.community2RecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
+                binding.community2RecyclerView.setAdapter(adapter);
+            } else {
+                adapter.updateOptions(options);
+                binding.community2RecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
+                binding.community2RecyclerView.setAdapter(adapter);
+            }
+        }
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
 
         super.onViewCreated(view, savedInstanceState);

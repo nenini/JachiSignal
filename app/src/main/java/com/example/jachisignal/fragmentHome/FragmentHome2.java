@@ -12,6 +12,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.EditText;
 import android.widget.ImageButton;
 
 import com.example.jachisignal.Doc.GongguDoc;
@@ -26,6 +27,7 @@ import com.example.jachisignal.databinding.FragmentHome1Binding;
 import com.example.jachisignal.databinding.FragmentHome2Binding;
 import com.firebase.ui.firestore.FirestoreRecyclerAdapter;
 import com.firebase.ui.firestore.FirestoreRecyclerOptions;
+import com.google.firebase.firestore.Filter;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.Query;
 
@@ -36,6 +38,8 @@ import com.google.firebase.firestore.Query;
  */
 public class FragmentHome2 extends Fragment {
     private FirestoreRecyclerAdapter adapter;
+
+    private FirestoreRecyclerOptions<GongguDoc2> options;
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -79,48 +83,92 @@ public class FragmentHome2 extends Fragment {
 
     FragmentHome2Binding binding;
 
+    EditText home2_search_text;
+
+    ImageButton search_BTN;
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         binding= FragmentHome2Binding.inflate(inflater,container,false);
-        Query query= FirebaseFirestore.getInstance()
-                .collection("gongu2Writings")
-                .orderBy("timestamp")
-                .limit(50);
-        FirestoreRecyclerOptions<GongguDoc2> options=new FirestoreRecyclerOptions.Builder<GongguDoc2>()
-                .setQuery(query,GongguDoc2.class)
-                .build();
-        adapter=new FirestoreRecyclerAdapter<GongguDoc2, GongguDocHolder2>(options) {
+
+        search_BTN = binding.searchBtnHome2;
+        home2_search_text = binding.searchTextHome2;
+
+        search_BTN.setOnClickListener(new View.OnClickListener() {
             @Override
-            protected void onBindViewHolder(@NonNull GongguDocHolder2 holder, int position, @NonNull GongguDoc2 model) {
-                holder.bind(model);
-                holder.itemView.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        String title = holder.getmTitle().getText().toString();
-
-                        Intent intent = new Intent(v.getContext(), Post_Inside_09_2.class);
-                        intent.putExtra("COLLECTION","gongu2Writings");
-                        intent.putExtra("DOCUMENT",title);
-                        Log.d("KSM", "인텐트 전달");
-                        startActivity(intent);
-                    }
-                });
+            public void onClick(View v) {
+                updateQuery(home2_search_text.getText().toString());
             }
-            @NonNull
-            @Override
-            public GongguDocHolder2 onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-                View view= LayoutInflater.from(parent.getContext())
-                        .inflate(R.layout.item09_1,parent,false);
-                return new GongguDocHolder2(view);
-            }
-        };
 
-        binding.home2RecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
-        binding.home2RecyclerView.setAdapter(adapter);
+        });
 
-        // Inflate the layout for this fragment
+        updateQuery("");
+
         return binding.getRoot();
+    }
+
+    public void updateQuery(String text) {
+        Query baseQuery= FirebaseFirestore.getInstance()
+                .collection("gongu2Writings")
+                .orderBy("timestamp");
+
+        if (text.getBytes().length > 0) {
+            Log.d("ksh", "updateQuery: text 들어옴");
+            baseQuery = baseQuery.where(Filter.or(
+                    Filter.equalTo("contentTitle", text),
+                    Filter.equalTo("category", text),
+                    Filter.equalTo("itemName", text)
+            ));
+        }
+        Query finalQuery = baseQuery.limit(50);
+
+
+        FirestoreRecyclerOptions<GongguDoc2> options = new FirestoreRecyclerOptions.Builder<GongguDoc2>()
+                .setQuery(finalQuery, GongguDoc2.class)
+                .build();
+
+        updateAdapter(options);
+    }
+
+    private void updateAdapter(FirestoreRecyclerOptions<GongguDoc2> options) {
+        if(adapter == null) {
+            adapter = new FirestoreRecyclerAdapter<GongguDoc2, GongguDocHolder2>(options) {
+                @Override
+                protected void onBindViewHolder(@NonNull GongguDocHolder2 holder, int position, @NonNull GongguDoc2 model) {
+                    holder.bind(model);
+                    holder.itemView.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            String title = holder.getmTitle().getText().toString();
+
+                            Intent intent = new Intent(v.getContext(), Post_Inside_09_2.class);
+                            intent.putExtra("COLLECTION", "gongu2Writings");
+                            intent.putExtra("DOCUMENT", title);
+                            Log.d("KSM", "인텐트 전달");
+                            startActivity(intent);
+                        }
+                    });
+                }
+
+                @NonNull
+                @Override
+                public GongguDocHolder2 onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+                    View view = LayoutInflater.from(parent.getContext())
+                            .inflate(R.layout.item09_1, parent, false);
+                    return new GongguDocHolder2(view);
+                }
+            };
+
+            binding.home2RecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
+            binding.home2RecyclerView.setAdapter(adapter);
+        }else {
+            adapter.updateOptions(options);
+            binding.home2RecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
+            binding.home2RecyclerView.setAdapter(adapter);
+        }
+
+
     }
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {

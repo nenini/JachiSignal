@@ -31,15 +31,29 @@
             android:layout_height="wrap_content"
             android:orientation="vertical">
 
-            <EditText
-                android:layout_marginStart="20dp"
-                android:layout_marginEnd="20dp"
+            <LinearLayout
+                android:id="@+id/linearLayout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:inputType="text"
-                android:maxLines="1"
-                android:backgroundTint="#3c567b"
-                android:drawableLeft="@drawable/search"/>
+                android:orientation="horizontal">
+
+
+                <EditText
+                    android:id="@+id/searchText_home2"
+                    android:layout_width="match_parent"
+                    android:layout_weight="1"
+                    android:layout_height="wrap_content"
+                    android:inputType="text" />
+
+                <ImageButton
+                    android:layout_marginLeft="20dp"
+                    android:id="@+id/searchBtn_home2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/search"
+                    android:background="@drawable/blue"
+                    />
+            </LinearLayout>
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/home2_recyclerView"

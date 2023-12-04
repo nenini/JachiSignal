@@ -20,11 +20,13 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
+import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.TextView;
 
 import com.example.jachisignal.Doc.CommunityDoc;
 import com.example.jachisignal.Doc.CommunityDocHolder;
+import com.example.jachisignal.Doc.RecipeDoc;
 import com.example.jachisignal.PostActivity.Post_Inside_Community;
 import com.example.jachisignal.PostActivity.Post_Inside_Jachitem;
 import com.example.jachisignal.R;
@@ -32,8 +34,12 @@ import com.example.jachisignal.WritingActivity.CommunityWritingActivity;
 import com.example.jachisignal.databinding.FragmentCommunity1Binding;
 import com.firebase.ui.firestore.FirestoreRecyclerAdapter;
 import com.firebase.ui.firestore.FirestoreRecyclerOptions;
+import com.google.firebase.firestore.EventListener;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.FirebaseFirestoreException;
 import com.google.firebase.firestore.Query;
+import com.google.firebase.firestore.QueryDocumentSnapshot;
+import com.google.firebase.firestore.QuerySnapshot;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -91,6 +97,10 @@ public class FragmentCommunity1 extends Fragment {
 
     Button update_BTN;
 
+    EditText frag1_search_text;
+
+//    ImageButton search_BTN;
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -98,6 +108,7 @@ public class FragmentCommunity1 extends Fragment {
         binding=FragmentCommunity1Binding.inflate(inflater,container,false);
         checkBox = binding.communityQuestionShow;
         update_BTN = binding.communityUpdate;
+//        search_BTN = binding.searchBtn;
 
 //        String str;
 //        Bundle bundle = getArguments();
@@ -112,24 +123,35 @@ public class FragmentCommunity1 extends Fragment {
         checkBox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                updateQuery(isChecked);
-            }
+                Log.d("ksh", "onCheckedChanged: 질문글 체크");
 
-            public void checkCheck(boolean isChecked) {
-                updateQuery(isChecked);
+                updateQuery(isChecked, frag1_search_text.getText().toString());
             }
         });
 
         update_BTN.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                updateQuery(checkBox.isChecked());
+
+                    updateQuery(checkBox.isChecked(), frag1_search_text.getText().toString());
+
+
             }
         });
 
 
 
-        updateQuery(false);
+        ImageButton search_BTN = binding.searchBtn;
+        frag1_search_text = binding.searchWord;
+        search_BTN.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                updateQuery(checkBox.isChecked(), frag1_search_text.getText().toString());
+            }
+
+        });
+
+        updateQuery(false,"");
         // Inflate the layout for this fragment
 
         Log.d("ksh", "onCreateView: 맨처음 다 뜨게");
@@ -137,15 +159,21 @@ public class FragmentCommunity1 extends Fragment {
     }
 
 
-    public void updateQuery(boolean isChecked) {
-        Log.d("ksh", "updateQuery");
+    public void updateQuery(boolean isChecked, String text) {
+        Log.d("ksh", "updateQuery"+text);
+
         Query baseQuery = FirebaseFirestore.getInstance()
                 .collection("communityWritings")
                 .orderBy("timestamp");
 
         if(isChecked) {
-            Log.d("ksh", "updateQuery: 나중에 질문글 체크했을때");
+            Log.d("ksh", "updateQuery: 나중에 질문글 체크했을 때");
             baseQuery = baseQuery.whereEqualTo("isQuestion",true);
+        }
+        Log.d("ksh", "updateQuery: text 안 들어옴");
+        if(text.getBytes().length>0) {
+            Log.d("ksh", "updateQuery: text 들어옴");
+            baseQuery = baseQuery.whereEqualTo("contentTitle",text);
         }
         Query finalQuery = baseQuery.limit(50);
 
@@ -183,14 +211,16 @@ public class FragmentCommunity1 extends Fragment {
                 @NonNull
                 @Override
                 public CommunityDocHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+                    Log.d("ksh", "onCreateViewHolder: 들어옴");
                     View view= LayoutInflater.from(parent.getContext())
                             .inflate(R.layout.item_community,parent,false);
                     return new CommunityDocHolder(view);
                 }
             };
-
+            Log.d("ksh", "updateAdapter: setLayoutManager");
             binding.community1RecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
             binding.community1RecyclerView.setAdapter(adapter);
+
         } else {
             Log.d("ksh", "updateAdapter: 들어옴 else");
             adapter.updateOptions(options);
@@ -198,6 +228,7 @@ public class FragmentCommunity1 extends Fragment {
             binding.community1RecyclerView.setAdapter(adapter);
 
         }
+
     }
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
 
