@@ -14,15 +14,19 @@ import com.bumptech.glide.Glide;
 import com.example.jachisignal.R;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 
 public class JachiDocHolder extends RecyclerView.ViewHolder{
+    String uid = getUidOfCurrentUser();
     private final TextView mNickname;
     private final TextView mHeartcount;
     private final TextView mTitle;
     private final TextView mCategory;
     private final ImageView mImg;
+    private final ImageView mhaert;
+    private final ImageView mStar;
 
     public JachiDocHolder(@NonNull View itemView) {
         super(itemView);
@@ -31,6 +35,8 @@ public class JachiDocHolder extends RecyclerView.ViewHolder{
         mTitle=itemView.findViewById(R.id.title);
         mCategory=itemView.findViewById(R.id.category);
         mImg=itemView.findViewById(R.id.img);
+        mhaert=itemView.findViewById(R.id.heart);
+        mStar=itemView.findViewById(R.id.star);
     }
 
     public void bind(@NonNull JachiDoc jachiDoc){
@@ -39,6 +45,8 @@ public class JachiDocHolder extends RecyclerView.ViewHolder{
         setTitle(jachiDoc.getContentTitle());
         setmCategory(jachiDoc.getCategory());
         setImgLink(jachiDoc.getImageLink());
+        setHeart(jachiDoc.getLikeList().contains(uid));
+        setStar(jachiDoc.getScrapList().contains(uid));
     }
 
     private void setNickname(@Nullable String nickname){ mNickname.setText(nickname);}
@@ -48,6 +56,18 @@ public class JachiDocHolder extends RecyclerView.ViewHolder{
         mCategory.setText(category);
     }
     private void setImgLink(@Nullable String imgLink){if (imgLink!=null)downloadImageTo(imgLink);}
+    private void setHeart(@Nullable boolean heart_TF){
+        if(heart_TF){
+            mhaert.setImageResource(R.drawable.heartcount);
+        }
+        else mhaert.setImageResource(R.drawable.heart);
+    }
+    private void setStar(@Nullable boolean star_TF){
+        if(star_TF){
+            mStar.setImageResource(R.drawable.star);
+        }
+        else mStar.setImageResource(R.drawable.star_blank);
+    }
     private void downloadImageTo(String uri) {
         // Get a default Storage bucket
         FirebaseStorage storage = FirebaseStorage.getInstance();
@@ -78,8 +98,13 @@ public class JachiDocHolder extends RecyclerView.ViewHolder{
             }
         });
     }
+    private boolean hasSignedIn() {
+        return FirebaseAuth.getInstance().getCurrentUser() != null ? true : false;
+    }
 
-
+    private String getUidOfCurrentUser() {
+        return hasSignedIn() ? FirebaseAuth.getInstance().getCurrentUser().getUid() : null;
+    }
 
     public TextView getmCategory() {
         return mCategory;

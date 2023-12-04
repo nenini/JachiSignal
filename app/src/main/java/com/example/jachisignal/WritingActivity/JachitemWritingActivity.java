@@ -63,7 +63,7 @@ public class JachitemWritingActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 JachiDoc jachiDoc = new JachiDoc(appUser.getNickname(),"5_"+binding.jachiWriteTitle.getText().toString(),user.getEmail(),binding.jachiWriteTitle.getText().toString(),
-                        binding.jachiWriteBody.getText().toString(),"1",binding.jachiWriteCategory.getText().toString(),imgLink,new ArrayList<String>());
+                        binding.jachiWriteBody.getText().toString(),"1",binding.jachiWriteCategory.getText().toString(),imgLink,new ArrayList<String>(),new ArrayList<String>());
                 db.collection("jachitemWritings").document(binding.jachiWriteTitle.getText().toString()).set(jachiDoc);
                 finish();
             }
