@@ -17,6 +17,10 @@
         android:theme="@style/Theme.JachiSignal"
         tools:targetApi="31">
         <activity
+            android:name=".MainActivity"
+            android:exported="false"
+            android:screenOrientation="portrait"/>
+        <activity
             android:name=".PostActivity.Post_Inside_09_2"
             android:exported="false"
             android:screenOrientation="portrait" />
@@ -93,7 +97,7 @@
             android:exported="false"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".MainActivity"
+            android:name=".JachiLogoActivity"
             android:exported="true"
             android:screenOrientation="portrait">
             <intent-filter>
