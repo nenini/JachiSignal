@@ -14,16 +14,21 @@ import com.bumptech.glide.Glide;
 import com.example.jachisignal.R;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 
 public class LeisureDocHolder extends RecyclerView.ViewHolder {
+    String uid = getUidOfCurrentUser();
+
     private final TextView mNickname;
     private final TextView mHeartcount;
     private final TextView mTitle;
     private final TextView mCategory;
     private final TextView mPeopleCount;
     private final ImageView mImg;
+    private final ImageView mhaert;
+    private final ImageView mStar;
 
     public LeisureDocHolder(@NonNull View itemView) {
         super(itemView);
@@ -33,6 +38,8 @@ public class LeisureDocHolder extends RecyclerView.ViewHolder {
         mCategory = itemView.findViewById(R.id.category);
         mPeopleCount=itemView.findViewById(R.id.people_count);
         mImg=itemView.findViewById(R.id.img);
+        mhaert=itemView.findViewById(R.id.heart);
+        mStar=itemView.findViewById(R.id.star);
     }
 
     public void bind(@NonNull LeisureDoc leisureDoc) {
@@ -42,6 +49,8 @@ public class LeisureDocHolder extends RecyclerView.ViewHolder {
         setmCategory(leisureDoc.getCategory());
         setPeopleCount(leisureDoc.getPeopleCount());
         setImgLink(leisureDoc.getImageLink());
+        setHeart(leisureDoc.getLikeList().contains(uid));
+        setStar(leisureDoc.getScrapList().contains(uid));
     }
     private void setNickname(@Nullable String nickname){ mNickname.setText(nickname);}
     private void setHeartCount(@Nullable String heartCount){ mHeartcount.setText(heartCount);}
@@ -51,6 +60,18 @@ public class LeisureDocHolder extends RecyclerView.ViewHolder {
     }
     private void setPeopleCount(@Nullable String peopleCount){ mPeopleCount.setText(peopleCount);}
     private void setImgLink(@Nullable String imgLink){if (imgLink!=null)downloadImageTo(imgLink);}
+    private void setHeart(@Nullable boolean heart_TF){
+        if(heart_TF){
+            mhaert.setImageResource(R.drawable.heartcount);
+        }
+        else mhaert.setImageResource(R.drawable.heart);
+    }
+    private void setStar(@Nullable boolean star_TF){
+        if(star_TF){
+            mStar.setImageResource(R.drawable.star);
+        }
+        else mStar.setImageResource(R.drawable.star_blank);
+    }
     private void downloadImageTo(String uri) {
         // Get a default Storage bucket
         FirebaseStorage storage = FirebaseStorage.getInstance();
@@ -81,7 +102,13 @@ public class LeisureDocHolder extends RecyclerView.ViewHolder {
             }
         });
     }
+    private boolean hasSignedIn() {
+        return FirebaseAuth.getInstance().getCurrentUser() != null ? true : false;
+    }
 
+    private String getUidOfCurrentUser() {
+        return hasSignedIn() ? FirebaseAuth.getInstance().getCurrentUser().getUid() : null;
+    }
     public TextView getmNickname() {
         return mNickname;
     }

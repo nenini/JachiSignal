@@ -82,7 +82,7 @@ public class mypage_scrap extends AppCompatActivity {
                     @Override
                     public void onSuccess(DocumentSnapshot documentSnapshot) {
                         gongguDoc = documentSnapshot.toObject(GongguDoc.class);
-                        myPageScrapDoc = new MyPageScrapDoc(gongguDoc.getContentTitle(), gongguDoc.getText(), gongguDoc.getCategory(), gongguDoc.getLikeList());
+                        myPageScrapDoc = new MyPageScrapDoc(gongguDoc.getItemName(), gongguDoc.getText(), gongguDoc.getCategory(), gongguDoc.getLikeList());
                         Log.d("KYR", "init()" + writingNum[1]);
                         adapter.addItem(myPageScrapDoc);
                         adapter.notifyDataSetChanged();
@@ -99,7 +99,7 @@ public class mypage_scrap extends AppCompatActivity {
                     @Override
                     public void onSuccess(DocumentSnapshot documentSnapshot) {
                         gongguDoc2 = documentSnapshot.toObject(GongguDoc2.class);
-                        myPageScrapDoc = new MyPageScrapDoc(gongguDoc2.getContentTitle(), gongguDoc2.getText(), gongguDoc2.getCategory(), gongguDoc.getLikeList());
+                        myPageScrapDoc = new MyPageScrapDoc(gongguDoc2.getItemName(), gongguDoc2.getText(), gongguDoc2.getCategory(), gongguDoc2.getLikeList());
                         Log.d("KYR", "init()" + writingNum[1]);
                         adapter.addItem(myPageScrapDoc);
                         adapter.notifyDataSetChanged();

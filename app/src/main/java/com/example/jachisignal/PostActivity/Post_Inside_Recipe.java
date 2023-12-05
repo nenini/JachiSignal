@@ -63,6 +63,16 @@ public class Post_Inside_Recipe extends AppCompatActivity {
                 binding.heartCountRecipePost.setText(Integer.toString(recipeDoc.getLikeList().size()) + "개");
 
                 binding.nicknameRecipePost.setText(recipeDoc.getNickname());
+                DocumentReference docRef2 = db.collection("users").document(recipeDoc.getWriteId());
+                docRef2.get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
+                    @Override
+                    public void onSuccess(DocumentSnapshot documentSnapshot) {
+                        appUser = documentSnapshot.toObject(AppUser.class);
+                        if(appUser.getImg()!=null){downloadImageToUser(appUser.getImg());}
+                    }
+                });
+
+
                 if(recipeDoc.getImageLink()!=null){ downloadImageTo(recipeDoc.getImageLink());}
 
                 //하트 색 바뀜
@@ -114,6 +124,19 @@ public class Post_Inside_Recipe extends AppCompatActivity {
             public void onSuccess(Uri uri) {
                 Log.d("KYR", "포스트레시피 url"+uri.toString());
                 Glide.with(Post_Inside_Recipe.this).load(uri).into(binding.downloadedImageview);
+            }
+        });
+    }
+    private void downloadImageToUser(String uri) {
+        // Get a default Storage bucket
+        FirebaseStorage storage = FirebaseStorage.getInstance();
+
+        // Create a reference to a file from a Google Cloud Storage URI
+        StorageReference gsReference = storage.getReferenceFromUrl(uri); // from gs://~~~
+        gsReference.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
+            @Override
+            public void onSuccess(Uri uri) {
+                Glide.with(Post_Inside_Recipe.this).load(uri).into(binding.userImgRecipePost);
             }
         });
     }

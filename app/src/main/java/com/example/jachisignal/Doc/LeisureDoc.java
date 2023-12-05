@@ -16,6 +16,8 @@ public class LeisureDoc {
     private String id;
     private String imageLink;
     private String text;
+    private List<String> scrapList;
+
     private List<String> likeList;
     private String writeId;
     private String place;
@@ -26,7 +28,7 @@ public class LeisureDoc {
 
     @ServerTimestamp
     private Timestamp timestamp; // server timestamp
-    public LeisureDoc(String nickname, String id, String writeId, String contentTitle, String text, String createAt, String category, String imageLink, List<String> likeList, String place, String date, String peopleCount, String chatLink) {
+    public LeisureDoc(String nickname, String id, String writeId, String contentTitle, String text, String createAt, String category, String imageLink, List<String> likeList,List<String> scrapList, String place, String date, String peopleCount, String chatLink) {
         this.nickname=nickname;
         this.id = id;
         this.likeList = likeList;
@@ -40,6 +42,7 @@ public class LeisureDoc {
         this.date=date;
         this.peopleCount=peopleCount;
         this.chatLink=chatLink;
+        this.scrapList=scrapList;
     }
     public LeisureDoc(){}
 
@@ -74,6 +77,8 @@ public class LeisureDoc {
     public List<String> getLikeList() {
         return likeList;
     }
+    public List<String> getScrapList(){return scrapList; }
+
 
     public String getText() {
         return text;
@@ -103,6 +108,9 @@ public class LeisureDoc {
 
     public void setLikeList(List<String> likeList) {
         this.likeList = likeList;
+    }
+    public void setScrapList(List<String> scrapList) {
+        this.scrapList = scrapList;
     }
 
     public void setImageLink(String imageLink) {
@@ -150,4 +158,5 @@ public class LeisureDoc {
     public void setChatLink(String chatLink) {
         this.chatLink = chatLink;
     }
+
 }

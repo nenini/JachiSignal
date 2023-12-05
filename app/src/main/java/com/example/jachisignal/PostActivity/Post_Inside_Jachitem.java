@@ -68,6 +68,14 @@ public class Post_Inside_Jachitem extends AppCompatActivity {
                 binding.textJachitem.setText(jachiDoc.getText());
                 binding.heartCountJachitem.setText(Integer.toString(jachiDoc.getLikeList().size()) + "개");
                 binding.nicknameJachitem.setText(jachiDoc.getNickname());
+                DocumentReference docRef2 = db.collection("users").document(jachiDoc.getWriteId());
+                docRef2.get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
+                    @Override
+                    public void onSuccess(DocumentSnapshot documentSnapshot) {
+                        appUser = documentSnapshot.toObject(AppUser.class);
+                        if(appUser.getImg()!=null){downloadImageToUser(appUser.getImg());}
+                    }
+                });
                 if (jachiDoc.getImageLink() != null) {
                     downloadImageTo(jachiDoc.getImageLink());
                 }
@@ -169,6 +177,19 @@ public class Post_Inside_Jachitem extends AppCompatActivity {
             public void onSuccess(Uri uri) {
                 Log.d("KYR", "포스트레시피 url" + uri.toString());
                 Glide.with(Post_Inside_Jachitem.this).load(uri).into(binding.downloadedImageview);
+            }
+        });
+    }
+    private void downloadImageToUser(String uri) {
+        // Get a default Storage bucket
+        FirebaseStorage storage = FirebaseStorage.getInstance();
+
+        // Create a reference to a file from a Google Cloud Storage URI
+        StorageReference gsReference = storage.getReferenceFromUrl(uri); // from gs://~~~
+        gsReference.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
+            @Override
+            public void onSuccess(Uri uri) {
+                Glide.with(Post_Inside_Jachitem.this).load(uri).into(binding.userImgJachiPost);
             }
         });
     }

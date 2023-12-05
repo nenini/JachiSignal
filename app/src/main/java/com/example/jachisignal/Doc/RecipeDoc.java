@@ -119,4 +119,6 @@ public class RecipeDoc {
         this.nickname = nickname;
     }
 
+
+
 }

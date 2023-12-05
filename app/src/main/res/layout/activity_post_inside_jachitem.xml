@@ -46,6 +46,7 @@
                 android:layout_height="60dp">
 
                 <ImageView
+                    android:id="@+id/user_img_jachi_post"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:scaleType="centerInside"
@@ -151,14 +152,14 @@
                             android:id="@+id/heart_jachi_post"
                             android:layout_width="20dp"
                             android:layout_height="20dp"
-                            android:src="@drawable/heartcount" />
+                            android:src="@drawable/heart" />
 
                         <ImageView
                             android:id="@+id/star_jachi_post"
                             android:layout_width="20dp"
                             android:layout_height="20dp"
                             android:layout_marginLeft="10dp"
-                            android:src="@drawable/star" />
+                            android:src="@drawable/star_blank" />
                     </LinearLayout>
                 </LinearLayout>
             </LinearLayout>

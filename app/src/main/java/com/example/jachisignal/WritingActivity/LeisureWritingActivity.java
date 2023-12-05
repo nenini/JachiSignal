@@ -66,7 +66,7 @@ public class LeisureWritingActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 LeisureDoc leisureDoc = new LeisureDoc(appUser.getNickname(),"3_"+binding.leisureWriteTitle.getText().toString(),user.getEmail(),binding.leisureWriteTitle.getText().toString(),
-                        binding.leisureWriteBody.getText().toString(),"1",binding.leisureWriteCategory.getText().toString(),imgLink,new ArrayList<String>(),binding.leisureWritePlace.getText().toString(),binding.leisureWriteDate.getText().toString(),"1/"+binding.leisureWritePeopleCount.getText().toString(),binding.leisureWriteChatLink.getText().toString());
+                        binding.leisureWriteBody.getText().toString(),"1",binding.leisureWriteCategory.getText().toString(),imgLink,new ArrayList<String>(),new ArrayList<String>(),binding.leisureWritePlace.getText().toString(),binding.leisureWriteDate.getText().toString(),"1/"+binding.leisureWritePeopleCount.getText().toString(),binding.leisureWriteChatLink.getText().toString());
                 db.collection("leisureWritings").document(binding.leisureWriteTitle.getText().toString()).set(leisureDoc);
                 finish();
             }

@@ -14,6 +14,7 @@ public class GongguDoc {
     private String id;
     private String imageLink;
     private String text;
+    private List<String> scrapList;
     private List<String> likeList;
     private String writeId;
     private String itemName;
@@ -22,9 +23,10 @@ public class GongguDoc {
     private String chatLink;
 
 
+
     @ServerTimestamp
     private Timestamp timestamp; // server timestamp
-    public GongguDoc(String nickname, String id, String writeId, String contentTitle, String text, String createAt, String category, String imageLink, List<String> likeList, String itemName, String price, String peopleCount, String chatLink) {
+    public GongguDoc(String nickname, String id, String writeId, String contentTitle, String text, String createAt, String category, String imageLink, List<String> likeList,List<String> scrapList, String itemName, String price, String peopleCount, String chatLink) {
         this.nickname=nickname;
         this.id = id;
         this.likeList = likeList;
@@ -38,6 +40,7 @@ public class GongguDoc {
         this.price=price;
         this.peopleCount=peopleCount;
         this.chatLink=chatLink;
+        this.scrapList=scrapList;
     }
     public GongguDoc(){}
 
@@ -72,6 +75,7 @@ public class GongguDoc {
     public List<String> getLikeList() {
         return likeList;
     }
+    public List<String> getScrapList(){return scrapList; }
 
     public String getText() {
         return text;
@@ -102,6 +106,10 @@ public class GongguDoc {
     public void setLikeList(List<String> likeList) {
         this.likeList = likeList;
     }
+    public void setScrapList(List<String> scrapList) {
+        this.scrapList = scrapList;
+    }
+
 
     public void setImageLink(String imageLink) {
         this.imageLink = imageLink;

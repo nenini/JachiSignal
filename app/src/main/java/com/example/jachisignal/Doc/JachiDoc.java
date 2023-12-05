@@ -6,6 +6,7 @@ import com.google.firebase.firestore.ServerTimestamp;
 import java.util.List;
 
 public class JachiDoc {
+
     private String category;
     private String contentTitle;
 
@@ -70,6 +71,7 @@ public class JachiDoc {
     public List<String> getScrapList(){return scrapList; }
 
 
+
     public String getText() {
         return text;
     }
@@ -89,6 +91,7 @@ public class JachiDoc {
     public void setScrapList(List<String> scrapList) {
         this.scrapList = scrapList;
     }
+
 
     public void setImageLink(String imageLink) {
         this.imageLink = imageLink;
