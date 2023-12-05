@@ -111,7 +111,7 @@ public class FragmentHome2 extends Fragment {
     public void updateQuery(String text) {
         Query baseQuery= FirebaseFirestore.getInstance()
                 .collection("gongu2Writings")
-                .orderBy("timestamp");
+                .orderBy("timestamp", Query.Direction.DESCENDING);
 
         if (text.getBytes().length > 0) {
             Log.d("ksh", "updateQuery: text 들어옴");

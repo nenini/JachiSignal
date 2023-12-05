@@ -118,7 +118,7 @@ public class FragmentHome3 extends Fragment {
 
         Query baseQuery= FirebaseFirestore.getInstance()
                 .collection("leisureWritings")
-                .orderBy("timestamp");
+                .orderBy("timestamp", Query.Direction.DESCENDING);
         if (text.getBytes().length > 0) {
             Log.d("ksh", "updateQuery: text 들어옴");
             baseQuery = baseQuery.where(Filter.or(

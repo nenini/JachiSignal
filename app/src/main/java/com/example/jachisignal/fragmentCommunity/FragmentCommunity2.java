@@ -116,7 +116,7 @@ public class FragmentCommunity2 extends Fragment {
 
             Query baseQuery= FirebaseFirestore.getInstance()
                     .collection("jachitemWritings")
-                    .orderBy("timestamp");
+                    .orderBy("timestamp", Query.Direction.DESCENDING);
 
             if(text.getBytes().length > 0) {
                 Log.d("ksh", "updateQuery: text 들어옴");

@@ -32,6 +32,7 @@ public class MyPageScrapAdapter extends RecyclerView.Adapter<MyPageScrapAdapter.
     @Override
     public void onBindViewHolder(@NonNull MyPageScrapDocHolder holder, int position) {
         holder.bind(listData.get(position));
+        //여기에서 제목 intent 넘기기
 
     }
 

@@ -164,7 +164,7 @@ public class FragmentCommunity1 extends Fragment {
 
         Query baseQuery = FirebaseFirestore.getInstance()
                 .collection("communityWritings")
-                .orderBy("timestamp");
+                .orderBy("timestamp", Query.Direction.DESCENDING);
 
         if(isChecked) {
             Log.d("ksh", "updateQuery: 나중에 질문글 체크했을 때");
