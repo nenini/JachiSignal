@@ -3,9 +3,12 @@ package com.example.jachisignal.Doc;
 import com.google.firebase.Timestamp;
 import com.google.firebase.firestore.ServerTimestamp;
 
+import java.lang.reflect.Array;
+import java.util.ArrayList;
 import java.util.List;
 
 public class CommunityDoc {
+    private ArrayList<String> contentArray;
 
     private String siName;
     private String guName;
@@ -24,7 +27,7 @@ public class CommunityDoc {
     @ServerTimestamp
     private Timestamp timestamp; // server timestamp
 
-    public CommunityDoc(String nickname, String id,String writeId, String contentTitle, String text, String createAt, String category, String imageLink,  List<String> likeList, boolean isQuestion,String siName,String guName) {
+    public CommunityDoc(String nickname, String id, String writeId, String contentTitle, String text, String createAt, String category, String imageLink, List<String> likeList, boolean isQuestion, String siName, String guName, ArrayList<String> contentArray) {
         this.nickname=nickname;
         this.id=id;
         this.likeList = likeList;
@@ -37,9 +40,18 @@ public class CommunityDoc {
         this.isQuestion = isQuestion;
         this.siName = siName;
         this.guName = guName;
+        this.contentArray = contentArray;
 
     }
     public CommunityDoc(){}
+
+    public void setContentArray(ArrayList<String> contentArray) {
+        this.contentArray = contentArray;
+    }
+
+    public ArrayList<String> getContentArray() {
+        return contentArray;
+    }
 
     public String getSiName() {
         return siName;

@@ -3,9 +3,11 @@ package com.example.jachisignal.Doc;
 import com.google.firebase.Timestamp;
 import com.google.firebase.firestore.ServerTimestamp;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class JachiDoc {
+    private ArrayList<String> contentArray;
 
     private String category;
     private String contentTitle;
@@ -22,7 +24,7 @@ public class JachiDoc {
     @ServerTimestamp
     private Timestamp timestamp; // server timestamp
 
-    public JachiDoc(String nickname,String id, String writeId, String contentTitle, String text, String createAt, String category, String imageLink,  List<String> likeList,List<String> scrapList) {
+    public JachiDoc(String nickname,String id, String writeId, String contentTitle, String text, String createAt, String category, String imageLink,  List<String> likeList,List<String> scrapList,ArrayList<String> contentArray) {
         this.nickname=nickname;
         this.id = id;
         this.likeList = likeList;
@@ -33,9 +35,18 @@ public class JachiDoc {
         this.contentTitle = contentTitle;
         this.imageLink = imageLink;
         this.scrapList=scrapList;
+        this.contentArray = contentArray;
 
     }
     public JachiDoc(){}
+
+    public void setContentArray(ArrayList<String> contentArray) {
+        this.contentArray = contentArray;
+    }
+
+    public ArrayList<String> getContentArray() {
+        return contentArray;
+    }
 
     public String getNickname() {
         return nickname;

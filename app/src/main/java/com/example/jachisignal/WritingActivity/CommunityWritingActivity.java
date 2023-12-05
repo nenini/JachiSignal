@@ -24,6 +24,7 @@ import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 public class CommunityWritingActivity extends AppCompatActivity {
@@ -127,14 +128,16 @@ public class CommunityWritingActivity extends AppCompatActivity {
         binding.communityWriteBTN.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                String[] words = binding.communityWriteTitle.getText().toString().split(" ");
+                ArrayList<String> wordList = new ArrayList<>(Arrays.asList(words));
                 if (binding.communityCheckbox.isChecked()) {
                     CommunityDoc communityDoc = new CommunityDoc(appUser.getNickname(), "4_"+binding.communityWriteTitle.getText().toString(),user.getEmail(), binding.communityWriteTitle.getText().toString(),
-                            binding.communityWriteBody.getText().toString(), "1", "1", "1", new ArrayList<String>(), true,choice_si,choice_gu);
+                            binding.communityWriteBody.getText().toString(), "1", "1", "1", new ArrayList<String>(), true,choice_si,choice_gu,wordList);
                     db.collection("communityWritings").document(binding.communityWriteTitle.getText().toString()).set(communityDoc);
                     finish();
                 } else {
                     CommunityDoc communityDoc = new CommunityDoc(appUser.getNickname(), "4_"+binding.communityWriteTitle.getText().toString(),user.getEmail(), binding.communityWriteTitle.getText().toString(),
-                            binding.communityWriteBody.getText().toString(), "1", "1", "1", new ArrayList<String>(), false,choice_si,choice_gu);
+                            binding.communityWriteBody.getText().toString(), "1", "1", "1", new ArrayList<String>(), false,choice_si,choice_gu,wordList);
                     db.collection("communityWritings").document(binding.communityWriteTitle.getText().toString()).set(communityDoc);
                     finish();
                 }

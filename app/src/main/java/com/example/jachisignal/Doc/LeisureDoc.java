@@ -3,11 +3,13 @@ package com.example.jachisignal.Doc;
 import com.google.firebase.Timestamp;
 import com.google.firebase.firestore.ServerTimestamp;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import kotlinx.coroutines.stream.StreamKt;
 
 public class LeisureDoc {
+    private ArrayList<String> contentArray;
     private String category;
     private String contentTitle;
     private String nickname;
@@ -28,7 +30,7 @@ public class LeisureDoc {
 
     @ServerTimestamp
     private Timestamp timestamp; // server timestamp
-    public LeisureDoc(String nickname, String id, String writeId, String contentTitle, String text, String createAt, String category, String imageLink, List<String> likeList,List<String> scrapList, String place, String date, String peopleCount, String chatLink) {
+    public LeisureDoc(String nickname, String id, String writeId, String contentTitle, String text, String createAt, String category, String imageLink, List<String> likeList,List<String> scrapList, String place, String date, String peopleCount, String chatLink,ArrayList<String> contentArray) {
         this.nickname=nickname;
         this.id = id;
         this.likeList = likeList;
@@ -43,8 +45,17 @@ public class LeisureDoc {
         this.peopleCount=peopleCount;
         this.chatLink=chatLink;
         this.scrapList=scrapList;
+        this.contentArray = contentArray;
     }
     public LeisureDoc(){}
+
+    public void setContentArray(ArrayList<String> contentArray) {
+        this.contentArray = contentArray;
+    }
+
+    public ArrayList<String> getContentArray() {
+        return contentArray;
+    }
 
     public String getNickname() {
         return nickname;

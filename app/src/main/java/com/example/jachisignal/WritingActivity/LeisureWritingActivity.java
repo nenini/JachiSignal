@@ -32,6 +32,7 @@ import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 public class LeisureWritingActivity extends AppCompatActivity {
@@ -66,8 +67,10 @@ public class LeisureWritingActivity extends AppCompatActivity {
         binding.leisureWriteBTN.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                String[] words = binding.leisureWriteTitle.getText().toString().split(" ");
+                ArrayList<String> wordList = new ArrayList<>(Arrays.asList(words));
                 LeisureDoc leisureDoc = new LeisureDoc(appUser.getNickname(),"3_"+binding.leisureWriteTitle.getText().toString(),user.getEmail(),binding.leisureWriteTitle.getText().toString(),
-                        binding.leisureWriteBody.getText().toString(),"1",binding.leisureWriteCategory.getText().toString(),imgLink,new ArrayList<String>(),new ArrayList<String>(),binding.leisureWritePlace.getText().toString(),binding.leisureWriteDate.getText().toString(),"1/"+binding.leisureWritePeopleCount.getText().toString(),binding.leisureWriteChatLink.getText().toString());
+                        binding.leisureWriteBody.getText().toString(),"1",binding.leisureWriteCategory.getText().toString(),imgLink,new ArrayList<String>(),new ArrayList<String>(),binding.leisureWritePlace.getText().toString(),binding.leisureWriteDate.getText().toString(),"1/"+binding.leisureWritePeopleCount.getText().toString(),binding.leisureWriteChatLink.getText().toString(),wordList);
                 db.collection("leisureWritings").document(binding.leisureWriteTitle.getText().toString()).set(leisureDoc);
                 leisureMyWrite();
                 finish();

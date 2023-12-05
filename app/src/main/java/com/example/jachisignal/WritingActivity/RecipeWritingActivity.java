@@ -29,6 +29,7 @@ import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 public class RecipeWritingActivity extends AppCompatActivity {
@@ -64,8 +65,10 @@ public class RecipeWritingActivity extends AppCompatActivity {
         binding.recipeWriteBTN.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                String[] words = binding.recipeWriteTitle.getText().toString().split(" ");
+                ArrayList<String> wordList = new ArrayList<>(Arrays.asList(words));
                 RecipeDoc recipeDoc = new RecipeDoc(appUser.getNickname(),"6_"+binding.recipeWriteTitle.getText().toString(),user.getEmail(),binding.recipeWriteTitle.getText().toString(),
-                        binding.recipeWriteBody.getText().toString(),"1",binding.recipeWriteCategory.getText().toString(),imgLink,new ArrayList<String>(),new ArrayList<String>());
+                        binding.recipeWriteBody.getText().toString(),"1",binding.recipeWriteCategory.getText().toString(),imgLink,new ArrayList<String>(),new ArrayList<String>(),wordList);
                 db.collection("recipeWritings").document(binding.recipeWriteTitle.getText().toString()).set(recipeDoc);
                 recipeMyWrite();
                 finish();

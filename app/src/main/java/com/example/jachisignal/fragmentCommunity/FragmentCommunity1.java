@@ -241,7 +241,7 @@ public class FragmentCommunity1 extends Fragment {
         Log.d("ksh", "updateQuery: text 안 들어옴");
         if(text.getBytes().length>0) {
             Log.d("ksh", "updateQuery: text 들어옴");
-            baseQuery = baseQuery.whereEqualTo("contentTitle",text);
+            baseQuery = baseQuery.whereArrayContains("contentArray",text);
         }
         if(si.equals("전체")){
             Log.d("ksh", "updateQuery: 전체"+si+gu);

@@ -190,7 +190,7 @@ public class FragmentHome1 extends Fragment {
         if (text.getBytes().length > 0) {
             Log.d("ksh", "updateQuery: text 들어옴");
             baseQuery = baseQuery.where(Filter.or(
-                    Filter.equalTo("contentTitle", text),
+                    Filter.arrayContains("contentArray", text),
                     Filter.equalTo("category", text),
                     Filter.equalTo("itemName", text)
             ));

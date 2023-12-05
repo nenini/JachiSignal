@@ -3,10 +3,11 @@ package com.example.jachisignal.Doc;
 import com.google.firebase.Timestamp;
 import com.google.firebase.firestore.ServerTimestamp;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class GongguDoc {
-
+    private ArrayList<String> contentArray;
     private String siName;
     private String guName;
     private String category;
@@ -29,7 +30,7 @@ public class GongguDoc {
 
     @ServerTimestamp
     private Timestamp timestamp; // server timestamp
-    public GongguDoc(String nickname, String id, String writeId, String contentTitle, String text, String createAt, String category, String imageLink, List<String> likeList,List<String> scrapList, String itemName, String price, String peopleCount, String chatLink,String siName,String guName) {
+    public GongguDoc(String nickname, String id, String writeId, String contentTitle, String text, String createAt, String category, String imageLink, List<String> likeList,List<String> scrapList, String itemName, String price, String peopleCount, String chatLink,String siName,String guName,ArrayList<String> contentArray) {
         this.nickname=nickname;
         this.id = id;
         this.likeList = likeList;
@@ -46,8 +47,17 @@ public class GongguDoc {
         this.scrapList=scrapList;
         this.siName = siName;
         this.guName = guName;
+        this.contentArray = contentArray;
     }
     public GongguDoc(){}
+
+    public void setContentArray(ArrayList<String> contentArray) {
+        this.contentArray = contentArray;
+    }
+
+    public ArrayList<String> getContentArray() {
+        return contentArray;
+    }
 
     public String getSiName() {
         return siName;
