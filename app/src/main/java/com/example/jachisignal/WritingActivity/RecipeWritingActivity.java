@@ -29,6 +29,7 @@ import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class RecipeWritingActivity extends AppCompatActivity {
 
@@ -38,12 +39,13 @@ public class RecipeWritingActivity extends AppCompatActivity {
     AppUser appUser;
     private Uri uri;
     private String imgLink;
+    ActivityRecipeWritingBinding binding;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        ActivityRecipeWritingBinding binding = ActivityRecipeWritingBinding.inflate(getLayoutInflater());
+        binding = ActivityRecipeWritingBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
         FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
@@ -65,6 +67,7 @@ public class RecipeWritingActivity extends AppCompatActivity {
                 RecipeDoc recipeDoc = new RecipeDoc(appUser.getNickname(),"6_"+binding.recipeWriteTitle.getText().toString(),user.getEmail(),binding.recipeWriteTitle.getText().toString(),
                         binding.recipeWriteBody.getText().toString(),"1",binding.recipeWriteCategory.getText().toString(),imgLink,new ArrayList<String>(),new ArrayList<String>());
                 db.collection("recipeWritings").document(binding.recipeWriteTitle.getText().toString()).set(recipeDoc);
+                recipeMyWrite();
                 finish();
             }
         });
@@ -119,6 +122,20 @@ public class RecipeWritingActivity extends AppCompatActivity {
         String fileName ="_" + System.currentTimeMillis();
         path=dir + "/" + fileName;
         return dir + "/" + fileName;
+    }
+    private void recipeMyWrite(){
+        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+        DocumentReference docRef1 = db.collection("users").document(user.getEmail());
+        docRef1.get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
+            @Override
+            public void onSuccess(DocumentSnapshot documentSnapshot) {
+                appUser = documentSnapshot.toObject(AppUser.class);
+                List<String> myWrite=appUser.getMyWrite();
+                myWrite.add("6_"+binding.recipeWriteTitle.getText().toString());
+                appUser.setMyWrite(myWrite);
+                db.collection("users").document(user.getEmail()).set(appUser);
+            }
+        });
     }
     private boolean hasSignedIn() {
         return FirebaseAuth.getInstance().getCurrentUser() != null ? true : false;

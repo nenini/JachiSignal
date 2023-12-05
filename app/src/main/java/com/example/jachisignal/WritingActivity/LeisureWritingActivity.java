@@ -32,6 +32,7 @@ import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class LeisureWritingActivity extends AppCompatActivity {
     String path;
@@ -68,6 +69,7 @@ public class LeisureWritingActivity extends AppCompatActivity {
                 LeisureDoc leisureDoc = new LeisureDoc(appUser.getNickname(),"3_"+binding.leisureWriteTitle.getText().toString(),user.getEmail(),binding.leisureWriteTitle.getText().toString(),
                         binding.leisureWriteBody.getText().toString(),"1",binding.leisureWriteCategory.getText().toString(),imgLink,new ArrayList<String>(),new ArrayList<String>(),binding.leisureWritePlace.getText().toString(),binding.leisureWriteDate.getText().toString(),"1/"+binding.leisureWritePeopleCount.getText().toString(),binding.leisureWriteChatLink.getText().toString());
                 db.collection("leisureWritings").document(binding.leisureWriteTitle.getText().toString()).set(leisureDoc);
+                leisureMyWrite();
                 finish();
             }
         });
@@ -124,6 +126,20 @@ public class LeisureWritingActivity extends AppCompatActivity {
         String fileName ="_" + System.currentTimeMillis();
         path=dir + "/" + fileName;
         return dir + "/" + fileName;
+    }
+    private void leisureMyWrite(){
+        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+        DocumentReference docRef1 = db.collection("users").document(user.getEmail());
+        docRef1.get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
+            @Override
+            public void onSuccess(DocumentSnapshot documentSnapshot) {
+                appUser = documentSnapshot.toObject(AppUser.class);
+                List<String> myWrite=appUser.getMyWrite();
+                myWrite.add("3_"+binding.leisureWriteTitle.getText().toString());
+                appUser.setMyWrite(myWrite);
+                db.collection("users").document(user.getEmail()).set(appUser);
+            }
+        });
     }
     private boolean hasSignedIn() {
         return FirebaseAuth.getInstance().getCurrentUser() != null ? true : false;

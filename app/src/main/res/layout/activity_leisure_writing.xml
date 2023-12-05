@@ -41,143 +41,147 @@
                 android:hint="제목"
                 android:inputType="text"
                 android:maxLines="1" />
-
-
-
-
-            <RelativeLayout
+            <ScrollView
                 android:layout_width="match_parent"
-                android:layout_height="330dp"
-                android:layout_marginTop="20dp"
-                android:background="@drawable/whiteblue">
-
-                <EditText
-                    android:id="@+id/leisure_write_body"
+                android:layout_height="wrap_content">
+                <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="430dp"
-                    android:gravity="top"
-                    android:hint="내용을 입력해주세요"
-                    android:background="@null"/>
-
-                <ImageButton
-                    android:id="@+id/leisure_write_imgBTN"
-                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_alignParentBottom="true"
-                    android:background="@android:color/transparent"
-                    android:src="@drawable/image" />
-                <EditText
-                    android:id="@+id/leisure_write_category"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:hint="#카테고리"
-                    android:layout_alignParentEnd="true"
-                    android:layout_alignParentBottom="true" />
+                    android:orientation="vertical">
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="300dp"
+                        android:layout_marginTop="20dp"
+                        android:background="@drawable/whiteblue">
 
-            </RelativeLayout>
-            <LinearLayout
-                android:layout_width="350dp"
-                android:layout_height="38dp"
-                android:layout_gravity="center"
-                android:layout_marginTop="5dp"
-                android:background="@drawable/button_round"
-                android:orientation="horizontal">
+                        <EditText
+                            android:id="@+id/leisure_write_body"
+                            android:layout_width="match_parent"
+                            android:layout_height="400dp"
+                            android:gravity="top"
+                            android:hint="내용을 입력해주세요"
+                            android:background="@null"/>
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
-                    android:gravity="center"
-                    android:text="장소"
-                    android:textColor="#3c567b"
-                    android:textSize="17sp"
-                    android:textStyle="bold" />
+                        <ImageButton
+                            android:id="@+id/leisure_write_imgBTN"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_alignParentBottom="true"
+                            android:background="@android:color/transparent"
+                            android:src="@drawable/image" />
+                        <EditText
+                            android:id="@+id/leisure_write_category"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:hint="#카테고리"
+                            android:layout_alignParentEnd="true"
+                            android:layout_alignParentBottom="true" />
 
-                <EditText
-                    android:id="@+id/leisure_write_place"
-                    android:layout_width="match_parent"
-                    android:layout_height="30dp"
-                    android:layout_gravity="center"
-                    android:layout_marginStart="10dp" />
+                    </RelativeLayout>
+                    <LinearLayout
+                        android:layout_width="350dp"
+                        android:layout_height="43dp"
+                        android:layout_gravity="center"
+                        android:layout_marginTop="5dp"
+                        android:background="@drawable/button_round"
+                        android:orientation="horizontal">
 
-            </LinearLayout>
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
+                            android:gravity="center"
+                            android:text="장소"
+                            android:textColor="#3c567b"
+                            android:textSize="17sp"
+                            android:textStyle="bold" />
 
-            <LinearLayout
-                android:layout_width="350dp"
-                android:layout_height="38dp"
-                android:layout_gravity="center"
-                android:layout_marginTop="5dp"
-                android:background="@drawable/button_round"
-                android:orientation="horizontal">
+                        <EditText
+                            android:id="@+id/leisure_write_place"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:layout_gravity="center"
+                            android:layout_marginStart="10dp" />
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
-                    android:gravity="center"
-                    android:text="날짜/시간"
-                    android:textColor="#3c567b"
-                    android:textSize="17sp"
-                    android:textStyle="bold" />
+                    </LinearLayout>
 
-                <EditText
-                    android:id="@+id/leisure_write_date"
-                    android:layout_gravity="center"
-                    android:layout_width="match_parent"
-                    android:layout_height="30dp"
-                    android:layout_marginStart="10dp" />
+                    <LinearLayout
+                        android:layout_width="350dp"
+                        android:layout_height="43dp"
+                        android:layout_gravity="center"
+                        android:layout_marginTop="5dp"
+                        android:background="@drawable/button_round"
+                        android:orientation="horizontal">
 
-            </LinearLayout>
-            <LinearLayout
-                android:layout_width="350dp"
-                android:layout_height="38dp"
-                android:layout_gravity="center"
-                android:layout_marginTop="5dp"
-                android:background="@drawable/button_round"
-                android:orientation="horizontal">
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
+                            android:gravity="center"
+                            android:text="날짜/시간"
+                            android:textColor="#3c567b"
+                            android:textSize="17sp"
+                            android:textStyle="bold" />
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
-                    android:gravity="center"
-                    android:text="인원수"
-                    android:textColor="#3c567b"
-                    android:textSize="17sp"
-                    android:textStyle="bold" />
+                        <EditText
+                            android:id="@+id/leisure_write_date"
+                            android:layout_gravity="center"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:layout_marginStart="10dp" />
 
-                <EditText
-                    android:id="@+id/leisure_write_peopleCount"
-                    android:layout_gravity="center"
-                    android:layout_width="match_parent"
-                    android:layout_height="30dp"
-                    android:layout_marginStart="10dp" />
+                    </LinearLayout>
+                    <LinearLayout
+                        android:layout_width="350dp"
+                        android:layout_height="43dp"
+                        android:layout_gravity="center"
+                        android:layout_marginTop="5dp"
+                        android:background="@drawable/button_round"
+                        android:orientation="horizontal">
 
-            </LinearLayout>
-            <LinearLayout
-                android:layout_width="350dp"
-                android:layout_height="38dp"
-                android:layout_gravity="center"
-                android:layout_marginTop="5dp"
-                android:background="@drawable/button_round"
-                android:orientation="horizontal">
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
+                            android:gravity="center"
+                            android:text="인원수"
+                            android:textColor="#3c567b"
+                            android:textSize="17sp"
+                            android:textStyle="bold" />
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
-                    android:gravity="center"
-                    android:text="오픈채팅 링크"
-                    android:textColor="#3c567b"
-                    android:textSize="17sp"
-                    android:textStyle="bold" />
+                        <EditText
+                            android:id="@+id/leisure_write_peopleCount"
+                            android:layout_gravity="center"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:layout_marginStart="10dp" />
 
-                <EditText
-                    android:id="@+id/leisure_write_chatLink"
-                    android:layout_gravity="center"
-                    android:layout_width="match_parent"
-                    android:layout_height="30dp"
-                    android:layout_marginStart="10dp" />
+                    </LinearLayout>
+                    <LinearLayout
+                        android:layout_width="350dp"
+                        android:layout_height="43dp"
+                        android:layout_gravity="center"
+                        android:layout_marginTop="5dp"
+                        android:background="@drawable/button_round"
+                        android:orientation="horizontal">
 
-            </LinearLayout>
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
+                            android:gravity="center"
+                            android:text="오픈채팅 링크"
+                            android:textColor="#3c567b"
+                            android:textSize="17sp"
+                            android:textStyle="bold" />
 
+                        <EditText
+                            android:id="@+id/leisure_write_chatLink"
+                            android:layout_gravity="center"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:layout_marginStart="10dp" />
 
+                    </LinearLayout>
+
+                </LinearLayout>
+            </ScrollView>
         </LinearLayout>
 
 

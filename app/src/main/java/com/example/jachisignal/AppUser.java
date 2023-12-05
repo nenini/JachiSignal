@@ -13,8 +13,10 @@ public class AppUser {
     private String address;
     private String phone;
     private List<String> scrap;
+    private List<String> myWrite;
 
-    public AppUser(String email, String pw, String name, String phone, String address, String nickname,String img,List<String> scrap) {
+
+    public AppUser(String email, String pw, String name, String phone, String address, String nickname,String img,List<String> scrap,List<String> myWrite) {
         this.email=email;
         this.name=name;
         this.nickname = nickname;
@@ -23,6 +25,7 @@ public class AppUser {
         this.address=address;
         this.img=img;
         this.scrap=scrap;
+        this.myWrite=myWrite;
     }
 
     public AppUser(){}
@@ -55,6 +58,7 @@ public class AppUser {
         return address;
     }
     public List<String> getScrap(){return scrap;}
+    public List<String> getMyWrite(){return myWrite;}
 
     public void setAddress(String address) {
         this.address = address;
@@ -82,4 +86,6 @@ public class AppUser {
 
     public void setImg(String img) { this.img = img; }
     public void setScrap(List<String> scrap){this.scrap=scrap;}
+    public void setMyWrite(List<String> myWrite){this.myWrite=myWrite;}
+
 }

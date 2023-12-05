@@ -93,17 +93,7 @@
             android:orientation="horizontal"
             android:background="@drawable/post_background"
             android:layout_marginTop="18dp">
-            <androidx.cardview.widget.CardView
-                android:layout_gravity="center"
-                app:cardElevation="0dp"
-                app:cardCornerRadius="15dp"
-                android:layout_width="70dp"
-                android:layout_height="70dp">
-                <ImageView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:src="@drawable/tissue"/>
-            </androidx.cardview.widget.CardView>
+
             <LinearLayout
                 android:id="@+id/post_tissueText"
                 android:gravity="center_vertical"
@@ -215,9 +205,10 @@
             </LinearLayout>
         </LinearLayout>
         <Button
-            android:layout_marginLeft="283dp"
+            android:id="@+id/join_09_post"
+            android:layout_gravity="right"
             android:layout_marginTop="13dp"
-            android:layout_width="wrap_content"
+            android:layout_width="100dp"
             android:layout_height="35dp"
             android:text="참여하기"
             android:textStyle="bold"

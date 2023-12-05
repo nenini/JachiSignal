@@ -33,6 +33,7 @@ import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class GongguWritingActivity extends AppCompatActivity {
     String path;
@@ -41,11 +42,12 @@ public class GongguWritingActivity extends AppCompatActivity {
     private String imgLink;
 
     AppUser appUser;
+    ActivityGongguWritingBinding binding;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        ActivityGongguWritingBinding binding = ActivityGongguWritingBinding.inflate(getLayoutInflater());
+        binding = ActivityGongguWritingBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
         FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
@@ -69,11 +71,13 @@ public class GongguWritingActivity extends AppCompatActivity {
                     GongguDoc gongguDoc = new GongguDoc(appUser.getNickname(), "1_"+binding.gongguWriteItemName.getText().toString(), user.getEmail(), binding.gongguWriteTitle.getText().toString(),
                             binding.gongguWriteBody.getText().toString(), "1", binding.gongguWriteCategory.getText().toString(), imgLink, new ArrayList<String>(),new ArrayList<String>(), binding.gongguWriteItemName.getText().toString(), binding.gongguWritePrice.getText().toString(), "1/" + binding.gongguWritePeopleCount.getText().toString(), binding.gongguWriteChatLink.getText().toString());
                     db.collection("gongu1Writings").document(binding.gongguWriteItemName.getText().toString()).set(gongguDoc);
+                    gogguMyWrite();
                     finish();
                 } else if (!binding.gongguFaceCheckBox.isChecked()&&binding.gongguDeliCheckBox.isChecked()) {
                     GongguDoc2 gongguDoc2 = new GongguDoc2(appUser.getNickname(), "2_"+binding.gongguWriteItemName.getText().toString(), user.getEmail(), binding.gongguWriteTitle.getText().toString(),
                             binding.gongguWriteBody.getText().toString(), "1", binding.gongguWriteCategory.getText().toString(), imgLink, new ArrayList<String>(), new ArrayList<String>(), binding.gongguWriteItemName.getText().toString(), binding.gongguWritePrice.getText().toString(), "1/" + binding.gongguWritePeopleCount.getText().toString(), binding.gongguWriteChatLink.getText().toString());
                     db.collection("gongu2Writings").document(binding.gongguWriteItemName.getText().toString()).set(gongguDoc2);
+                    goggu2MyWrite();
                     finish();
                 } else if (binding.gongguFaceCheckBox.isChecked()&&binding.gongguDeliCheckBox.isChecked()) {
                     GongguDoc gongguDoc = new GongguDoc(appUser.getNickname(), "1_"+binding.gongguWriteItemName.getText().toString(), user.getEmail(), binding.gongguWriteTitle.getText().toString(),
@@ -82,6 +86,19 @@ public class GongguWritingActivity extends AppCompatActivity {
                     GongguDoc2 gongguDoc2 = new GongguDoc2(appUser.getNickname(), "2_"+binding.gongguWriteItemName.getText().toString(), user.getEmail(), binding.gongguWriteTitle.getText().toString(),
                             binding.gongguWriteBody.getText().toString(), "1", binding.gongguWriteCategory.getText().toString(), imgLink, new ArrayList<String>(),new ArrayList<String>(), binding.gongguWriteItemName.getText().toString(), binding.gongguWritePrice.getText().toString(), "1/" + binding.gongguWritePeopleCount.getText().toString(), binding.gongguWriteChatLink.getText().toString());
                     db.collection("gongu2Writings").document(binding.gongguWriteItemName.getText().toString()).set(gongguDoc2);
+                    FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+                    DocumentReference docRef1 = db.collection("users").document(user.getEmail());
+                    docRef1.get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
+                        @Override
+                        public void onSuccess(DocumentSnapshot documentSnapshot) {
+                            appUser = documentSnapshot.toObject(AppUser.class);
+                            List<String> myWrite=appUser.getMyWrite();
+                            myWrite.add("1_"+binding.gongguWriteItemName.getText().toString());
+                            myWrite.add("2_"+binding.gongguWriteItemName.getText().toString());
+                            appUser.setMyWrite(myWrite);
+                            db.collection("users").document(user.getEmail()).set(appUser);
+                        }
+                    });
                     finish();
                 }
             }
@@ -145,5 +162,35 @@ public class GongguWritingActivity extends AppCompatActivity {
 
     private String getUidOfCurrentUser() {
         return hasSignedIn() ? FirebaseAuth.getInstance().getCurrentUser().getUid() : null;
+    }
+    private void gogguMyWrite(){
+        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+        DocumentReference docRef1 = db.collection("users").document(user.getEmail());
+        docRef1.get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
+            @Override
+            public void onSuccess(DocumentSnapshot documentSnapshot) {
+                Log.d("KYR","집가고싶다 ");
+                appUser = documentSnapshot.toObject(AppUser.class);
+                List<String> myWrite=appUser.getMyWrite();
+                myWrite.add("1_"+binding.gongguWriteItemName.getText().toString());
+                appUser.setMyWrite(myWrite);
+                db.collection("users").document(user.getEmail()).set(appUser);
+            }
+        });
+    }
+    private void goggu2MyWrite(){
+        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+        DocumentReference docRef1 = db.collection("users").document(user.getEmail());
+        docRef1.get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
+            @Override
+            public void onSuccess(DocumentSnapshot documentSnapshot) {
+                Log.d("KYR","집가고싶다 22");
+                appUser = documentSnapshot.toObject(AppUser.class);
+                List<String> myWrite=appUser.getMyWrite();
+                myWrite.add("2_"+binding.gongguWriteItemName.getText().toString());
+                appUser.setMyWrite(myWrite);
+                db.collection("users").document(user.getEmail()).set(appUser);
+            }
+        });
     }
 }

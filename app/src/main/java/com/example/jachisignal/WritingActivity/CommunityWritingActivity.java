@@ -3,6 +3,7 @@ package com.example.jachisignal.WritingActivity;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 
 import com.example.jachisignal.AppUser;
@@ -18,16 +19,18 @@ import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class CommunityWritingActivity extends AppCompatActivity {
 
     private FirebaseFirestore db;
     AppUser appUser;
+    ActivityCommunityWritingBinding binding;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        ActivityCommunityWritingBinding binding = ActivityCommunityWritingBinding.inflate(getLayoutInflater());
+         binding = ActivityCommunityWritingBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
         FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
@@ -59,6 +62,20 @@ public class CommunityWritingActivity extends AppCompatActivity {
                 }
             }
 
+        });
+    }
+    private void communityMyWrite(){
+        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+        DocumentReference docRef1 = db.collection("users").document(user.getEmail());
+        docRef1.get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
+            @Override
+            public void onSuccess(DocumentSnapshot documentSnapshot) {
+                appUser = documentSnapshot.toObject(AppUser.class);
+                List<String> myWrite=appUser.getMyWrite();
+                myWrite.add("4_"+binding.communityWriteTitle.getText().toString());
+                appUser.setMyWrite(myWrite);
+                db.collection("users").document(user.getEmail()).set(appUser);
+            }
         });
     }
 

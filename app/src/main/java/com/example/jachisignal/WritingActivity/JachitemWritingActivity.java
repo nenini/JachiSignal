@@ -30,6 +30,7 @@ import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class JachitemWritingActivity extends AppCompatActivity {
 
@@ -39,11 +40,12 @@ public class JachitemWritingActivity extends AppCompatActivity {
     AppUser appUser;
     private Uri uri;
     private String imgLink;
+    ActivityJachitemWritingBinding binding;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        ActivityJachitemWritingBinding binding = ActivityJachitemWritingBinding.inflate(getLayoutInflater());
+        binding = ActivityJachitemWritingBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
         FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
@@ -65,6 +67,7 @@ public class JachitemWritingActivity extends AppCompatActivity {
                 JachiDoc jachiDoc = new JachiDoc(appUser.getNickname(),"5_"+binding.jachiWriteTitle.getText().toString(),user.getEmail(),binding.jachiWriteTitle.getText().toString(),
                         binding.jachiWriteBody.getText().toString(),"1",binding.jachiWriteCategory.getText().toString(),imgLink,new ArrayList<String>(),new ArrayList<String>());
                 db.collection("jachitemWritings").document(binding.jachiWriteTitle.getText().toString()).set(jachiDoc);
+                jachiItemMyWrite();
                 finish();
             }
         });
@@ -120,6 +123,20 @@ public class JachitemWritingActivity extends AppCompatActivity {
         String fileName ="_" + System.currentTimeMillis();
         path=dir + "/" + fileName;
         return dir + "/" + fileName;
+    }
+    private void jachiItemMyWrite(){
+        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+        DocumentReference docRef1 = db.collection("users").document(user.getEmail());
+        docRef1.get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
+            @Override
+            public void onSuccess(DocumentSnapshot documentSnapshot) {
+                appUser = documentSnapshot.toObject(AppUser.class);
+                List<String> myWrite=appUser.getMyWrite();
+                myWrite.add("5_"+binding.jachiWriteTitle.getText().toString());
+                appUser.setMyWrite(myWrite);
+                db.collection("users").document(user.getEmail()).set(appUser);
+            }
+        });
     }
     private boolean hasSignedIn() {
         return FirebaseAuth.getInstance().getCurrentUser() != null ? true : false;
