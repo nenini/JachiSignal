@@ -17,11 +17,14 @@ import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.Spinner;
 import android.widget.TextView;
 
 import com.example.jachisignal.Doc.CommunityDoc;
@@ -50,6 +53,10 @@ public class FragmentCommunity1 extends Fragment {
 
     private FirestoreRecyclerAdapter adapter;
     private FirestoreRecyclerOptions<CommunityDoc> options;
+
+    ArrayAdapter<CharSequence> adspin1,adspin2;
+    String choice_si_show = "전체";
+    String choice_gu_show ="전체";
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -108,24 +115,85 @@ public class FragmentCommunity1 extends Fragment {
         binding=FragmentCommunity1Binding.inflate(inflater,container,false);
         checkBox = binding.communityQuestionShow;
         update_BTN = binding.communityUpdate;
-//        search_BTN = binding.searchBtn;
 
-//        String str;
-//        Bundle bundle = getArguments();
-//        if(bundle != null) {
-//            str = bundle.getString("checked");
-//            Log.d("ksh", "onCreateView: bundle 들어옴 "+ str);
-//            if("true".equals(str)){
-//                updateQuery(true);
-//            }
-//        }
+        Spinner spin1_show = binding.spinnerShow;
+        Spinner spin2_show = binding.spinner2Show;
+
+        adspin1 = ArrayAdapter.createFromResource(binding.getRoot().getContext(), R.array.spinner_do, android.R.layout.simple_spinner_dropdown_item);
+        adspin1.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        spin1_show.setAdapter(adspin1);
+        spin1_show.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                if(adspin1.getItem(position).equals("전체")) {
+                    choice_si_show = "전체";
+                    adspin2 = ArrayAdapter.createFromResource(binding.getRoot().getContext(),R.array.spinner_do_entire, android.R.layout.simple_spinner_dropdown_item);
+                    adspin2.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+                    spin2_show.setAdapter(adspin2);
+                    spin2_show.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+                        @Override
+                        public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                            choice_gu_show = adspin2.getItem(position).toString();
+                            Log.d("ksh", "onItemSelected: 전체임"+choice_si_show+choice_gu_show);
+                            updateQuery(checkBox.isChecked(), frag1_search_text.getText().toString(),choice_si_show,choice_gu_show);
+                        }
+
+                        @Override
+                        public void onNothingSelected(AdapterView<?> parent) {
+
+                        }
+                    });
+                }
+                else if(adspin1.getItem(position).equals("서울")) {
+                    choice_si_show = "서울";
+                    adspin2 = ArrayAdapter.createFromResource(binding.getRoot().getContext(), R.array.spinner_do_seoul, android.R.layout.simple_spinner_dropdown_item);
+                    adspin2.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+                    spin2_show.setAdapter(adspin2);
+                    spin2_show.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+                        @Override
+                        public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                            choice_gu_show = adspin2.getItem(position).toString();
+                            Log.d("ksh", "onItemSelected: 서울임"+choice_si_show+choice_gu_show);
+                            updateQuery(checkBox.isChecked(), frag1_search_text.getText().toString(),choice_si_show,choice_gu_show);
+                        }
+
+                        @Override
+                        public void onNothingSelected(AdapterView<?> parent) {
+
+                        }
+                    });
+                }else if(adspin1.getItem(position).equals("인천")) {
+                    choice_si_show = "인천";
+                    adspin2 = ArrayAdapter.createFromResource(binding.getRoot().getContext(), R.array.spinner_do_incheon, android.R.layout.simple_spinner_dropdown_item);
+                    adspin2.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+                    spin2_show.setAdapter(adspin2);
+                    spin2_show.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+                        @Override
+                        public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                            choice_gu_show = adspin2.getItem(position).toString();
+                            updateQuery(checkBox.isChecked(), frag1_search_text.getText().toString(),choice_si_show,choice_gu_show);
+                        }
+
+                        @Override
+                        public void onNothingSelected(AdapterView<?> parent) {
+
+                        }
+                    });
+                }
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        });
+
 
         checkBox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 Log.d("ksh", "onCheckedChanged: 질문글 체크");
-
-                updateQuery(isChecked, frag1_search_text.getText().toString());
+                updateQuery(isChecked, frag1_search_text.getText().toString(),choice_si_show,choice_gu_show);
             }
         });
 
@@ -133,7 +201,7 @@ public class FragmentCommunity1 extends Fragment {
             @Override
             public void onClick(View v) {
 
-                    updateQuery(checkBox.isChecked(), frag1_search_text.getText().toString());
+                updateQuery(checkBox.isChecked(), frag1_search_text.getText().toString(),choice_si_show,choice_gu_show);
 
 
             }
@@ -146,12 +214,12 @@ public class FragmentCommunity1 extends Fragment {
         search_BTN.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                updateQuery(checkBox.isChecked(), frag1_search_text.getText().toString());
+                updateQuery(checkBox.isChecked(), frag1_search_text.getText().toString(),choice_si_show,choice_gu_show);
             }
 
         });
 
-        updateQuery(false,"");
+        updateQuery(false,"",choice_si_show,choice_gu_show);
         // Inflate the layout for this fragment
 
         Log.d("ksh", "onCreateView: 맨처음 다 뜨게");
@@ -159,7 +227,7 @@ public class FragmentCommunity1 extends Fragment {
     }
 
 
-    public void updateQuery(boolean isChecked, String text) {
+    public void updateQuery(boolean isChecked, String text,String si,String gu) {
         Log.d("ksh", "updateQuery"+text);
 
         Query baseQuery = FirebaseFirestore.getInstance()
@@ -175,6 +243,21 @@ public class FragmentCommunity1 extends Fragment {
             Log.d("ksh", "updateQuery: text 들어옴");
             baseQuery = baseQuery.whereEqualTo("contentTitle",text);
         }
+        if(si.equals("전체")){
+            Log.d("ksh", "updateQuery: 전체"+si+gu);
+        }
+        if(!si.equals("전체")) {
+            Log.d("ksh", "updateQuery:시 전체 아님"+si+gu);
+            baseQuery = baseQuery.whereEqualTo("siName",si);
+            if(!gu.equals("전체")) {
+                Log.d("ksh", "updateQuery: 구 전체 아님"+si+gu);
+                baseQuery = baseQuery
+                        .whereEqualTo("guName",gu);
+            }
+        }
+
+
+
         Query finalQuery = baseQuery.limit(50);
 
         FirestoreRecyclerOptions<CommunityDoc> options=new FirestoreRecyclerOptions.Builder<CommunityDoc>()

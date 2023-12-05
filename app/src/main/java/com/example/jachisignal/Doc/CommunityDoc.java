@@ -6,6 +6,9 @@ import com.google.firebase.firestore.ServerTimestamp;
 import java.util.List;
 
 public class CommunityDoc {
+
+    private String siName;
+    private String guName;
     private String category;
     private String contentTitle;
     private String nickname;
@@ -21,7 +24,7 @@ public class CommunityDoc {
     @ServerTimestamp
     private Timestamp timestamp; // server timestamp
 
-    public CommunityDoc(String nickname, String id,String writeId, String contentTitle, String text, String createAt, String category, String imageLink,  List<String> likeList, boolean isQuestion) {
+    public CommunityDoc(String nickname, String id,String writeId, String contentTitle, String text, String createAt, String category, String imageLink,  List<String> likeList, boolean isQuestion,String siName,String guName) {
         this.nickname=nickname;
         this.id=id;
         this.likeList = likeList;
@@ -32,8 +35,26 @@ public class CommunityDoc {
         this.contentTitle = contentTitle;
         this.imageLink = imageLink;
         this.isQuestion = isQuestion;
+        this.siName = siName;
+        this.guName = guName;
+
     }
     public CommunityDoc(){}
+
+    public String getSiName() {
+        return siName;
+    }
+
+    public void setSiName(String siName) {
+        this.siName = siName;
+    }
+    public String getGuName() {
+        return guName;
+    }
+
+    public void setGuName(String guName) {
+        this.guName = guName;
+    }
 
     public boolean getIsQuestion(){
         return isQuestion;

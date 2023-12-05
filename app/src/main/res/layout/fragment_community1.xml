@@ -66,23 +66,30 @@
                     android:text="질문글만 보기"
                     android:textStyle="bold"
                     android:textColor="#3c567b"/>
-                <ImageView
-                    android:layout_gravity="center"
-                    android:layout_marginLeft="15dp"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:src="@drawable/arrow_down" />
 
-                <TextView
-                    android:layout_marginStart="10dp"
-                    android:layout_marginEnd="20dp"
+                <LinearLayout
+                    android:weightSum="1"
+                    android:orientation="horizontal"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="전체 지역"
-                    android:textStyle="bold"
-                    android:textColor="#3c567b"/>
+                    >
+                    <Spinner
+
+                        android:layout_width="80dp"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/spinner_show"
+
+                        />
+                    <Spinner
+                        android:layout_width="80dp"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/spinner2_show"
+
+                        />
+                </LinearLayout>
 
                 <Button
+                    android:layout_gravity="right"
                     android:id="@+id/community_update"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"

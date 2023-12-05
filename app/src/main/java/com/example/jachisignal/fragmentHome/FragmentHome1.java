@@ -12,8 +12,11 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.Spinner;
 
 import com.example.jachisignal.Doc.GongguDoc;
 import com.example.jachisignal.Doc.GongguDocHolder;
@@ -42,6 +45,10 @@ public class FragmentHome1 extends Fragment {
     private FirestoreRecyclerAdapter adapter;
 
     private FirestoreRecyclerOptions<GongguDoc> options;
+
+    ArrayAdapter<CharSequence> adspin1,adspin2;
+    String choice_si_show = "전체";
+    String choice_gu_show ="전체";
 
 
     // TODO: Rename parameter arguments, choose names that match
@@ -89,24 +96,96 @@ public class FragmentHome1 extends Fragment {
         search_BTN = binding.searchBtnHome1;
         home1_search_text = binding.searchTextHome1;
 
+        Spinner spin1_show = binding.spinnerGongguShow;
+        Spinner spin2_show = binding.spinner2GongguShow;
+
+        adspin1 = ArrayAdapter.createFromResource(binding.getRoot().getContext(), R.array.spinner_do, android.R.layout.simple_spinner_dropdown_item);
+        adspin1.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        spin1_show.setAdapter(adspin1);
+        spin1_show.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                if(adspin1.getItem(position).equals("전체")) {
+                    choice_si_show = "전체";
+                    adspin2 = ArrayAdapter.createFromResource(binding.getRoot().getContext(),R.array.spinner_do_entire, android.R.layout.simple_spinner_dropdown_item);
+                    adspin2.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+                    spin2_show.setAdapter(adspin2);
+                    spin2_show.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+                        @Override
+                        public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                            choice_gu_show = adspin2.getItem(position).toString();
+                            Log.d("ksh", "onItemSelected: "+adspin2.getItem(position).toString());
+                            updateQuery(home1_search_text.getText().toString(),choice_si_show,choice_gu_show);
+                        }
+
+                        @Override
+                        public void onNothingSelected(AdapterView<?> parent) {
+
+                        }
+                    });
+                }
+                else if(adspin1.getItem(position).equals("서울")) {
+                    choice_si_show = "서울";
+                    adspin2 = ArrayAdapter.createFromResource(binding.getRoot().getContext(), R.array.spinner_do_seoul, android.R.layout.simple_spinner_dropdown_item);
+                    adspin2.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+                    spin2_show.setAdapter(adspin2);
+                    spin2_show.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+                        @Override
+                        public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                            choice_gu_show = adspin2.getItem(position).toString();
+                            Log.d("ksh", "onItemSelected: "+adspin2.getItem(position).toString());
+                            updateQuery(home1_search_text.getText().toString(),choice_si_show,choice_gu_show);
+                        }
+
+                        @Override
+                        public void onNothingSelected(AdapterView<?> parent) {
+
+                        }
+                    });
+                }else if(adspin1.getItem(position).equals("인천")) {
+                    choice_si_show = "인천";
+                    adspin2 = ArrayAdapter.createFromResource(binding.getRoot().getContext(), R.array.spinner_do_incheon, android.R.layout.simple_spinner_dropdown_item);
+                    adspin2.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+                    spin2_show.setAdapter(adspin2);
+                    spin2_show.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+                        @Override
+                        public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                            choice_gu_show = adspin2.getItem(position).toString();
+                            updateQuery(home1_search_text.getText().toString(),choice_si_show,choice_gu_show);
+                        }
+
+                        @Override
+                        public void onNothingSelected(AdapterView<?> parent) {
+
+                        }
+                    });
+                }
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        });
+
         search_BTN.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                updateQuery(home1_search_text.getText().toString());
+                updateQuery(home1_search_text.getText().toString(),choice_si_show,choice_gu_show);
             }
 
         });
 
-        updateQuery("");
+        updateQuery("",choice_si_show,choice_gu_show);
 
         return binding.getRoot();
     }
 
-    public void updateQuery(String text) {
+    public void updateQuery(String text,String si,String gu) {
 
         Query baseQuery = FirebaseFirestore.getInstance()
                 .collection("gongu1Writings")
-                .orderBy("timestamp", Query.Direction.DESCENDING);
+                .orderBy("timestamp",Query.Direction.DESCENDING);
 
         if (text.getBytes().length > 0) {
             Log.d("ksh", "updateQuery: text 들어옴");
@@ -115,6 +194,19 @@ public class FragmentHome1 extends Fragment {
                     Filter.equalTo("category", text),
                     Filter.equalTo("itemName", text)
             ));
+        }
+        if(si.equals("전체")){
+            Log.d("ksh", "updateQuery: 전체"+si+gu);
+        }
+        if(!si.equals("전체")) {
+            Log.d("ksh", "updateQuery:시 전체 아님 "+si+gu);
+            baseQuery = baseQuery.whereEqualTo("siName",si);
+        }
+        if(!gu.equals("전체")) {
+            Log.d("ksh", "updateQuery: 구 전체 아님"+si+gu);
+            baseQuery = baseQuery
+                    .whereEqualTo("siName",si)
+                    .whereEqualTo("guName",gu);
         }
         Query finalQuery = baseQuery.limit(50);
 

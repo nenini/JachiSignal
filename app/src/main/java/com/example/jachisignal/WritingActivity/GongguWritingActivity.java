@@ -12,6 +12,9 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
+import android.widget.Spinner;
 
 import com.example.jachisignal.AppUser;
 import com.example.jachisignal.Doc.GongguDoc;
@@ -44,11 +47,84 @@ public class GongguWritingActivity extends AppCompatActivity {
     AppUser appUser;
     ActivityGongguWritingBinding binding;
 
+    ArrayAdapter<CharSequence> adspin1,adspin2;
+    String choice_si = "전체";
+    String choice_gu ="전체";
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         binding = ActivityGongguWritingBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
+
+        Spinner spin1 = binding.spinnerGonggu;
+        Spinner spin2 = binding.spinner2Gonggu;
+
+        adspin1 = ArrayAdapter.createFromResource(binding.getRoot().getContext(), R.array.spinner_do, android.R.layout.simple_spinner_dropdown_item);
+        adspin1.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        spin1.setAdapter(adspin1);
+        spin1.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                if(adspin1.getItem(position).equals("전체")) {
+                    choice_si = "전체";
+                    adspin2 = ArrayAdapter.createFromResource(binding.getRoot().getContext(),R.array.spinner_do_entire, android.R.layout.simple_spinner_dropdown_item);
+                    adspin2.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+                    spin2.setAdapter(adspin2);
+                    spin2.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+                        @Override
+                        public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                            choice_gu = adspin2.getItem(position).toString();
+                            Log.d("ksh", "onItemSelected: "+adspin2.getItem(position).toString());
+                        }
+
+                        @Override
+                        public void onNothingSelected(AdapterView<?> parent) {
+
+                        }
+                    });
+                }
+                else if(adspin1.getItem(position).equals("서울")) {
+                    choice_si = "서울";
+                    adspin2 = ArrayAdapter.createFromResource(binding.getRoot().getContext(), R.array.spinner_do_seoul, android.R.layout.simple_spinner_dropdown_item);
+                    adspin2.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+                    spin2.setAdapter(adspin2);
+                    spin2.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+                        @Override
+                        public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                            choice_gu = adspin2.getItem(position).toString();
+                            Log.d("ksh", "onItemSelected: "+adspin2.getItem(position).toString());
+                        }
+
+                        @Override
+                        public void onNothingSelected(AdapterView<?> parent) {
+
+                        }
+                    });
+                }else if(adspin1.getItem(position).equals("인천")) {
+                    choice_si = "인천";
+                    adspin2 = ArrayAdapter.createFromResource(binding.getRoot().getContext(), R.array.spinner_do_incheon, android.R.layout.simple_spinner_dropdown_item);
+                    adspin2.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+                    spin2.setAdapter(adspin2);
+                    spin2.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+                        @Override
+                        public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                            choice_gu = adspin2.getItem(position).toString();
+                        }
+
+                        @Override
+                        public void onNothingSelected(AdapterView<?> parent) {
+
+                        }
+                    });
+                }
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        });
 
         FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
 
@@ -69,7 +145,7 @@ public class GongguWritingActivity extends AppCompatActivity {
                 if(binding.gongguFaceCheckBox.isChecked()&&!binding.gongguDeliCheckBox.isChecked()) {
                     Log.d("KYR","Doc");
                     GongguDoc gongguDoc = new GongguDoc(appUser.getNickname(), "1_"+binding.gongguWriteItemName.getText().toString(), user.getEmail(), binding.gongguWriteTitle.getText().toString(),
-                            binding.gongguWriteBody.getText().toString(), "1", binding.gongguWriteCategory.getText().toString(), imgLink, new ArrayList<String>(),new ArrayList<String>(), binding.gongguWriteItemName.getText().toString(), binding.gongguWritePrice.getText().toString(), "1/" + binding.gongguWritePeopleCount.getText().toString(), binding.gongguWriteChatLink.getText().toString());
+                            binding.gongguWriteBody.getText().toString(), "1", binding.gongguWriteCategory.getText().toString(), imgLink, new ArrayList<String>(),new ArrayList<String>(), binding.gongguWriteItemName.getText().toString(), binding.gongguWritePrice.getText().toString(), "1/" + binding.gongguWritePeopleCount.getText().toString(), binding.gongguWriteChatLink.getText().toString(),choice_si,choice_gu);
                     db.collection("gongu1Writings").document(binding.gongguWriteItemName.getText().toString()).set(gongguDoc);
                     gogguMyWrite();
                     finish();
@@ -81,7 +157,7 @@ public class GongguWritingActivity extends AppCompatActivity {
                     finish();
                 } else if (binding.gongguFaceCheckBox.isChecked()&&binding.gongguDeliCheckBox.isChecked()) {
                     GongguDoc gongguDoc = new GongguDoc(appUser.getNickname(), "1_"+binding.gongguWriteItemName.getText().toString(), user.getEmail(), binding.gongguWriteTitle.getText().toString(),
-                            binding.gongguWriteBody.getText().toString(), "1", binding.gongguWriteCategory.getText().toString(), imgLink, new ArrayList<String>(),new ArrayList<String>(), binding.gongguWriteItemName.getText().toString(), binding.gongguWritePrice.getText().toString(), "1/" + binding.gongguWritePeopleCount.getText().toString(), binding.gongguWriteChatLink.getText().toString());
+                            binding.gongguWriteBody.getText().toString(), "1", binding.gongguWriteCategory.getText().toString(), imgLink, new ArrayList<String>(),new ArrayList<String>(), binding.gongguWriteItemName.getText().toString(), binding.gongguWritePrice.getText().toString(), "1/" + binding.gongguWritePeopleCount.getText().toString(), binding.gongguWriteChatLink.getText().toString(),choice_si,choice_gu);
                     db.collection("gongu1Writings").document(binding.gongguWriteItemName.getText().toString()).set(gongguDoc);
                     GongguDoc2 gongguDoc2 = new GongguDoc2(appUser.getNickname(), "2_"+binding.gongguWriteItemName.getText().toString(), user.getEmail(), binding.gongguWriteTitle.getText().toString(),
                             binding.gongguWriteBody.getText().toString(), "1", binding.gongguWriteCategory.getText().toString(), imgLink, new ArrayList<String>(),new ArrayList<String>(), binding.gongguWriteItemName.getText().toString(), binding.gongguWritePrice.getText().toString(), "1/" + binding.gongguWritePeopleCount.getText().toString(), binding.gongguWriteChatLink.getText().toString());

@@ -149,7 +149,7 @@ public class FragmentCommunity3 extends Fragment {
 
         Query baseQuery= FirebaseFirestore.getInstance()
                 .collection("recipeWritings")
-                .orderBy("timestamp", Query.Direction.DESCENDING);
+                .orderBy("timestamp",Query.Direction.DESCENDING);
 
         if(text.getBytes().length > 0) {
             Log.d("ksh", "updateQuery: text 들어옴");

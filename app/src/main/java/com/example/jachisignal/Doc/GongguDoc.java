@@ -6,6 +6,9 @@ import com.google.firebase.firestore.ServerTimestamp;
 import java.util.List;
 
 public class GongguDoc {
+
+    private String siName;
+    private String guName;
     private String category;
     private String contentTitle;
     private String nickname;
@@ -26,7 +29,7 @@ public class GongguDoc {
 
     @ServerTimestamp
     private Timestamp timestamp; // server timestamp
-    public GongguDoc(String nickname, String id, String writeId, String contentTitle, String text, String createAt, String category, String imageLink, List<String> likeList,List<String> scrapList, String itemName, String price, String peopleCount, String chatLink) {
+    public GongguDoc(String nickname, String id, String writeId, String contentTitle, String text, String createAt, String category, String imageLink, List<String> likeList,List<String> scrapList, String itemName, String price, String peopleCount, String chatLink,String siName,String guName) {
         this.nickname=nickname;
         this.id = id;
         this.likeList = likeList;
@@ -41,8 +44,25 @@ public class GongguDoc {
         this.peopleCount=peopleCount;
         this.chatLink=chatLink;
         this.scrapList=scrapList;
+        this.siName = siName;
+        this.guName = guName;
     }
     public GongguDoc(){}
+
+    public String getSiName() {
+        return siName;
+    }
+
+    public void setSiName(String siName) {
+        this.siName = siName;
+    }
+    public String getGuName() {
+        return guName;
+    }
+
+    public void setGuName(String guName) {
+        this.guName = guName;
+    }
 
     public String getNickname() {
         return nickname;
