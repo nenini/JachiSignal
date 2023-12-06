@@ -117,8 +117,10 @@ public class SignupActivity extends AppCompatActivity {
 //                                    Toast.makeText(getApplicationContext(), task_snap, Toast.LENGTH_LONG).show();
                                     List<String> scrap=new ArrayList<>();
                                     List<String> mywrite=new ArrayList<>();
+                                    List<String> myGonggu=new ArrayList<>();
                                     CollectionReference users = db.collection("users");
                                     Map<String, Object> data1 = new HashMap<>();
+                                    data1.put("myGonggu",myGonggu);
                                     data1.put("myWrite",mywrite);
                                     data1.put("scrap",scrap);
                                     data1.put("img",task_snap);
