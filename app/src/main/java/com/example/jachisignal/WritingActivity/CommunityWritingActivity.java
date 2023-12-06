@@ -46,6 +46,7 @@ public class CommunityWritingActivity extends AppCompatActivity {
     private FirebaseFirestore db;
     AppUser appUser;
 
+
     ActivityCommunityWritingBinding binding;
 
     ArrayAdapter<CharSequence> adspin1,adspin2;
