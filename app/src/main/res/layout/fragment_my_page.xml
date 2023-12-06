@@ -109,7 +109,7 @@
                     android:layout_marginStart="75dp"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="MY 공구"
+                    android:text="MY 공구 &amp; 여가생활"
                     android:textSize="16sp"
                     android:textStyle="bold"
                     android:textColor="#3c567b"/>

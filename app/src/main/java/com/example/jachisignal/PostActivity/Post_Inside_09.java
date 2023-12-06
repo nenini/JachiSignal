@@ -83,10 +83,10 @@ public class Post_Inside_09 extends AppCompatActivity {
                 }
                 if(gongguDoc.getJoinList().size()>=Integer.parseInt(gongguDoc.getPeopleCount())){
                     if(!gongguDoc.getJoinList().contains(uid)){
-                        binding.getRoot().setEnabled(false);
+                        binding.join09Post.setEnabled(false);
                     }
                 }
-                else binding.getRoot().setEnabled(true);
+                else binding.join09Post.setEnabled(true);
 
 
                 //하트 색 바뀜
