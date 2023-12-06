@@ -18,6 +18,8 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 
+import java.util.List;
+
 public class LeisureDocHolder extends RecyclerView.ViewHolder {
     String uid = getUidOfCurrentUser();
 
@@ -47,7 +49,7 @@ public class LeisureDocHolder extends RecyclerView.ViewHolder {
         setHeartCount(Integer.toString(leisureDoc.getLikeList().size()) + "개");
         setTitle(leisureDoc.getContentTitle());
         setmCategory(leisureDoc.getCategory());
-        setPeopleCount(leisureDoc.getPeopleCount());
+        setPeopleCount(leisureDoc.getJoinList(),leisureDoc.getPeopleCount());
         setImgLink(leisureDoc.getImageLink());
         setHeart(leisureDoc.getLikeList().contains(uid));
         setStar(leisureDoc.getScrapList().contains(uid));
@@ -58,7 +60,7 @@ public class LeisureDocHolder extends RecyclerView.ViewHolder {
     private void setmCategory(@Nullable String category){
         mCategory.setText(category);
     }
-    private void setPeopleCount(@Nullable String peopleCount){ mPeopleCount.setText(peopleCount);}
+    private void setPeopleCount(@Nullable List<String> joinList, String peopleCount){ mPeopleCount.setText(joinList.size()+"/"+peopleCount);}
     private void setImgLink(@Nullable String imgLink){if (imgLink!=null)downloadImageTo(imgLink);}
     private void setHeart(@Nullable boolean heart_TF){
         if(heart_TF){

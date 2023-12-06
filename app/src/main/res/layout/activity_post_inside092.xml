@@ -56,7 +56,7 @@
                 android:id="@+id/post_userText"
                 android:gravity="bottom"
                 android:layout_toRightOf="@+id/catImg"
-                android:layout_width="230dp"
+                android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:orientation="vertical"
                 android:paddingLeft="20dp">
@@ -75,13 +75,17 @@
                     android:text="2023.10.24 17:52"
                     android:textSize="13dp"/>
             </LinearLayout>
+
             <Button
+                android:layout_alignParentEnd="true"
+                android:id="@+id/people_count_09_2"
+                android:layout_width="100dp"
+                android:layout_height="30dp"
                 android:layout_alignBottom="@id/post_userText"
+                android:layout_marginLeft="0dp"
+                android:layout_marginBottom="-1dp"
                 android:background="@drawable/button_round"
                 android:backgroundTint="#DFE9EB"
-                android:layout_toRightOf="@id/post_userText"
-                android:layout_width="wrap_content"
-                android:layout_height="30dp"
                 android:drawableLeft="@drawable/people"
                 android:text="2/5" />
         </RelativeLayout>
@@ -208,7 +212,7 @@
             android:id="@+id/join_092_post"
             android:layout_gravity="right"
             android:layout_marginTop="13dp"
-            android:layout_width="100dp"
+            android:layout_width="wrap_content"
             android:layout_height="35dp"
             android:text="참여하기"
             android:textStyle="bold"

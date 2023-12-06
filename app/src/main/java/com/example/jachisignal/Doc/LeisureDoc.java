@@ -21,6 +21,7 @@ public class LeisureDoc {
     private List<String> scrapList;
 
     private List<String> likeList;
+    private List<String> joinList;
     private String writeId;
     private String place;
     private String date;
@@ -30,7 +31,7 @@ public class LeisureDoc {
 
     @ServerTimestamp
     private Timestamp timestamp; // server timestamp
-    public LeisureDoc(String nickname, String id, String writeId, String contentTitle, String text, String createAt, String category, String imageLink, List<String> likeList,List<String> scrapList, String place, String date, String peopleCount, String chatLink,ArrayList<String> contentArray) {
+    public LeisureDoc(String nickname, String id, String writeId, String contentTitle, String text, String createAt, String category, String imageLink, List<String> likeList,List<String> scrapList,List<String> joinList, String place, String date, String peopleCount, String chatLink,ArrayList<String> contentArray) {
         this.nickname=nickname;
         this.id = id;
         this.likeList = likeList;
@@ -45,6 +46,7 @@ public class LeisureDoc {
         this.peopleCount=peopleCount;
         this.chatLink=chatLink;
         this.scrapList=scrapList;
+        this.joinList=joinList;
         this.contentArray = contentArray;
     }
     public LeisureDoc(){}
@@ -89,6 +91,7 @@ public class LeisureDoc {
         return likeList;
     }
     public List<String> getScrapList(){return scrapList; }
+    public List<String> getJoinList(){return joinList; }
 
 
     public String getText() {
@@ -122,6 +125,9 @@ public class LeisureDoc {
     }
     public void setScrapList(List<String> scrapList) {
         this.scrapList = scrapList;
+    }
+    public void setJoinList(List<String> joinList) {
+        this.joinList = joinList;
     }
 
     public void setImageLink(String imageLink) {

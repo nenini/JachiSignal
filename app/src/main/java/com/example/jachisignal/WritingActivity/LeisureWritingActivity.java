@@ -70,7 +70,7 @@ public class LeisureWritingActivity extends AppCompatActivity {
                 String[] words = binding.leisureWriteTitle.getText().toString().split(" ");
                 ArrayList<String> wordList = new ArrayList<>(Arrays.asList(words));
                 LeisureDoc leisureDoc = new LeisureDoc(appUser.getNickname(),"3_"+binding.leisureWriteTitle.getText().toString(),user.getEmail(),binding.leisureWriteTitle.getText().toString(),
-                        binding.leisureWriteBody.getText().toString(),"1",binding.leisureWriteCategory.getText().toString(),imgLink,new ArrayList<String>(),new ArrayList<String>(),binding.leisureWritePlace.getText().toString(),binding.leisureWriteDate.getText().toString(),"1/"+binding.leisureWritePeopleCount.getText().toString(),binding.leisureWriteChatLink.getText().toString(),wordList);
+                        binding.leisureWriteBody.getText().toString(),"1",binding.leisureWriteCategory.getText().toString(),imgLink,new ArrayList<String>(),new ArrayList<String>(),new ArrayList<String>(),binding.leisureWritePlace.getText().toString(),binding.leisureWriteDate.getText().toString(),binding.leisureWritePeopleCount.getText().toString(),binding.leisureWriteChatLink.getText().toString(),wordList);
                 db.collection("leisureWritings").document(binding.leisureWriteTitle.getText().toString()).set(leisureDoc);
                 leisureMyWrite();
                 finish();

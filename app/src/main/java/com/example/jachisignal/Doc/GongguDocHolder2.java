@@ -18,6 +18,8 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 
+import java.util.List;
+
 public class GongguDocHolder2 extends RecyclerView.ViewHolder{
     private String uid = getUidOfCurrentUser();
 
@@ -48,7 +50,7 @@ public class GongguDocHolder2 extends RecyclerView.ViewHolder{
         setHeartCount(Integer.toString(gongguDoc2.getLikeList().size()) + "개");
         setTitle(gongguDoc2.getItemName());
         setmCategory(gongguDoc2.getCategory());
-        setPeopleCount(gongguDoc2.getPeopleCount());
+        setPeopleCount(gongguDoc2.getJoinList(),gongguDoc2.getPeopleCount());
         setImgLink(gongguDoc2.getImageLink());
         setHeart(gongguDoc2.getLikeList().contains(uid));
         setStar(gongguDoc2.getScrapList().contains(uid));
@@ -60,7 +62,7 @@ public class GongguDocHolder2 extends RecyclerView.ViewHolder{
     private void setmCategory(@Nullable String category){
         mCategory.setText(category);
     }
-    private void setPeopleCount(@Nullable String peopleCount){ mPeopleCount.setText(peopleCount);}
+    private void setPeopleCount(@Nullable List<String>joinList,String peopleCount){ mPeopleCount.setText(joinList.size()+"/"+peopleCount);}
     private void setImgLink(@Nullable String imgLink){if (imgLink!=null)downloadImageTo(imgLink);}
     private void setHeart(@Nullable boolean heart_TF){
         if(heart_TF){

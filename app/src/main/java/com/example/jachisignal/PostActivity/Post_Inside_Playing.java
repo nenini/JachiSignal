@@ -2,11 +2,15 @@ package com.example.jachisignal.PostActivity;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.ClipData;
+import android.content.ClipboardManager;
+import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.example.jachisignal.AppUser;
@@ -62,6 +66,7 @@ public class Post_Inside_Playing extends AppCompatActivity {
                 binding.heartCountLeisure.setText(Integer.toString(leisureDoc.getLikeList().size()) + "개");
                 binding.textLeisure.setText(leisureDoc.getText());
                 binding.titleLeisure.setText(leisureDoc.getContentTitle());
+                binding.peopleCountLeisure.setText(leisureDoc.getJoinList().size()+"/"+leisureDoc.getPeopleCount());
                 DocumentReference docRef2 = db.collection("users").document(leisureDoc.getWriteId());
                 docRef2.get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
                     @Override
@@ -73,6 +78,12 @@ public class Post_Inside_Playing extends AppCompatActivity {
                 if (leisureDoc.getImageLink() != null) {
                     downloadImageTo(leisureDoc.getImageLink());
                 }
+                if(leisureDoc.getJoinList().size()>=Integer.parseInt(leisureDoc.getPeopleCount())){
+                    if(!leisureDoc.getJoinList().contains(uid)){
+                        binding.joinLeisurePost.setEnabled(false);
+                    }
+                }
+                else binding.joinLeisurePost.setEnabled(true);
 
                 //하트 색 바뀜
                 if (leisureDoc.getLikeList().contains(uid)) {
@@ -82,6 +93,10 @@ public class Post_Inside_Playing extends AppCompatActivity {
                 if (leisureDoc.getScrapList().contains(uid)) {
                     binding.starLeisurePost.setImageResource(R.drawable.star);
                 } else binding.starLeisurePost.setImageResource(R.drawable.star_blank);
+                //참여하기 글자 바뀜
+                if (leisureDoc.getJoinList().contains(uid)) {
+                    binding.joinLeisurePost.setText("참여 취소하기");
+                } else binding.joinLeisurePost.setText("참여하기");
 
                 //좋아요 버튼 click
                 binding.heartLeisurePost.setOnClickListener(new View.OnClickListener() {
@@ -102,6 +117,13 @@ public class Post_Inside_Playing extends AppCompatActivity {
                     @Override
                     public void onClick(View v) {
                         scrapEvent();
+                    }
+                });
+                //참여하기 버튼
+                binding.joinLeisurePost.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        joinEvent();
                     }
                 });
             }
@@ -180,6 +202,47 @@ public class Post_Inside_Playing extends AppCompatActivity {
                     Log.d("KYR", "star 바꾸기");
                 } else
                     binding.starLeisurePost.setImageResource(R.drawable.star_blank);
+            }
+        });
+    }
+    private void joinEvent() {
+        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+        DocumentReference docRef = db.collection("users").document(user.getEmail());
+        docRef.get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
+            @Override
+            public void onSuccess(DocumentSnapshot documentSnapshot) {
+                appUser = documentSnapshot.toObject(AppUser.class);
+                //눌렸는데 uid가 있었던 경우->uid 삭제
+                if (leisureDoc.getJoinList().contains(uid)) {
+                    leisureDoc.getJoinList().remove(uid);
+                    db.collection("leisureWritings").document(documentName).set(leisureDoc);
+                    //눌렸는데 uid가 있었던 경우->게시물 id 삭제
+                    List<String> join_id = appUser.getMyGonggu();
+                    join_id.remove(leisureDoc.getId());
+                    appUser.setMyGonggu(join_id);
+                    db.collection("users").document(user.getEmail()).set(appUser);
+                } else {//눌렸는데 uid가 없었던 경우->uid 추가
+                    Toast.makeText(getApplicationContext(), "클립보드에 오픈채팅링크 복사됨.",
+                            Toast.LENGTH_SHORT).show();
+                    ClipboardManager clipboardManager=(ClipboardManager)getSystemService(Context.CLIPBOARD_SERVICE);
+                    ClipData clipData = ClipData.newPlainText("label", leisureDoc.getChatLink());
+                    clipboardManager.setPrimaryClip(clipData);
+                    leisureDoc.getJoinList().add(uid);
+                    db.collection("leisureWritings").document(documentName).set(leisureDoc);
+                    List<String> join_id = appUser.getMyGonggu();
+                    join_id.add(leisureDoc.getId());
+                    appUser.setMyGonggu(join_id);
+                    db.collection("users").document(user.getEmail()).set(appUser);
+                }
+                Log.d("KYR", "092.joinLsit():" + leisureDoc.getJoinList());
+                if (leisureDoc.getJoinList().contains(uid)) {
+                    binding.joinLeisurePost.setText("참여 취소하기");
+                    binding.peopleCountLeisure.setText(leisureDoc.getJoinList().size()+"/"+leisureDoc.getPeopleCount());
+                    Log.d("KYR", "star 바꾸기");
+                } else{
+                    binding.joinLeisurePost.setText("참여하기");
+                    binding.peopleCountLeisure.setText(leisureDoc.getJoinList().size()+"/"+leisureDoc.getPeopleCount());
+                }
             }
         });
     }
