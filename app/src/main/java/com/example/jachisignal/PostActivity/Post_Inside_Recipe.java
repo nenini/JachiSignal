@@ -1,19 +1,30 @@
 package com.example.jachisignal.PostActivity;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
 
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.Handler;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 
 import com.bumptech.glide.Glide;
 import com.example.jachisignal.AppUser;
+import com.example.jachisignal.Doc.Chat;
+import com.example.jachisignal.Doc.ChatHolder;
+import com.example.jachisignal.Doc.NestedChat;
+import com.example.jachisignal.Doc.NestedChatHolder;
 import com.example.jachisignal.Doc.RecipeDoc;
 import com.example.jachisignal.R;
 import com.example.jachisignal.databinding.ActivityPostInsideCommunityBinding;
 import com.example.jachisignal.databinding.ActivityPostInsideRecipeBinding;
+import com.firebase.ui.firestore.FirestoreRecyclerAdapter;
+import com.firebase.ui.firestore.FirestoreRecyclerOptions;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -21,6 +32,7 @@ import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FieldValue;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.Query;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 
@@ -28,6 +40,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Post_Inside_Recipe extends AppCompatActivity {
+    private static final String TAG = "KSM";
     private Uri uri;
 
     private RecipeDoc recipeDoc;
@@ -36,6 +49,9 @@ public class Post_Inside_Recipe extends AppCompatActivity {
     ActivityPostInsideRecipeBinding binding;
     String uid = getUidOfCurrentUser();
     AppUser appUser;
+
+    private FirestoreRecyclerAdapter adapter;
+    private FirestoreRecyclerAdapter adapterNestedChat;
 
 
 
@@ -108,6 +124,141 @@ public class Post_Inside_Recipe extends AppCompatActivity {
                         scrapEvent();
                     }
                 });
+            }
+        });
+        /*--- 여기부터 채팅 관련 코드  ---*/
+        Query query = docRef.collection("chats")
+                .orderBy("timestamp")
+                .limit(50);
+        Log.d("KSM", "퀴리 문제 없음");
+        FirestoreRecyclerOptions<Chat> options = new FirestoreRecyclerOptions.Builder<Chat>()
+                .setQuery(query, Chat.class)
+                .build();
+
+        adapter = new FirestoreRecyclerAdapter<Chat, ChatHolder>(options) {
+
+            @Override
+            protected void onBindViewHolder(@NonNull ChatHolder holder, int position, @NonNull Chat model) {
+                holder.bind(model);
+
+                Log.d("KSM","리사이클러 문제 없음1");
+
+
+                String id = holder.getmNickname().getText().toString()+"_"+holder.getmText().getText().toString();
+
+
+                FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+                DocumentReference userDoc = db.collection("users").document(user.getEmail());
+
+                holder.getmNestedChatBtn().setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        binding.nestedChatBox.setVisibility(View.VISIBLE);
+                        binding.nestedCancelBtn.setVisibility(View.VISIBLE);
+
+
+                        userDoc.get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
+                            @Override
+                            public void onSuccess(DocumentSnapshot documentSnapshot) {
+                                appUser = documentSnapshot.toObject(AppUser.class);
+                                binding.nestedSendBtn.setOnClickListener(new View.OnClickListener() {
+                                    @Override
+                                    public void onClick(View v) {
+                                        String text = binding.nestedChatText.getText().toString();
+                                        NestedChat newNestedChat = new NestedChat(appUser.getNickname()+"_"+text, appUser.getNickname(), text);
+                                        docRef.collection("chats").document(id).collection("nestedChats")
+                                                .document(appUser.getNickname()+"_"+text).set(newNestedChat);
+                                        binding.nestedChatText.setText(null);
+                                        binding.nestedChatBox.setVisibility(View.INVISIBLE);
+                                        binding.nestedCancelBtn.setVisibility(View.INVISIBLE);
+                                        new Handler().postDelayed(new Runnable()
+                                        {
+                                            @Override
+                                            public void run()
+                                            {
+                                                adapterNestedChat.startListening();
+                                                Log.d(TAG, "흠ㅏ");
+                                            }
+                                        }, 1000);
+                                    }
+                                });
+                            }
+                        });
+
+                        binding.nestedCancelBtn.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+                                binding.nestedChatBox.setVisibility(View.INVISIBLE);
+                                binding.nestedCancelBtn.setVisibility(View.INVISIBLE);
+                            }
+                        });
+                    }
+                });
+
+                /*--- 중첩리사이클러뷰 ---*/
+                Query query1 = docRef.collection("chats").document(id).collection("nestedChats")
+                        .orderBy("timestamp")
+                        .limit(50);
+                Log.d("KSM", query1.toString());
+
+                FirestoreRecyclerOptions<NestedChat> options = new FirestoreRecyclerOptions.Builder<NestedChat>()
+                        .setQuery(query1, NestedChat.class)
+                        .build();
+
+                adapterNestedChat = new FirestoreRecyclerAdapter<NestedChat, NestedChatHolder>(options) {
+
+                    @NonNull
+                    @Override
+                    public NestedChatHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+                        View view = LayoutInflater.from(parent.getContext())
+                                .inflate(R.layout.item_nested_chat,parent,false);
+                        return new NestedChatHolder(view);
+                    }
+
+                    @Override
+                    protected void onBindViewHolder(@NonNull NestedChatHolder holder, int position, @NonNull NestedChat model) {
+                        holder.bind(model);
+                    }
+                };
+
+                LinearLayoutManager layoutManager = new LinearLayoutManager(Post_Inside_Recipe.this);
+                holder.getmNestedRecyclerView().setLayoutManager(layoutManager);
+                holder.getmNestedRecyclerView().setAdapter(adapterNestedChat);
+                adapterNestedChat.startListening();
+            }
+
+
+            @NonNull
+            @Override
+            public ChatHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+                View view= LayoutInflater.from(parent.getContext())
+                        .inflate(R.layout.item_chat,parent,false);
+
+                Log.d("KSM","리사이클러 문제 없음2");
+                return new ChatHolder(view);
+            }
+        };
+
+        binding.chatRecyclerViewRecipe.setLayoutManager(new LinearLayoutManager(this));
+        binding.chatRecyclerViewRecipe.setAdapter(adapter);
+
+
+        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+        DocumentReference userDoc = db.collection("users").document(user.getEmail());
+        userDoc.get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
+            @Override
+            public void onSuccess(DocumentSnapshot documentSnapshot) {
+                appUser = documentSnapshot.toObject(AppUser.class);
+                binding.sendBtn.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        String text = binding.chatText.getText().toString();
+                        Chat newChat = new Chat(appUser.getNickname()+"_"+text, appUser.getNickname(), text);
+                        docRef.collection("chats").document(appUser.getNickname()+"_"+text).set(newChat);
+                        binding.chatText.setText(null);
+                    }
+                });
+
             }
         });
     }
@@ -198,5 +349,16 @@ public class Post_Inside_Recipe extends AppCompatActivity {
 
     private String getUidOfCurrentUser() {
         return hasSignedIn() ? FirebaseAuth.getInstance().getCurrentUser().getUid() : null;
+    }
+    @Override
+    public void onStart() {
+        super.onStart();
+        adapter.startListening();
+    }
+
+    @Override
+    public void onStop() {
+        super.onStop();
+        adapter.startListening();
     }
 }
