@@ -3,11 +3,15 @@ package com.example.jachisignal.PostActivity;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.ClipData;
+import android.content.ClipboardManager;
+import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.example.jachisignal.AppUser;
@@ -63,6 +67,7 @@ public class Post_Inside_09 extends AppCompatActivity {
                 binding.nickname09.setText(gongguDoc.getNickname());
                 Log.d("KSM", "onSuccess: 4");
                 binding.itemName09.setText(gongguDoc.getItemName());
+                binding.peopleCount09.setText(gongguDoc.getJoinList().size()+"/"+gongguDoc.getPeopleCount());
                 Log.d("KSM", "onSuccess: 5");
                 binding.price09.setText(gongguDoc.getPrice());
                 DocumentReference docRef2 = db.collection("users").document(gongguDoc.getWriteId());
@@ -76,6 +81,13 @@ public class Post_Inside_09 extends AppCompatActivity {
                 if (gongguDoc.getImageLink() != null) {
                     downloadImageTo(gongguDoc.getImageLink());
                 }
+                if(gongguDoc.getJoinList().size()>=Integer.parseInt(gongguDoc.getPeopleCount())){
+                    if(!gongguDoc.getJoinList().contains(uid)){
+                        binding.getRoot().setEnabled(false);
+                    }
+                }
+                else binding.getRoot().setEnabled(true);
+
 
                 //하트 색 바뀜
                 if (gongguDoc.getLikeList().contains(uid)) {
@@ -85,6 +97,11 @@ public class Post_Inside_09 extends AppCompatActivity {
                 if (gongguDoc.getScrapList().contains(uid)) {
                     binding.star09Post.setImageResource(R.drawable.star);
                 } else binding.star09Post.setImageResource(R.drawable.star_blank);
+
+                //참여하기 글자 바뀜
+                if (gongguDoc.getJoinList().contains(uid)) {
+                    binding.join09Post.setText("참여 취소하기");
+                } else binding.join09Post.setText("참여하기");
 
                 //좋아요 버튼 click
                 binding.heart09Post.setOnClickListener(new View.OnClickListener() {
@@ -105,6 +122,13 @@ public class Post_Inside_09 extends AppCompatActivity {
                     @Override
                     public void onClick(View v) {
                         scrapEvent();
+                    }
+                });
+                //참여하기 버튼
+                binding.join09Post.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        joinEvent();
                     }
                 });
             }
@@ -182,6 +206,47 @@ public class Post_Inside_09 extends AppCompatActivity {
                     Log.d("KYR", "star 바꾸기");
                 } else
                     binding.star09Post.setImageResource(R.drawable.star_blank);
+            }
+        });
+    }
+    private void joinEvent() {
+        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+        DocumentReference docRef = db.collection("users").document(user.getEmail());
+        docRef.get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
+            @Override
+            public void onSuccess(DocumentSnapshot documentSnapshot) {
+                appUser = documentSnapshot.toObject(AppUser.class);
+                //눌렸는데 uid가 있었던 경우->uid 삭제
+                if (gongguDoc.getJoinList().contains(uid)) {
+                    gongguDoc.getJoinList().remove(uid);
+                    db.collection("gongu1Writings").document(documentName).set(gongguDoc);
+                    //눌렸는데 uid가 있었던 경우->게시물 id 삭제
+                    List<String> join_id = appUser.getMyGonggu();
+                    join_id.remove(gongguDoc.getId());
+                    appUser.setMyGonggu(join_id);
+                    db.collection("users").document(user.getEmail()).set(appUser);
+                } else {//눌렸는데 uid가 없었던 경우->uid 추가
+                    Toast.makeText(getApplicationContext(), "클립보드에 오픈채팅링크 복사됨.",
+                            Toast.LENGTH_SHORT).show();
+                    ClipboardManager clipboardManager=(ClipboardManager)getSystemService(Context.CLIPBOARD_SERVICE);
+                    ClipData clipData = ClipData.newPlainText("label", gongguDoc.getChatLink());
+                    clipboardManager.setPrimaryClip(clipData);
+                    gongguDoc.getJoinList().add(uid);
+                    db.collection("gongu1Writings").document(documentName).set(gongguDoc);
+                    List<String> join_id = appUser.getMyGonggu();
+                    join_id.add(gongguDoc.getId());
+                    appUser.setMyGonggu(join_id);
+                    db.collection("users").document(user.getEmail()).set(appUser);
+                }
+                Log.d("KYR", "09.joinLsit():" + gongguDoc.getJoinList());
+                if (gongguDoc.getJoinList().contains(uid)) {
+                    binding.join09Post.setText("참여 취소하기");
+                    binding.peopleCount09.setText(gongguDoc.getJoinList().size()+"/"+gongguDoc.getPeopleCount());
+                    Log.d("KYR", "star 바꾸기");
+                } else{
+                    binding.join09Post.setText("참여하기");
+                    binding.peopleCount09.setText(gongguDoc.getJoinList().size()+"/"+gongguDoc.getPeopleCount());
+                }
             }
         });
     }

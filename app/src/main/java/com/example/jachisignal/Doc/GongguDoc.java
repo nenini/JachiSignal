@@ -20,6 +20,8 @@ public class GongguDoc {
     private String text;
     private List<String> scrapList;
     private List<String> likeList;
+    private List<String> joinList;
+
     private String writeId;
     private String itemName;
     private String price;
@@ -30,7 +32,7 @@ public class GongguDoc {
 
     @ServerTimestamp
     private Timestamp timestamp; // server timestamp
-    public GongguDoc(String nickname, String id, String writeId, String contentTitle, String text, String createAt, String category, String imageLink, List<String> likeList,List<String> scrapList, String itemName, String price, String peopleCount, String chatLink,String siName,String guName,ArrayList<String> contentArray) {
+    public GongguDoc(String nickname, String id, String writeId, String contentTitle, String text, String createAt, String category, String imageLink, List<String> likeList,List<String> scrapList,List<String> joinList, String itemName, String price, String peopleCount, String chatLink,String siName,String guName,ArrayList<String> contentArray) {
         this.nickname=nickname;
         this.id = id;
         this.likeList = likeList;
@@ -45,6 +47,7 @@ public class GongguDoc {
         this.peopleCount=peopleCount;
         this.chatLink=chatLink;
         this.scrapList=scrapList;
+        this.joinList=joinList;
         this.siName = siName;
         this.guName = guName;
         this.contentArray = contentArray;
@@ -106,6 +109,8 @@ public class GongguDoc {
         return likeList;
     }
     public List<String> getScrapList(){return scrapList; }
+    public List<String> getJoinList(){return joinList; }
+
 
     public String getText() {
         return text;
@@ -138,6 +143,9 @@ public class GongguDoc {
     }
     public void setScrapList(List<String> scrapList) {
         this.scrapList = scrapList;
+    }
+    public void setJoinList(List<String> joinList) {
+        this.joinList = joinList;
     }
 
 

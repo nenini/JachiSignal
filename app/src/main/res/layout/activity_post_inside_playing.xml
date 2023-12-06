@@ -97,25 +97,47 @@
             android:orientation="vertical"
             android:paddingLeft="20dp"
             android:layout_marginTop="15dp">
-            <TextView
-                android:id="@+id/place_leisure"
-                android:paddingTop="10dp"
+            <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textColor="#3C567B"
-                android:textStyle="bold"
-                android:textSize="20dp"
-                android:text="장소 : 롯데월드"/>
-            <TextView
-                android:id="@+id/meeting_time_leisure"
-                android:paddingTop="8dp"
+                android:orientation="horizontal">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="#3C567B"
+                    android:textStyle="bold"
+                    android:text="제품명 : "/>
+                <TextView
+                    android:id="@+id/place_leisure"
+                    android:paddingTop="10dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="#3C567B"
+                    android:textStyle="bold"
+                    android:textSize="18dp"
+                    android:text="롯데월드"/>
+            </LinearLayout>
+            <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textColor="#3C567B"
-                android:textStyle="bold"
-                android:textSize="20dp"
-                android:text="날짜/시간 : 10월 31일 8시"
-                android:paddingBottom="10dp"/>
+                android:orientation="horizontal">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="#3C567B"
+                    android:textStyle="bold"
+                    android:text="날짜/시간 : "/>
+                <TextView
+                    android:id="@+id/meeting_time_leisure"
+                    android:paddingTop="8dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="#3C567B"
+                    android:textStyle="bold"
+                    android:textSize="18dp"
+                    android:text="10월 31일 8시"
+                    android:paddingBottom="10dp"/>
+            </LinearLayout>
         </LinearLayout>
 
 
