@@ -180,12 +180,14 @@
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/chat_recyclerView_jachitem"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"/>
+                android:layout_height="match_parent"
+                android:layout_marginBottom="70dp"/>
         </LinearLayout>
 
     </LinearLayout>
 
     <LinearLayout
+        android:id="@+id/chat_box"
         android:layout_width="match_parent"
         android:layout_height="40dp"
         android:layout_alignParentBottom="true"
@@ -212,5 +214,45 @@
             android:layout_gravity="center"
             android:src="@drawable/send"/>
     </LinearLayout>
+    <LinearLayout
+        android:id="@+id/nested_chat_box"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:layout_alignParentBottom="true"
+        android:layout_marginStart="15dp"
+        android:layout_marginTop="15dp"
+        android:layout_marginEnd="15dp"
+        android:layout_marginBottom="15dp"
+        android:background="@drawable/text_background"
+        android:paddingLeft="30dp"
+        android:paddingRight="15dp"
+        android:orientation="horizontal"
+        android:visibility="invisible">
+        <EditText
+            android:id="@+id/nested_chat_text"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@android:color/transparent"
+            android:layout_weight="1"
+            android:hint="대댓글을 입력하세요."/>
+        <ImageButton
+            android:id="@+id/nested_send_btn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@android:color/transparent"
+            android:layout_gravity="center"
+            android:src="@drawable/send"/>
+    </LinearLayout>
+    <Button
+        android:visibility="invisible"
+        android:id="@+id/nested_cancel_btn"
+        android:layout_width="wrap_content"
+        android:textColor="#3C567B"
+        android:layout_height="30dp"
+        android:text="대댓글 취소"
+        android:layout_alignStart="@id/chat_box"
+        android:background="@drawable/text_cancel"
+        android:layout_above="@id/chat_box"
+        android:layout_marginBottom="-10dp"/>
 
 </RelativeLayout>

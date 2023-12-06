@@ -3,48 +3,58 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     xmlns:app="http://schemas.android.com/apk/res-auto">
-    <RelativeLayout
-        android:padding="8dp"
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:background="@drawable/post_background"
-        android:layout_marginTop="15dp">
-        <LinearLayout
-            android:id="@+id/comment"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:orientation="vertical">
-            <TextView
-                android:id="@+id/nickname_chat"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textColor="#3C567B"
-                android:textStyle="bold"
-                android:textSize="16dp"
-                android:text="옥지얌"/>
-            <TextView
-                android:id="@+id/text_chat"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textColor="#3C567B"
-                android:textStyle="bold"
-                android:textSize="14dp"
-                android:text="헐.. 핸드폰 기종이 아이폰인가요?"/>
-            <TextView
-                android:id="@+id/timestamp_chat"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="2023.10.20 19:00"
-                android:textSize="13dp"/>
-        </LinearLayout>
-        <TextView
+        android:orientation="vertical">
 
-            android:layout_width="wrap_content"
+        <RelativeLayout
+            android:padding="8dp"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="대댓글 달기"
-            android:layout_alignParentEnd="true"
-            android:layout_alignBottom="@id/comment"/>
+            android:orientation="horizontal"
+            android:background="@drawable/post_background"
+            android:layout_marginTop="15dp">
+            <LinearLayout
+                android:id="@+id/comment"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+                <TextView
+                    android:id="@+id/nickname_chat"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="#3C567B"
+                    android:textStyle="bold"
+                    android:textSize="16dp"
+                    android:text="옥지얌"/>
+                <TextView
+                    android:id="@+id/text_chat"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="#3C567B"
+                    android:textStyle="bold"
+                    android:textSize="14dp"
+                    android:text="헐.. 핸드폰 기종이 아이폰인가요?"/>
+                <TextView
+                    android:id="@+id/timestamp_chat"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="2023.10.20 19:00"
+                    android:textSize="13dp"/>
+            </LinearLayout>
+            <TextView
+                android:id="@+id/nested_chat_btn"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="대댓글 달기"
+                android:layout_alignParentEnd="true"
+                android:layout_alignBottom="@id/comment"/>
 
-    </RelativeLayout>
+        </RelativeLayout>
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/nested_chat_recyclerView"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"/>
+    </LinearLayout>
 </androidx.cardview.widget.CardView>

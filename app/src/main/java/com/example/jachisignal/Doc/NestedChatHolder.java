@@ -2,7 +2,6 @@ package com.example.jachisignal.Doc;
 
 import android.util.Log;
 import android.view.View;
-import android.widget.Button;
 import android.widget.TextView;
 
 import androidx.recyclerview.widget.RecyclerView;
@@ -19,22 +18,18 @@ import java.util.Locale;
 import io.reactivex.rxjava3.annotations.NonNull;
 import io.reactivex.rxjava3.annotations.Nullable;
 
-public class ChatHolder extends RecyclerView.ViewHolder{
+public class NestedChatHolder extends RecyclerView.ViewHolder{
     private final TextView mText;
     private final TextView mNickname;
     private final TextView mTimestamp;
 
-    private final TextView mNestedChatBtn;
-    private final RecyclerView mNestedRecyclerView;
-    public ChatHolder(@NonNull View itemView){
+    public NestedChatHolder(@NonNull View itemView){
         super(itemView);
-        mNickname = itemView.findViewById(R.id.nickname_chat);
-        mText = itemView.findViewById(R.id.text_chat);
-        mTimestamp = itemView.findViewById(R.id.timestamp_chat);
-        mNestedChatBtn = itemView.findViewById(R.id.nested_chat_btn);
-        mNestedRecyclerView = itemView.findViewById(R.id.nested_chat_recyclerView);
+        mNickname = itemView.findViewById(R.id.nickname_nested_chat);
+        mText = itemView.findViewById(R.id.text_nested_chat);
+        mTimestamp = itemView.findViewById(R.id.timestamp_nested_chat);
     }
-    public void bind(@NonNull Chat chat) {
+    public void bind(@NonNull NestedChat chat) {
         setNickname(chat.getNickname());
         setText(chat.getText());
         setTimeStamp(chat.getTimestamp());
@@ -56,18 +51,6 @@ public class ChatHolder extends RecyclerView.ViewHolder{
         } else {
             mTimestamp.setText("No timestamp available"); // 예외 처리: timestamp가 null인 경우 대체 값 설정
         }
-    }
-
-    public RecyclerView getmNestedRecyclerView() {
-        return mNestedRecyclerView;
-    }
-
-    public TextView getmNestedChatBtn() {
-        return mNestedChatBtn;
-    }
-
-    public TextView getmTimestamp() {
-        return mTimestamp;
     }
 
     public TextView getmNickname() {

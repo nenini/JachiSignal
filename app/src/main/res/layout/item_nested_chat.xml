@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+    <LinearLayout
+        android:paddingTop="10dp"
+        android:paddingLeft="30dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="ㄴ "
+            android:textStyle="bold"/>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+            <TextView
+                android:id="@+id/nickname_nested_chat"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="#3C567B"
+                android:textStyle="bold"
+                android:textSize="14dp"
+                android:text="고양이 사랑"/>
+            <TextView
+                android:id="@+id/text_nested_chat"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="#3C567B"
+                android:textStyle="bold"
+                android:textSize="14dp"
+                android:text="아니요..ㅜㅠ 갤럭시요ㅠㅠ"/>
+            <TextView
+                android:id="@+id/timestamp_nested_chat"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="2023.10.20 19:00"
+                android:textSize="13dp"/>
+        </LinearLayout>
+    </LinearLayout>
+</androidx.cardview.widget.CardView>
