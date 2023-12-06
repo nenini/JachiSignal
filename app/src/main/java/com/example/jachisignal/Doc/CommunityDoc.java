@@ -22,15 +22,18 @@ public class CommunityDoc {
     private String imageLink;
     private String text;
     private List<String> likeList;
+    private List<String> scrapList;
+
     private String writeId;
     private boolean isQuestion;
     @ServerTimestamp
     private Timestamp timestamp; // server timestamp
 
-    public CommunityDoc(String nickname, String id, String writeId, String contentTitle, String text, String createAt, String category, String imageLink, List<String> likeList, boolean isQuestion, String siName, String guName, ArrayList<String> contentArray) {
+    public CommunityDoc(String nickname, String id, String writeId, String contentTitle, String text, String createAt, String category, String imageLink, List<String> likeList, List<String> scrapList,boolean isQuestion, String siName, String guName, ArrayList<String> contentArray) {
         this.nickname=nickname;
         this.id=id;
         this.likeList = likeList;
+        this.scrapList=scrapList;
         this.text = text;
         this.createAt = createAt;
         this.writeId = writeId;
@@ -106,6 +109,10 @@ public class CommunityDoc {
     public List<String> getLikeList() {
         return likeList;
     }
+    public List<String> getScrapList() {
+        return scrapList;
+    }
+
 
     public String getText() {
         return text;
@@ -123,6 +130,10 @@ public class CommunityDoc {
     public void setLikeList(List<String> likeList) {
         this.likeList = likeList;
     }
+    public void setScrapList(List<String> scrapList) {
+        this.scrapList = scrapList;
+    }
+
 
     public void setImageLink(String imageLink) {
         this.imageLink = imageLink;
