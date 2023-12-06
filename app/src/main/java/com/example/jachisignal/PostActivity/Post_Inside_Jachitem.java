@@ -9,6 +9,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.Handler;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -39,6 +40,7 @@ import com.google.firebase.storage.StorageReference;
 import com.google.firestore.v1.DocumentMask;
 
 import java.util.List;
+
 
 public class Post_Inside_Jachitem extends AppCompatActivity {
     private static final String TAG = "KSM";
@@ -166,7 +168,15 @@ public class Post_Inside_Jachitem extends AppCompatActivity {
                                         binding.nestedChatText.setText(null);
                                         binding.nestedChatBox.setVisibility(View.INVISIBLE);
                                         binding.nestedCancelBtn.setVisibility(View.INVISIBLE);
-                                        adapterNestedChat.startListening();
+                                        new Handler().postDelayed(new Runnable()
+                                        {
+                                            @Override
+                                            public void run()
+                                            {
+                                                adapterNestedChat.startListening();
+                                                Log.d(TAG, "흠ㅏ");
+                                            }
+                                        }, 1000);
                                     }
                                 });
                             }
