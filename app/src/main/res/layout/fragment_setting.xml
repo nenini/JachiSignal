@@ -25,6 +25,7 @@
 
 
         <ImageButton
+            android:id="@+id/user_setting_btn"
             android:layout_marginTop="40dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
