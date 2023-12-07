@@ -2,6 +2,7 @@ package com.example.jachisignal.Fragment;
 
 import static android.app.Activity.RESULT_OK;
 
+import android.app.AlertDialog;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
@@ -33,6 +34,7 @@ import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.example.jachisignal.AppUser;
+import com.example.jachisignal.CustomDialog;
 import com.example.jachisignal.FindPasswordActivity;
 import com.example.jachisignal.MainActivity;
 import com.example.jachisignal.MyPageActivity.mypage_scrap;
@@ -154,6 +156,15 @@ public class FragmentSetting extends Fragment {
                 startActivity(intent);
             }
         });
+        binding.information.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                CustomDialog customDialog = new CustomDialog(getActivity());
+                customDialog.show();
+            }
+        });
+
+
 
         /**/
         user = FirebaseAuth.getInstance().getCurrentUser();
