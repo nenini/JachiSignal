@@ -68,7 +68,7 @@ public class RecipeWritingActivity extends AppCompatActivity {
                 String[] words = binding.recipeWriteTitle.getText().toString().split(" ");
                 ArrayList<String> wordList = new ArrayList<>(Arrays.asList(words));
                 RecipeDoc recipeDoc = new RecipeDoc(appUser.getNickname(),"6_"+binding.recipeWriteTitle.getText().toString(),user.getEmail(),binding.recipeWriteTitle.getText().toString(),
-                        binding.recipeWriteBody.getText().toString(),"1",binding.recipeWriteCategory.getText().toString(),imgLink,new ArrayList<String>(),new ArrayList<String>(),wordList);
+                        binding.recipeWriteBody.getText().toString(),"1",binding.recipeWriteCategory.getText().toString(),imgLink,new ArrayList<String>(),new ArrayList<String>(),wordList,0);
                 db.collection("recipeWritings").document(binding.recipeWriteTitle.getText().toString()).set(recipeDoc);
                 recipeMyWrite();
                 finish();

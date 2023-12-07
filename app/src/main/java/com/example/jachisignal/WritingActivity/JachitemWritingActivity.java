@@ -68,7 +68,7 @@ public class JachitemWritingActivity extends AppCompatActivity {
                 String[] words = binding.jachiWriteTitle.getText().toString().split(" ");
                 ArrayList<String> wordList = new ArrayList<>(Arrays.asList(words));
                 JachiDoc jachiDoc = new JachiDoc(appUser.getNickname(),"5_"+binding.jachiWriteTitle.getText().toString(),user.getEmail(),binding.jachiWriteTitle.getText().toString(),
-                        binding.jachiWriteBody.getText().toString(),"1",binding.jachiWriteCategory.getText().toString(),imgLink,new ArrayList<String>(),new ArrayList<String>(),wordList);
+                        binding.jachiWriteBody.getText().toString(),"1",binding.jachiWriteCategory.getText().toString(),imgLink,new ArrayList<String>(),new ArrayList<String>(),wordList,0);
                 db.collection("jachitemWritings").document(binding.jachiWriteTitle.getText().toString()).set(jachiDoc);
                 jachiItemMyWrite();
                 finish();

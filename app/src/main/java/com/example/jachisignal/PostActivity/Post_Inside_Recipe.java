@@ -297,10 +297,12 @@ public class Post_Inside_Recipe extends AppCompatActivity {
         //눌렸는데 uid가 있었던 경우->uid 삭제
         if(recipeDoc.getLikeList().contains(uid)){
             recipeDoc.getLikeList().remove(uid);
+            recipeDoc.setLikeListCount(recipeDoc.getLikeListCount() - 1);
             db.collection("recipeWritings").document(documentName).set(recipeDoc);
         }
         else{//uid 없었음->uid 추가
             recipeDoc.getLikeList().add(uid);
+            recipeDoc.setLikeListCount(recipeDoc.getLikeListCount() + 1);
             db.collection("recipeWritings").document(documentName).set(recipeDoc);
         }
         binding.heartCountRecipePost.setText(Integer.toString(recipeDoc.getLikeList().size())+"개");

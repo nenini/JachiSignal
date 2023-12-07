@@ -130,7 +130,7 @@ public class FragmentCommunity2 extends Fragment {
 
         Query rankQuery= FirebaseFirestore.getInstance()
                 .collection("jachitemWritings")
-                .orderBy("likeList", Query.Direction.DESCENDING)
+                .orderBy("likeListCount", Query.Direction.DESCENDING)
                 .limit(3);
 
         FirestoreRecyclerOptions<JachiDoc> options=new FirestoreRecyclerOptions.Builder<JachiDoc>()

@@ -7,6 +7,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class RecipeDoc {
+    private int likeListCount;
     private ArrayList<String> contentArray;
     private String category;
     private String contentTitle;
@@ -23,7 +24,7 @@ public class RecipeDoc {
     @ServerTimestamp
     private Timestamp timestamp; // server timestamp
 
-    public RecipeDoc(String nickname,String id, String writeId, String contentTitle, String text, String createAt, String category, String imageLink,  List<String> likeList,List<String> scrapList,ArrayList<String> contentArray) {
+    public RecipeDoc(String nickname,String id, String writeId, String contentTitle, String text, String createAt, String category, String imageLink,  List<String> likeList,List<String> scrapList,ArrayList<String> contentArray,int likeListCount) {
         this.nickname=nickname;
         this.id = id;
         this.likeList = likeList;
@@ -35,8 +36,17 @@ public class RecipeDoc {
         this.imageLink = imageLink;
         this.scrapList=scrapList;
         this.contentArray = contentArray;
+        this.likeListCount=likeListCount;
     }
     public RecipeDoc(){}
+
+    public int getLikeListCount() {
+        return likeListCount;
+    }
+
+    public void setLikeListCount(int likeListCount) {
+        this.likeListCount = likeListCount;
+    }
 
     public void setContentArray(ArrayList<String> contentArray) {
         this.contentArray = contentArray;

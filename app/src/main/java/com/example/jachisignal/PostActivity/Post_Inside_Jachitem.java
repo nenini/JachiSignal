@@ -294,9 +294,11 @@ public class Post_Inside_Jachitem extends AppCompatActivity {
         //눌렸는데 uid가 있었던 경우->uid 삭제
         if (jachiDoc.getLikeList().contains(uid)) {
             jachiDoc.getLikeList().remove(uid);
+            jachiDoc.setLikeListCount(jachiDoc.getLikeListCount() - 1);
             db.collection("jachitemWritings").document(documentName).set(jachiDoc);
         } else {//uid 없었음->uid 추가
             jachiDoc.getLikeList().add(uid);
+            jachiDoc.setLikeListCount(jachiDoc.getLikeListCount() + 1);
             db.collection("jachitemWritings").document(documentName).set(jachiDoc);
         }
         binding.heartCountJachitem.setText(Integer.toString(jachiDoc.getLikeList().size()) + "개");

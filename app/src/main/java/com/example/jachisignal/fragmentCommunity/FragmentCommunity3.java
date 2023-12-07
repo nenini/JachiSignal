@@ -154,7 +154,7 @@ public class FragmentCommunity3 extends Fragment {
 
         Query rankQuery= FirebaseFirestore.getInstance()
                 .collection("recipeWritings")
-                .orderBy("likeList", Query.Direction.DESCENDING)
+                .orderBy("likeListCount", Query.Direction.DESCENDING)
                 .limit(3);
 
         FirestoreRecyclerOptions<RecipeDoc> options=new FirestoreRecyclerOptions.Builder<RecipeDoc>()
