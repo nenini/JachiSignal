@@ -54,10 +54,17 @@
                 android:background="@drawable/blue"
                 />
         </LinearLayout>
-            <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/community3_rank_recyclerView"
+            <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"/>
+                android:layout_height="wrap_content"
+                android:layout_gravity="center">
+                <androidx.recyclerview.widget.RecyclerView
+                    android:layout_gravity="center"
+                    android:id="@+id/community3_rank_recyclerView"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"/>
+
+            </LinearLayout>
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/community3_recyclerView"
