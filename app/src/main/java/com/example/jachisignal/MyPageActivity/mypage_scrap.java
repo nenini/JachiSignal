@@ -4,6 +4,7 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import android.os.Bundle;
 import android.util.Log;
@@ -62,6 +63,16 @@ public class mypage_scrap extends AppCompatActivity {
                 List<String> user_scrap=appUser.getScrap();
                 init();
                 processUserScrap(0, user_scrap);
+                binding.refreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+                    @Override
+                    public void onRefresh() {
+                        updateRecyclerView(user_scrap);
+                        // 종료
+                        if (binding.refreshLayout != null) {
+                            binding.refreshLayout.setRefreshing(false);
+                        }
+                    }
+                });
             }
         });
     }
@@ -82,7 +93,7 @@ public class mypage_scrap extends AppCompatActivity {
                     @Override
                     public void onSuccess(DocumentSnapshot documentSnapshot) {
                         gongguDoc = documentSnapshot.toObject(GongguDoc.class);
-                        myPageScrapDoc = new MyPageScrapDoc(gongguDoc.getItemName(), gongguDoc.getText(), gongguDoc.getCategory(), gongguDoc.getLikeList());
+                        myPageScrapDoc = new MyPageScrapDoc(gongguDoc.getItemName(), gongguDoc.getText(), gongguDoc.getCategory(), gongguDoc.getLikeList(),"gongu1Writings");
                         Log.d("KYR", "init()" + writingNum[1]);
                         adapter.addItem(myPageScrapDoc);
                         adapter.notifyDataSetChanged();
@@ -99,7 +110,7 @@ public class mypage_scrap extends AppCompatActivity {
                     @Override
                     public void onSuccess(DocumentSnapshot documentSnapshot) {
                         gongguDoc2 = documentSnapshot.toObject(GongguDoc2.class);
-                        myPageScrapDoc = new MyPageScrapDoc(gongguDoc2.getItemName(), gongguDoc2.getText(), gongguDoc2.getCategory(), gongguDoc2.getLikeList());
+                        myPageScrapDoc = new MyPageScrapDoc(gongguDoc2.getItemName(), gongguDoc2.getText(), gongguDoc2.getCategory(), gongguDoc2.getLikeList(),"gongu2Writings");
                         Log.d("KYR", "init()" + writingNum[1]);
                         adapter.addItem(myPageScrapDoc);
                         adapter.notifyDataSetChanged();
@@ -116,7 +127,7 @@ public class mypage_scrap extends AppCompatActivity {
                     @Override
                     public void onSuccess(DocumentSnapshot documentSnapshot) {
                         leisureDoc = documentSnapshot.toObject(LeisureDoc.class);
-                        myPageScrapDoc = new MyPageScrapDoc(leisureDoc.getContentTitle(), leisureDoc.getText(), leisureDoc.getCategory(), leisureDoc.getLikeList());
+                        myPageScrapDoc = new MyPageScrapDoc(leisureDoc.getContentTitle(), leisureDoc.getText(), leisureDoc.getCategory(), leisureDoc.getLikeList(),"leisureWritings");
                         Log.d("KYR", "init()" + writingNum[1]);
                         adapter.addItem(myPageScrapDoc);
                         adapter.notifyDataSetChanged();
@@ -133,7 +144,7 @@ public class mypage_scrap extends AppCompatActivity {
                     @Override
                     public void onSuccess(DocumentSnapshot documentSnapshot) {
                         communityDoc = documentSnapshot.toObject(CommunityDoc.class);
-                        myPageScrapDoc = new MyPageScrapDoc(communityDoc.getContentTitle(), communityDoc.getText(), communityDoc.getCategory(), communityDoc.getLikeList());
+                        myPageScrapDoc = new MyPageScrapDoc(communityDoc.getContentTitle(), communityDoc.getText(), communityDoc.getCategory(), communityDoc.getLikeList(),"communityWritings");
                         Log.d("KYR", "init()" + writingNum[1]);
                         adapter.addItem(myPageScrapDoc);
                         adapter.notifyDataSetChanged();
@@ -150,7 +161,7 @@ public class mypage_scrap extends AppCompatActivity {
                     @Override
                     public void onSuccess(DocumentSnapshot documentSnapshot) {
                         jachiDoc = documentSnapshot.toObject(JachiDoc.class);
-                        myPageScrapDoc = new MyPageScrapDoc(jachiDoc.getContentTitle(), jachiDoc.getText(), jachiDoc.getCategory(), jachiDoc.getLikeList());
+                        myPageScrapDoc = new MyPageScrapDoc(jachiDoc.getContentTitle(), jachiDoc.getText(), jachiDoc.getCategory(), jachiDoc.getLikeList(),"jachitemWritings");
                         Log.d("KYR", "init()" + writingNum[1]);
                         adapter.addItem(myPageScrapDoc);
                         adapter.notifyDataSetChanged();
@@ -167,7 +178,7 @@ public class mypage_scrap extends AppCompatActivity {
                     @Override
                     public void onSuccess(DocumentSnapshot documentSnapshot) {
                         recipeDoc = documentSnapshot.toObject(RecipeDoc.class);
-                        myPageScrapDoc = new MyPageScrapDoc(recipeDoc.getContentTitle(), recipeDoc.getText(), recipeDoc.getCategory(), recipeDoc.getLikeList());
+                        myPageScrapDoc = new MyPageScrapDoc(recipeDoc.getContentTitle(), recipeDoc.getText(), recipeDoc.getCategory(), recipeDoc.getLikeList(),"recipeWritings");
                         Log.d("KYR", "init()" + writingNum[1]);
                         adapter.addItem(myPageScrapDoc);
                         adapter.notifyDataSetChanged();
@@ -183,6 +194,12 @@ public class mypage_scrap extends AppCompatActivity {
             }
 
         }
+    }
+    private void updateRecyclerView(List<String> user_myScrap) {
+        // RecyclerView를 업데이트하는 코드를 여기에 추가하세요.
+        // 예를 들어, 어댑터를 초기화하고 사용자의 쓴 글 목록으로 다시 채우는 코드를 넣을 수 있습니다.
+        init();
+        processUserScrap(0, user_myScrap);
     }
     private void init(){
         RecyclerView recyclerView=findViewById(R.id.mypage_scrap_recyclerView);

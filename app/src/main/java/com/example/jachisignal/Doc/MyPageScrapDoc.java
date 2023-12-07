@@ -11,13 +11,15 @@ public class MyPageScrapDoc {
     private List<String> likeList;
     private String writeId;
     private String category;
+    private String post;
 
-    public MyPageScrapDoc(String contentTitle, String text, String category,  List<String> likeList) {
+    public MyPageScrapDoc(String contentTitle, String text, String category,  List<String> likeList,String post) {
         this.likeList = likeList;
         this.text = text;
         this.writeId = writeId;
         this.category = category;
         this.contentTitle = contentTitle;
+        this.post=post;
     }
     public MyPageScrapDoc(){}
 
@@ -42,6 +44,7 @@ public class MyPageScrapDoc {
     public String getText() {
         return text;
     }
+    public String getPost(){ return post;}
 
     public void setLikeList(List<String> likeList) {
         this.likeList = likeList;

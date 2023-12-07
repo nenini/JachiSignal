@@ -9,14 +9,17 @@ public class MyPageWriteDoc {
     private List<String> scrapList;
     private String writeId;
     private String category;
+    private String post;
 
-    public MyPageWriteDoc(String contentTitle, String text, String category,  List<String> likeList,List<String> scrapList) {
+
+    public MyPageWriteDoc(String contentTitle, String text, String category,  List<String> likeList,List<String> scrapList,String post) {
         this.likeList = likeList;
         this.text = text;
         this.writeId = writeId;
         this.category = category;
         this.contentTitle = contentTitle;
         this.scrapList=scrapList;
+        this.post=post;
     }
     public MyPageWriteDoc(){}
 
@@ -44,6 +47,10 @@ public class MyPageWriteDoc {
     public String getText() {
         return text;
     }
+    public String getPost() {
+        return post;
+    }
+
 
     public void setLikeList(List<String> likeList) {
         this.likeList = likeList;
@@ -69,4 +76,8 @@ public class MyPageWriteDoc {
     public void setText(String text) {
         this.text = text;
     }
+    public void setPost(String post) {
+        this.post = post;
+    }
+
 }

@@ -3,6 +3,7 @@ package com.example.jachisignal.MyPageActivity;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import android.os.Bundle;
 import android.util.Log;
@@ -42,6 +43,8 @@ public class mypage_mywrite extends AppCompatActivity {
     private LeisureDoc leisureDoc;
     private CommunityDoc communityDoc;
     private JachiDoc jachiDoc;
+    private SwipeRefreshLayout mysrl;
+
 
 
     @Override
@@ -60,6 +63,16 @@ public class mypage_mywrite extends AppCompatActivity {
                 List<String> user_myWrite=appUser.getMyWrite();
                 init();
                 processUserMyWrite(0, user_myWrite);
+                binding.refreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+                    @Override
+                    public void onRefresh() {
+                        updateRecyclerView(user_myWrite);
+                        // 종료
+                        if (binding.refreshLayout != null) {
+                            binding.refreshLayout.setRefreshing(false);
+                        }
+                    }
+                });
             }
         });
     }
@@ -80,7 +93,7 @@ public class mypage_mywrite extends AppCompatActivity {
                     @Override
                     public void onSuccess(DocumentSnapshot documentSnapshot) {
                         gongguDoc = documentSnapshot.toObject(GongguDoc.class);
-                        myPageWriteDoc = new MyPageWriteDoc(gongguDoc.getItemName(), gongguDoc.getText(), gongguDoc.getCategory(), gongguDoc.getLikeList(),gongguDoc.getScrapList());
+                        myPageWriteDoc = new MyPageWriteDoc(gongguDoc.getItemName(), gongguDoc.getText(), gongguDoc.getCategory(), gongguDoc.getLikeList(),gongguDoc.getScrapList(),"gongu1Writings");
                         Log.d("KYR", "init()" + writingNum[1]);
                         adapter.addItem(myPageWriteDoc);
                         adapter.notifyDataSetChanged();
@@ -97,7 +110,7 @@ public class mypage_mywrite extends AppCompatActivity {
                     @Override
                     public void onSuccess(DocumentSnapshot documentSnapshot) {
                         gongguDoc2 = documentSnapshot.toObject(GongguDoc2.class);
-                        myPageWriteDoc = new MyPageWriteDoc(gongguDoc2.getItemName(), gongguDoc2.getText(), gongguDoc2.getCategory(), gongguDoc2.getLikeList(),gongguDoc2.getScrapList());
+                        myPageWriteDoc = new MyPageWriteDoc(gongguDoc2.getItemName(), gongguDoc2.getText(), gongguDoc2.getCategory(), gongguDoc2.getLikeList(),gongguDoc2.getScrapList(),"gongu2Writings");
                         Log.d("KYR", "init()" + writingNum[1]);
                         adapter.addItem(myPageWriteDoc);
                         adapter.notifyDataSetChanged();
@@ -114,7 +127,7 @@ public class mypage_mywrite extends AppCompatActivity {
                     @Override
                     public void onSuccess(DocumentSnapshot documentSnapshot) {
                         leisureDoc = documentSnapshot.toObject(LeisureDoc.class);
-                        myPageWriteDoc = new MyPageWriteDoc(leisureDoc.getContentTitle(), leisureDoc.getText(), leisureDoc.getCategory(), leisureDoc.getLikeList(),leisureDoc.getScrapList());
+                        myPageWriteDoc = new MyPageWriteDoc(leisureDoc.getContentTitle(), leisureDoc.getText(), leisureDoc.getCategory(), leisureDoc.getLikeList(),leisureDoc.getScrapList(),"leisureWritings");
                         Log.d("KYR", "init()" + writingNum[1]);
                         adapter.addItem(myPageWriteDoc);
                         adapter.notifyDataSetChanged();
@@ -131,7 +144,7 @@ public class mypage_mywrite extends AppCompatActivity {
                     @Override
                     public void onSuccess(DocumentSnapshot documentSnapshot) {
                         communityDoc = documentSnapshot.toObject(CommunityDoc.class);
-                        myPageWriteDoc = new MyPageWriteDoc(communityDoc.getContentTitle(), communityDoc.getText(), communityDoc.getCategory(), communityDoc.getLikeList(),communityDoc.getLikeList());
+                        myPageWriteDoc = new MyPageWriteDoc(communityDoc.getContentTitle(), communityDoc.getText(), communityDoc.getCategory(), communityDoc.getLikeList(),communityDoc.getLikeList(),"communityWritings");
                         Log.d("KYR", "init()" + writingNum[1]);
                         adapter.addItem(myPageWriteDoc);
                         adapter.notifyDataSetChanged();
@@ -148,7 +161,7 @@ public class mypage_mywrite extends AppCompatActivity {
                     @Override
                     public void onSuccess(DocumentSnapshot documentSnapshot) {
                         jachiDoc = documentSnapshot.toObject(JachiDoc.class);
-                        myPageWriteDoc = new MyPageWriteDoc(jachiDoc.getContentTitle(), jachiDoc.getText(), jachiDoc.getCategory(), jachiDoc.getLikeList(),jachiDoc.getScrapList());
+                        myPageWriteDoc = new MyPageWriteDoc(jachiDoc.getContentTitle(), jachiDoc.getText(), jachiDoc.getCategory(), jachiDoc.getLikeList(),jachiDoc.getScrapList(),"jachitemWritings");
                         Log.d("KYR", "init()" + writingNum[1]);
                         adapter.addItem(myPageWriteDoc);
                         adapter.notifyDataSetChanged();
@@ -165,7 +178,7 @@ public class mypage_mywrite extends AppCompatActivity {
                     @Override
                     public void onSuccess(DocumentSnapshot documentSnapshot) {
                         recipeDoc = documentSnapshot.toObject(RecipeDoc.class);
-                        myPageWriteDoc = new MyPageWriteDoc(recipeDoc.getContentTitle(), recipeDoc.getText(), recipeDoc.getCategory(), recipeDoc.getLikeList(),recipeDoc.getScrapList());
+                        myPageWriteDoc = new MyPageWriteDoc(recipeDoc.getContentTitle(), recipeDoc.getText(), recipeDoc.getCategory(), recipeDoc.getLikeList(),recipeDoc.getScrapList(),"recipeWritings");
                         Log.d("KYR", "init()" + writingNum[1]);
                         adapter.addItem(myPageWriteDoc);
                         adapter.notifyDataSetChanged();
@@ -181,6 +194,12 @@ public class mypage_mywrite extends AppCompatActivity {
             }
 
         }
+    }
+    private void updateRecyclerView(List<String> user_myWrite) {
+        // RecyclerView를 업데이트하는 코드를 여기에 추가하세요.
+        // 예를 들어, 어댑터를 초기화하고 사용자의 쓴 글 목록으로 다시 채우는 코드를 넣을 수 있습니다.
+        init();
+        processUserMyWrite(0, user_myWrite);
     }
     private void init(){
         RecyclerView recyclerView=findViewById(R.id.mypage_myWrite_recyclerView);
