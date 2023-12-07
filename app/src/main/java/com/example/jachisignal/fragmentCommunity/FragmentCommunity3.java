@@ -13,28 +13,20 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
 import android.widget.EditText;
 import android.widget.ImageButton;
-import android.widget.Spinner;
 
-import com.example.jachisignal.Doc.CommunityDoc;
-import com.example.jachisignal.PostActivity.Post_Inside_Community;
+import com.example.jachisignal.Doc.RecipeRankHolder;
 import com.example.jachisignal.PostActivity.Post_Inside_Recipe;
 import com.example.jachisignal.R;
 import com.example.jachisignal.Doc.RecipeDoc;
-import com.example.jachisignal.Doc.RecipeDocHolder;
 import com.example.jachisignal.WritingActivity.RecipeWritingActivity;
 import com.example.jachisignal.databinding.FragmentCommunity3Binding;
-import com.example.jachisignal.databinding.ItemBinding;
 import com.firebase.ui.firestore.FirestoreRecyclerAdapter;
 import com.firebase.ui.firestore.FirestoreRecyclerOptions;
-import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.Filter;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.Query;
-
-import java.util.ArrayList;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -43,11 +35,10 @@ import java.util.ArrayList;
  */
 public class FragmentCommunity3 extends Fragment {
 
-    //Spinner spinner;
-
-
     private FirestoreRecyclerAdapter adapter;
+    private FirestoreRecyclerAdapter adapter_rank;
     private FirestoreRecyclerOptions<RecipeDoc> options;
+    private FirestoreRecyclerOptions<RecipeDoc> options_rank;
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -160,22 +151,31 @@ public class FragmentCommunity3 extends Fragment {
         }
         Query finalQuery = baseQuery.limit(50);
 
+        Query rankQuery= FirebaseFirestore.getInstance()
+                .collection("recipeWritings")
+                .orderBy("likeList", Query.Direction.DESCENDING)
+                .limit(3);
+
         FirestoreRecyclerOptions<RecipeDoc> options=new FirestoreRecyclerOptions.Builder<RecipeDoc>()
                 .setQuery(finalQuery,RecipeDoc.class)
                 .build();
 
-        updateAdapter(options);
+        FirestoreRecyclerOptions<RecipeDoc> options_rank=new FirestoreRecyclerOptions.Builder<RecipeDoc>()
+                .setQuery(rankQuery,RecipeDoc.class)
+                .build();
+
+        updateAdapter(options,options_rank);
 
     }
 
-    private  void updateAdapter(FirestoreRecyclerOptions<RecipeDoc> options) {
+    private  void updateAdapter(FirestoreRecyclerOptions<RecipeDoc> options,FirestoreRecyclerOptions<RecipeDoc> options_rank) {
         Log.d("ksh", "updateAdapter: 들어옴1");
 
-        if(adapter == null) {
+        if(adapter == null&&adapter_rank==null) {
             Log.d("ksh", "updateAdapter: 들어옴 null");
-            adapter=new FirestoreRecyclerAdapter<RecipeDoc, RecipeDocHolder>(options) {
+            adapter=new FirestoreRecyclerAdapter<RecipeDoc, RecipeRankHolder>(options) {
                 @Override
-                protected void onBindViewHolder(@NonNull RecipeDocHolder holder, int position, @NonNull RecipeDoc model) {
+                protected void onBindViewHolder(@NonNull RecipeRankHolder holder, int position, @NonNull RecipeDoc model) {
                     holder.bind(model);
                     holder.itemView.setOnClickListener(new View.OnClickListener() {
                         @Override
@@ -195,11 +195,42 @@ public class FragmentCommunity3 extends Fragment {
                 }
                 @NonNull
                 @Override
-                public RecipeDocHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+                public RecipeRankHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
                     Log.d("ksh", "onCreateViewHolder: 들어옴");
                     View view= LayoutInflater.from(parent.getContext())
                             .inflate(R.layout.item,parent,false);
-                    return new RecipeDocHolder(view);
+                    return new RecipeRankHolder(view);
+                }
+            };
+
+            Log.d("ksh", "updateAdapter: 들어옴 null");
+            adapter_rank=new FirestoreRecyclerAdapter<RecipeDoc, RecipeRankHolder>(options_rank) {
+                @Override
+                protected void onBindViewHolder(@NonNull RecipeRankHolder holder, int position, @NonNull RecipeDoc model) {
+                    holder.bind(model);
+                    holder.itemView.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            Log.d("KSM", "Gggg");
+                            String title = holder.getmTitle().getText().toString();
+
+                            Log.d("KSM", "eeeee");
+                            Intent intent = new Intent(v.getContext(), Post_Inside_Recipe.class);
+                            intent.putExtra("COLLECTION","recipeWritings");
+                            Log.d("KSM", title);
+                            intent.putExtra("DOCUMENT",title);
+                            Log.d("KSM", title);
+                            startActivity(intent);
+                        }
+                    });
+                }
+                @NonNull
+                @Override
+                public RecipeRankHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+                    Log.d("ksh", "onCreateViewHolder: 들어옴");
+                    View view= LayoutInflater.from(parent.getContext())
+                            .inflate(R.layout.item_c3,parent,false);
+                    return new RecipeRankHolder(view);
                 }
             };
 
@@ -207,11 +238,15 @@ public class FragmentCommunity3 extends Fragment {
             Log.d("ksh", "updateAdapter: setLayoutManager");
             binding.community3RecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
             binding.community3RecyclerView.setAdapter(adapter);
+            binding.community3RankRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity(), RecyclerView.HORIZONTAL, false));
+            binding.community3RankRecyclerView.setAdapter(adapter_rank);
         } else {
             Log.d("ksh", "updateAdapter: 들어옴 else");
             adapter.updateOptions(options);
             binding.community3RecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
             binding.community3RecyclerView.setAdapter(adapter);
+            binding.community3RankRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity(), RecyclerView.HORIZONTAL, false));
+            binding.community3RankRecyclerView.setAdapter(adapter_rank);
         }
     }
 
@@ -277,11 +312,13 @@ public class FragmentCommunity3 extends Fragment {
     public void onStart() {
         super.onStart();
         adapter.startListening();
+        adapter_rank.startListening();
     }
 
     @Override
     public void onStop() {
         super.onStop();
         adapter.startListening();
+        adapter_rank.startListening();
     }
 }

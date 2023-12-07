@@ -7,6 +7,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -17,13 +18,10 @@ import android.widget.ImageButton;
 
 import com.example.jachisignal.Doc.JachiDoc;
 import com.example.jachisignal.Doc.JachiDocHolder;
-import com.example.jachisignal.Doc.RecipeDoc;
+import com.example.jachisignal.Doc.JachiRankHolder;
 import com.example.jachisignal.PostActivity.Post_Inside_Jachitem;
-import com.example.jachisignal.PostActivity.Post_Inside_Recipe;
 import com.example.jachisignal.R;
-import com.example.jachisignal.WritingActivity.CommunityWritingActivity;
 import com.example.jachisignal.WritingActivity.JachitemWritingActivity;
-import com.example.jachisignal.WritingActivity.RecipeWritingActivity;
 import com.example.jachisignal.databinding.FragmentCommunity2Binding;
 import com.firebase.ui.firestore.FirestoreRecyclerAdapter;
 import com.firebase.ui.firestore.FirestoreRecyclerOptions;
@@ -38,8 +36,10 @@ import com.google.firebase.firestore.Query;
  */
 public class FragmentCommunity2 extends Fragment {
     private FirestoreRecyclerAdapter adapter;
+    private FirestoreRecyclerAdapter adapter_rank;
 
     private FirestoreRecyclerOptions<JachiDoc> options;
+    private FirestoreRecyclerOptions<JachiDoc> options_rank;
 
 
     // TODO: Rename parameter arguments, choose names that match
@@ -75,6 +75,7 @@ public class FragmentCommunity2 extends Fragment {
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
+        Log.d("ksh", "onCreate: 여기인가");
         super.onCreate(savedInstanceState);
         if (getArguments() != null) {
             mParam1 = getArguments().getString(ARG_PARAM1);
@@ -112,66 +113,171 @@ public class FragmentCommunity2 extends Fragment {
     }
 
     public void updateQuery(String text) {
-            Log.d("ksh", "updateQuery"+text);
+        Log.d("ksh", "updateQuery"+text);
 
-            Query baseQuery= FirebaseFirestore.getInstance()
-                    .collection("jachitemWritings")
-                    .orderBy("timestamp", Query.Direction.DESCENDING);
+        Query baseQuery= FirebaseFirestore.getInstance()
+                .collection("jachitemWritings")
+                .orderBy("timestamp", Query.Direction.DESCENDING);
 
-            if(text.getBytes().length > 0) {
-                Log.d("ksh", "updateQuery: text 들어옴");
-                baseQuery = baseQuery.where(Filter.or(
-                        Filter.arrayContains("contentArray",text),
-                        Filter.equalTo("category",text)
-                ));
-            }
-            Query finalQuery = baseQuery.limit(50);
+        if(text.getBytes().length > 0) {
+            Log.d("ksh", "updateQuery: text 들어옴");
+            baseQuery = baseQuery.where(Filter.or(
+                    Filter.arrayContains("contentArray",text),
+                    Filter.equalTo("category",text)
+            ));
+        }
+        Query finalQuery = baseQuery.limit(50);
+
+        Query rankQuery= FirebaseFirestore.getInstance()
+                .collection("jachitemWritings")
+                .orderBy("likeList", Query.Direction.DESCENDING)
+                .limit(3);
 
         FirestoreRecyclerOptions<JachiDoc> options=new FirestoreRecyclerOptions.Builder<JachiDoc>()
                 .setQuery(finalQuery,JachiDoc.class)
                 .build();
 
-        updateAdapter(options);
+        FirestoreRecyclerOptions<JachiDoc> options_rank=new FirestoreRecyclerOptions.Builder<JachiDoc>()
+                .setQuery(rankQuery,JachiDoc.class)
+                .build();
+
+        updateAdapter(options,options_rank);
+
+    }
+
+
+    private void updateAdapter(FirestoreRecyclerOptions<JachiDoc> options,FirestoreRecyclerOptions<JachiDoc> options_rank) {
+        Log.d("ksh", "updateAdapter: 들어옴");
+        if (adapter == null&&adapter_rank==null) {
+            Log.d("ksh", "updateAdapter: 들어옴 null");
+            adapter = new FirestoreRecyclerAdapter<JachiDoc, JachiDocHolder>(options) {
+                @Override
+                protected void onBindViewHolder(@NonNull JachiDocHolder holder, int position, @NonNull JachiDoc model) {
+                    holder.bind(model);
+                    holder.itemView.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            String title = holder.getmTitle().getText().toString();
+
+                            Intent intent = new Intent(v.getContext(), Post_Inside_Jachitem.class);
+                            intent.putExtra("COLLECTION", "jachitemWritings");
+                            intent.putExtra("DOCUMENT", title);
+                            Log.d("KSM", "인텐트 전달");
+                            startActivity(intent);
+                        }
+                    });
+                }
+
+                @NonNull
+                @Override
+                public JachiDocHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+                    Log.d("ksh", "onCreateViewHolder_jachidocholder: 들어옴");
+                    View view = LayoutInflater.from(parent.getContext())
+                            .inflate(R.layout.item_jachi, parent, false);
+                    return new JachiDocHolder(view);
+                }
+            };
+
+            Log.d("ksh", "updateAdapter_rank: 들어옴 null");
+            adapter_rank = new FirestoreRecyclerAdapter<JachiDoc, JachiRankHolder>(options_rank) {
+                @Override
+                protected void onBindViewHolder(@NonNull JachiRankHolder holder, int position, @NonNull JachiDoc model) {
+                    holder.bind(model);
+                    holder.itemView.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            String title = holder.getmTitle().getText().toString();
+
+                            Intent intent = new Intent(v.getContext(), Post_Inside_Jachitem.class);
+                            intent.putExtra("COLLECTION", "jachitemWritings");
+                            intent.putExtra("DOCUMENT", title);
+                            Log.d("KSM", "인텐트 전달");
+                            startActivity(intent);
+                        }
+                    });
+                }
+
+                @NonNull
+                @Override
+                public JachiRankHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+                    Log.d("ksh", "onCreateViewHolder_jachirankholder: 들어옴");
+
+                    View view = LayoutInflater.from(parent.getContext())
+                            .inflate(R.layout.item_c2, parent, false);
+                    return new JachiRankHolder(view);
+                }
+            };
+
+            binding.community2RecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
+            binding.community2RecyclerView.setAdapter(adapter);
+            binding.community2RankRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity(), RecyclerView.HORIZONTAL, false));
+            binding.community2RankRecyclerView.setAdapter(adapter_rank);
+        } else {
+            adapter.updateOptions(options);
+            binding.community2RecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
+            binding.community2RecyclerView.setAdapter(adapter);
+            binding.community2RankRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity(), RecyclerView.HORIZONTAL, false));
+            binding.community2RankRecyclerView.setAdapter(adapter_rank);
         }
+    }
 
-
-        private void updateAdapter(FirestoreRecyclerOptions<JachiDoc> options) {
-            if (adapter == null) {
-                adapter = new FirestoreRecyclerAdapter<JachiDoc, JachiDocHolder>(options) {
-                    @Override
-                    protected void onBindViewHolder(@NonNull JachiDocHolder holder, int position, @NonNull JachiDoc model) {
-                        holder.bind(model);
-                        holder.itemView.setOnClickListener(new View.OnClickListener() {
-                            @Override
-                            public void onClick(View v) {
-                                String title = holder.getmTitle().getText().toString();
-
-                                Intent intent = new Intent(v.getContext(), Post_Inside_Jachitem.class);
-                                intent.putExtra("COLLECTION", "jachitemWritings");
-                                intent.putExtra("DOCUMENT", title);
-                                Log.d("KSM", "인텐트 전달");
-                                startActivity(intent);
-                            }
-                        });
-                    }
-
-                    @NonNull
-                    @Override
-                    public JachiDocHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-                        View view = LayoutInflater.from(parent.getContext())
-                                .inflate(R.layout.item_jachi, parent, false);
-                        return new JachiDocHolder(view);
-                    }
-                };
-
-                binding.community2RecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
-                binding.community2RecyclerView.setAdapter(adapter);
-            } else {
-                adapter.updateOptions(options);
-                binding.community2RecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
-                binding.community2RecyclerView.setAdapter(adapter);
-            }
-        }
+    //    public void updateQuery_rank() {
+//        Log.d("ksh", "updateQuery_rank");
+//
+//        Query rackQuery= FirebaseFirestore.getInstance()
+//                .collection("jachitemWritings")
+//                .orderBy("likeList", Query.Direction.DESCENDING)
+//                .limit(3);
+//
+//        FirestoreRecyclerOptions<JachiDoc> options=new FirestoreRecyclerOptions.Builder<JachiDoc>()
+//                .setQuery(rackQuery,JachiDoc.class)
+//                .build();
+//
+//        updateAdapter_rank(options);
+//    }
+//
+//
+//    private void updateAdapter_rank(FirestoreRecyclerOptions<JachiDoc> options) {
+//        Log.d("ksh", "updateAdapter_rank");
+//        if (adapter_rank == null) {
+//            Log.d("ksh", "updateAdapter_rank: 들어옴 null");
+//            adapter_rank = new FirestoreRecyclerAdapter<JachiDoc, JachiRankHolder>(options) {
+//                @Override
+//                protected void onBindViewHolder(@NonNull JachiRankHolder holder, int position, @NonNull JachiDoc model) {
+//                    holder.bind(model);
+//                    holder.itemView.setOnClickListener(new View.OnClickListener() {
+//                        @Override
+//                        public void onClick(View v) {
+//                            String title = holder.getmTitle().getText().toString();
+//
+//                            Intent intent = new Intent(v.getContext(), Post_Inside_Jachitem.class);
+//                            intent.putExtra("COLLECTION", "jachitemWritings");
+//                            intent.putExtra("DOCUMENT", title);
+//                            Log.d("KSM", "인텐트 전달");
+//                            startActivity(intent);
+//                        }
+//                    });
+//                }
+//
+//                @NonNull
+//                @Override
+//                public JachiRankHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+//                    Log.d("ksh", "onCreateViewHolder_jachirankholder: 들어옴");
+//
+//                    View view = LayoutInflater.from(parent.getContext())
+//                            .inflate(R.layout.item_c2, parent, false);
+//                    return new JachiRankHolder(view);
+//                }
+//            };
+//
+//            binding.community2RankRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity(),RecyclerView.HORIZONTAL, false));
+//            binding.community2RankRecyclerView.setAdapter(adapter_rank);
+//        } else {
+//            adapter.updateOptions(options);
+//            binding.community2RankRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity(), RecyclerView.HORIZONTAL, false));
+//            binding.community2RankRecyclerView.setAdapter(adapter_rank);
+//        }
+//    }
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
 
         super.onViewCreated(view, savedInstanceState);
@@ -187,12 +293,15 @@ public class FragmentCommunity2 extends Fragment {
     public void onStart() {
         super.onStart();
         adapter.startListening();
+        adapter_rank.startListening();
     }
 
     @Override
     public void onStop() {
         super.onStop();
-        adapter.startListening();    }
+        adapter.startListening();
+        adapter_rank.startListening();
+    }
 
 
 
