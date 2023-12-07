@@ -64,24 +64,11 @@
                             android:layout_height="28dp"
                             android:src="@drawable/_9"
                             android:layout_gravity="center"/>
-                        <TextView
-                            android:layout_marginTop="10dp"
+
+                        <androidx.recyclerview.widget.RecyclerView
+                            android:id="@+id/home_recyclerView1"
                             android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:background="@drawable/whiteblue"
-                            android:text="햇반2종"/>
-                        <TextView
-                            android:layout_marginTop="10dp"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:background="@drawable/whiteblue"
-                            android:text="햇반2종"/>
-                        <TextView
-                            android:layout_marginTop="10dp"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:background="@drawable/whiteblue"
-                            android:text="햇반2종"/>
+                            android:layout_height="match_parent"/>
                     </LinearLayout>
 
                     <LinearLayout
@@ -98,24 +85,10 @@
                             android:layout_height="27dp"
                             android:src="@drawable/_9_1"
                             android:layout_gravity="center"/>
-                        <TextView
-                            android:layout_marginTop="10dp"
+                        <androidx.recyclerview.widget.RecyclerView
+                            android:id="@+id/home_recyclerView2"
                             android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:background="@drawable/whiteyellow"
-                            android:text="햇반2종"/>
-                        <TextView
-                            android:layout_marginTop="10dp"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:background="@drawable/whiteyellow"
-                            android:text="햇반2종"/>
-                        <TextView
-                            android:layout_marginTop="10dp"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:background="@drawable/whiteyellow"
-                            android:text="햇반2종"/>
+                            android:layout_height="match_parent"/>
                     </LinearLayout>
                     <LinearLayout
                         android:id="@+id/home_playing_pageBTN"
@@ -130,24 +103,10 @@
                             android:layout_height="30dp"
                             android:src="@drawable/baseline_sports_esports_24"
                             android:layout_gravity="center"/>
-                        <TextView
-                            android:layout_marginTop="10dp"
+                        <androidx.recyclerview.widget.RecyclerView
+                            android:id="@+id/home_recyclerView3"
                             android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:background="@drawable/whitepink"
-                            android:text="햇반2종"/>
-                        <TextView
-                            android:layout_marginTop="10dp"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:background="@drawable/whitepink"
-                            android:text="햇반2종"/>
-                        <TextView
-                            android:layout_marginTop="10dp"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:background="@drawable/whitepink"
-                            android:text="햇반2종"/>
+                            android:layout_height="match_parent"/>
                     </LinearLayout>
 
 
