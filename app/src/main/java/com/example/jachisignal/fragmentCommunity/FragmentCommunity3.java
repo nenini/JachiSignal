@@ -16,6 +16,7 @@ import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.ImageButton;
 
+import com.example.jachisignal.Doc.RecipeDocHolder;
 import com.example.jachisignal.Doc.RecipeRankHolder;
 import com.example.jachisignal.PostActivity.Post_Inside_Recipe;
 import com.example.jachisignal.R;
@@ -173,9 +174,9 @@ public class FragmentCommunity3 extends Fragment {
 
         if(adapter == null&&adapter_rank==null) {
             Log.d("ksh", "updateAdapter: 들어옴 null");
-            adapter=new FirestoreRecyclerAdapter<RecipeDoc, RecipeRankHolder>(options) {
+            adapter=new FirestoreRecyclerAdapter<RecipeDoc, RecipeDocHolder>(options) {
                 @Override
-                protected void onBindViewHolder(@NonNull RecipeRankHolder holder, int position, @NonNull RecipeDoc model) {
+                protected void onBindViewHolder(@NonNull RecipeDocHolder holder, int position, @NonNull RecipeDoc model) {
                     holder.bind(model);
                     holder.itemView.setOnClickListener(new View.OnClickListener() {
                         @Override
@@ -195,11 +196,11 @@ public class FragmentCommunity3 extends Fragment {
                 }
                 @NonNull
                 @Override
-                public RecipeRankHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+                public RecipeDocHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
                     Log.d("ksh", "onCreateViewHolder: 들어옴");
                     View view= LayoutInflater.from(parent.getContext())
                             .inflate(R.layout.item,parent,false);
-                    return new RecipeRankHolder(view);
+                    return new RecipeDocHolder(view);
                 }
             };
 
