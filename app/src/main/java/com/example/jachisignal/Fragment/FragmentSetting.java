@@ -25,8 +25,11 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.Switch;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
@@ -47,6 +50,7 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
+import com.google.android.material.bottomsheet.BottomSheetDialog;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.DocumentReference;
@@ -113,11 +117,22 @@ public class FragmentSetting extends Fragment {
             mParam2 = getArguments().getString(ARG_PARAM2);
         }
     }
+    private BottomSheetDialog dialog;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        binding= FragmentSettingBinding.inflate(inflater,container,false);
+        binding=FragmentSettingBinding.inflate(inflater,container,false);
+        dialog=new BottomSheetDialog(requireContext());
+        binding.userSettingBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                View contentView = getLayoutInflater().inflate(R.layout.bottom_sheet, null);
+                dialog.setContentView(contentView);
+                attachListenerToContentView(contentView);
+                dialog.show();
+            }
+        });
         binding.passwordResetting.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -166,17 +181,6 @@ public class FragmentSetting extends Fragment {
                 binding.emailTxt.setText("mail : "+appUser.getEmail());
                 binding.addressTxt.setText("주소 : "+appUser.getAddress());
                 downloadImageTo(appUser.getImg());
-//                FirebaseStorage storage = FirebaseStorage.getInstance();
-//                StorageReference storageRef = storage.getReference();
-//                storageRef.child(appUser.getImg()).getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
-//                    @Override
-//                    public void onSuccess(Uri uri) {
-//                        Glide.with(requireContext())
-//                                .load(uri)
-//                                .into(binding.userImg);
-//
-//                    }
-//                });
             }
         });
         binding.imgSettingBtn.setOnClickListener(new View.OnClickListener() {
@@ -192,6 +196,49 @@ public class FragmentSetting extends Fragment {
     private void signOut() {
         FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
         firebaseAuth.signOut();
+    }
+    private void attachListenerToContentView(View contentView) {
+
+        EditText nickname_edit=contentView.findViewById(R.id.user_setting_nickname);
+        EditText phone_edit=contentView.findViewById(R.id.user_setting_phone);
+        EditText address_edit=contentView.findViewById(R.id.user_setting_address);
+        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+
+        db = FirebaseFirestore.getInstance();
+
+        DocumentReference docRef = db.collection("users").document(user.getEmail());
+        docRef.get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
+            @Override
+            public void onSuccess(DocumentSnapshot documentSnapshot) {
+                appUser = documentSnapshot.toObject(AppUser.class);
+                nickname_edit.setText(appUser.getNickname());
+                phone_edit.setText(appUser.getPhone());
+                address_edit.setText(appUser.getAddress());
+                Button okButton = contentView.findViewById(R.id.ok_button);
+                okButton.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        docRef.update("nickname",nickname_edit.getText().toString());
+                        docRef.update("phone",phone_edit.getText().toString());
+                        docRef.update("address",address_edit.getText().toString());
+                        Toast.makeText(requireContext(),"사용자 정보가 변경되었습니다.",Toast.LENGTH_SHORT).show();
+                        dialog.dismiss();
+                        DocumentReference docRef1 = db.collection("users").document(user.getEmail());
+                        docRef1.get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
+                            @Override
+                            public void onSuccess(DocumentSnapshot documentSnapshot) {
+                                appUser = documentSnapshot.toObject(AppUser.class);
+                                binding.nicknameTxt.setText("닉네임 : "+appUser.getNickname());
+                                binding.phoneTxt.setText("전화번호 : "+appUser.getPhone());
+                                binding.emailTxt.setText("mail : "+appUser.getEmail());
+                                binding.addressTxt.setText("주소 : "+appUser.getAddress());
+                            }
+                        });
+
+                    }
+                });
+            }
+        });
     }
 
 
@@ -209,15 +256,6 @@ public class FragmentSetting extends Fragment {
         launcher.launch(intent);
         Log.d("KYR","select()");
         return true;
-    }
-    private void show() {
-        StorageReference storageReference = FirebaseStorage.getInstance().getReference();
-        storageReference.child(getPath()).getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
-            @Override
-            public void onSuccess(Uri uri) {
-                Glide.with(requireContext()).load(uri).into(binding.userImg);
-            }
-        });
     }
     private void upload() {
         StorageReference storageRef = FirebaseStorage.getInstance().getReference();
