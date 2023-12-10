@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="report_spinner"> My Application_report</string>
+    <string-array name="spinner_category">
+        <item>전체</item>
+        <item>공구사기</item>
+        <item>악플</item>
+        <item>명의도용</item>
+        <item>기타</item>
+    </string-array>
+</resources>
