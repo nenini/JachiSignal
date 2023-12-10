@@ -17,6 +17,7 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.jachisignal.Doc.ReportDoc;
 import com.example.jachisignal.databinding.ActivityReportBinding;
@@ -95,6 +96,8 @@ public class ReportActivity extends AppCompatActivity {
                 ReportDoc reportDoc=new ReportDoc(choice_category,appUser.getEmail(),binding.titleReport.getText().toString(),binding.contentReport.getText().toString(),imgLink);
                 db.collection("reportWritings").document(appUser.getEmail()+"_"+System.currentTimeMillis()).set(reportDoc);
                 finish();
+                Toast.makeText(getApplicationContext(), "신고글쓰기가 완료되었습니다.",
+                        Toast.LENGTH_SHORT).show();
             }
         });
         binding.imgBtnReport.setOnClickListener(new View.OnClickListener() {
