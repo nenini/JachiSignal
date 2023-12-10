@@ -1,9 +1,13 @@
 package com.example.jachisignal.PostActivity;
 
+import static android.app.PendingIntent.getActivity;
+
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
+import android.app.Dialog;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
@@ -12,6 +16,8 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
+import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.example.jachisignal.AppUser;
@@ -20,6 +26,8 @@ import com.example.jachisignal.Doc.ChatHolder;
 import com.example.jachisignal.Doc.NestedChat;
 import com.example.jachisignal.Doc.NestedChatHolder;
 import com.example.jachisignal.Doc.RecipeDoc;
+import com.example.jachisignal.Doc.RecipeDocHolder;
+import com.example.jachisignal.Doc.UserInfHolder;
 import com.example.jachisignal.R;
 import com.example.jachisignal.databinding.ActivityPostInsideCommunityBinding;
 import com.example.jachisignal.databinding.ActivityPostInsideRecipeBinding;
@@ -33,8 +41,11 @@ import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FieldValue;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.Query;
+import com.google.firebase.firestore.auth.User;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
+
+import org.w3c.dom.Text;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -53,6 +64,13 @@ public class Post_Inside_Recipe extends AppCompatActivity {
     private FirestoreRecyclerAdapter adapter;
     private FirestoreRecyclerAdapter adapterNestedChat;
 
+    private FirestoreRecyclerAdapter adapter_user;
+
+    String Id;
+    String writeID;
+
+    int writeSize;
+
 
 
     @Override
@@ -60,12 +78,6 @@ public class Post_Inside_Recipe extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         binding = ActivityPostInsideRecipeBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
-        binding.backBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                finish();
-            }
-        });
         Intent intent = getIntent();
         String collectionName = intent.getStringExtra("COLLECTION");
         documentName = intent.getStringExtra("DOCUMENT");
@@ -78,6 +90,10 @@ public class Post_Inside_Recipe extends AppCompatActivity {
             public void onSuccess(DocumentSnapshot documentSnapshot) {
                 recipeDoc = documentSnapshot.toObject(RecipeDoc.class);
                 Log.d("KSM", "onSuccess: ");
+
+                // 세현
+                Id = recipeDoc.getWriteId();
+                //세현
                 binding.titleRecipePost.setText(recipeDoc.getContentTitle());
 
                 binding.textRecipePost.setText(recipeDoc.getText());
@@ -267,7 +283,113 @@ public class Post_Inside_Recipe extends AppCompatActivity {
 
             }
         });
+
+        binding.nicknameRecipePost.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                showCustomDialog();
+
+            }
+        });
     }
+
+    private void showCustomDialog() {
+        Dialog dialog = new Dialog(Post_Inside_Recipe.this); // 다이얼로그 생성
+        dialog.setContentView(R.layout.custom_user); // 사용자 지정 다이얼로그 레이아웃 설정
+
+        ImageView dialogImageView = dialog.findViewById(R.id.user_inf_img);
+        TextView dialogUserNickname = dialog.findViewById(R.id.user_inf_nickname);
+        ImageView dialogCloseClick = dialog.findViewById(R.id.closeClick_img);
+        TextView dialogHz = dialog.findViewById(R.id.hz);
+
+
+        db = FirebaseFirestore.getInstance();
+
+        DocumentReference docRef = db.collection("recipeWritings").document(documentName);
+        docRef.get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
+            @Override
+            public void onSuccess(DocumentSnapshot documentSnapshot) {
+                writeID = recipeDoc.getWriteId();
+                recipeDoc = documentSnapshot.toObject(RecipeDoc.class);
+                int writeSize = appUser.getMyWrite().size();
+                dialogHz.setText(writeSize + " HZ");
+                dialogUserNickname.setText(recipeDoc.getNickname());
+                DocumentReference docRef2 = db.collection("users").document(recipeDoc.getWriteId());
+                docRef2.get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
+                    @Override
+                    public void onSuccess(DocumentSnapshot documentSnapshot) {
+                        appUser = documentSnapshot.toObject(AppUser.class);
+                        if(appUser.getImg()!=null){
+                            String uri = appUser.getImg();
+                            FirebaseStorage storage = FirebaseStorage.getInstance();
+                            StorageReference gsReference = storage.getReferenceFromUrl(uri); // from gs://~~~
+                            gsReference.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
+                                @Override
+                                public void onSuccess(Uri uri) {
+                                    Glide.with(Post_Inside_Recipe.this).load(uri).into(dialogImageView);}
+                            });
+                        }
+                    }
+                });
+                RecyclerView dialogRecentPostsRecyclerView = dialog.findViewById(R.id.user_inf_recyclerView);
+
+                Query query = FirebaseFirestore.getInstance()
+                        .collection("recipeWritings")
+                        .whereEqualTo("writeId",writeID)
+                        .orderBy("timestamp", Query.Direction.DESCENDING)
+                        .limit(3);
+
+                FirestoreRecyclerOptions<RecipeDoc> options = new FirestoreRecyclerOptions.Builder<RecipeDoc>()
+                        .setQuery(query, RecipeDoc.class)
+                        .build();
+
+                adapter_user = new FirestoreRecyclerAdapter<RecipeDoc, UserInfHolder>(options) {
+                    @Override
+                    protected void onBindViewHolder(@NonNull UserInfHolder holder, int position, @NonNull RecipeDoc model) {
+                        holder.bind(model);
+                        holder.itemView.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+                                Log.d("KSM", "Gggg");
+                                String title = holder.getmTitle().getText().toString();
+
+                                Log.d("KSM", "eeeee");
+                                Intent intent = new Intent(v.getContext(), Post_Inside_Recipe.class);
+                                intent.putExtra("COLLECTION","recipeWritings");
+                                Log.d("KSM", title);
+                                intent.putExtra("DOCUMENT",title);
+                                Log.d("KSM", title);
+                                startActivity(intent);
+                            }
+                        });
+                    }
+                    @NonNull
+                    @Override
+                    public UserInfHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+                        Log.d("ksh", "onCreateViewHolder: 들어옴");
+                        View view= LayoutInflater.from(parent.getContext())
+                                .inflate(R.layout.item_user_inf,parent,false);
+                        return new UserInfHolder(view);
+                    }
+                };
+                adapter_user.startListening();
+
+                dialogRecentPostsRecyclerView.setLayoutManager(new LinearLayoutManager(Post_Inside_Recipe.this));
+                dialogRecentPostsRecyclerView.setAdapter(adapter_user);
+
+                dialogCloseClick.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        dialog.dismiss();
+                    }
+                });
+                dialog.show();
+            }
+        });
+    }
+
+
+
 
     private void downloadImageTo(String uri) {
         // Get a default Storage bucket
@@ -351,6 +473,8 @@ public class Post_Inside_Recipe extends AppCompatActivity {
 
     }
 
+
+
     private boolean hasSignedIn() {
         return FirebaseAuth.getInstance().getCurrentUser() != null ? true : false;
     }
@@ -362,6 +486,7 @@ public class Post_Inside_Recipe extends AppCompatActivity {
     public void onStart() {
         super.onStart();
         adapter.startListening();
+
     }
 
     @Override
@@ -370,3 +495,5 @@ public class Post_Inside_Recipe extends AppCompatActivity {
         adapter.startListening();
     }
 }
+
+
