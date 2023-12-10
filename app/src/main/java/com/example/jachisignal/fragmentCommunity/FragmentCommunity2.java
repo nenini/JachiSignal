@@ -95,6 +95,14 @@ public class FragmentCommunity2 extends Fragment {
 
         search_BTN = binding.searchBtnRecipe;
         frag2_search_text = binding.searchText;
+        binding.backBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (getActivity() != null) {
+                    getActivity().getSupportFragmentManager().popBackStack();
+                }
+            }
+        });
 
 
         search_BTN.setOnClickListener(new View.OnClickListener() {

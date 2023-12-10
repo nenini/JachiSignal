@@ -7,6 +7,7 @@ import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
 
 import com.example.jachisignal.AppUser;
 import com.example.jachisignal.Doc.CommunityDoc;
@@ -52,7 +53,12 @@ public class mypage_mywrite extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         ActivityMypageMywriteBinding binding=ActivityMypageMywriteBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
-
+        binding.backBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
         FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
         db = FirebaseFirestore.getInstance();
         DocumentReference docRef = db.collection("users").document(user.getEmail());

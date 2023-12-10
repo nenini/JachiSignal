@@ -48,7 +48,12 @@ public class JachitemWritingActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         binding = ActivityJachitemWritingBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
-
+        binding.backBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
         FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
 
         db = FirebaseFirestore.getInstance();

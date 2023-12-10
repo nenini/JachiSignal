@@ -61,7 +61,12 @@ public class Post_Inside_Playing extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         binding = ActivityPostInsidePlayingBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
-
+        binding.backBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
         Intent intent = getIntent();
         String collectionName = intent.getStringExtra("COLLECTION");
         documentName = intent.getStringExtra("DOCUMENT");

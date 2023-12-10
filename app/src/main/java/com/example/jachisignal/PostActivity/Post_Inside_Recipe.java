@@ -60,6 +60,12 @@ public class Post_Inside_Recipe extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         binding = ActivityPostInsideRecipeBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
+        binding.backBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
         Intent intent = getIntent();
         String collectionName = intent.getStringExtra("COLLECTION");
         documentName = intent.getStringExtra("DOCUMENT");

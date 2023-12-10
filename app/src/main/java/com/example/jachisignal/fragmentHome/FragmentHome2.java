@@ -94,7 +94,14 @@ public class FragmentHome2 extends Fragment {
 
         search_BTN = binding.searchBtnHome2;
         home2_search_text = binding.searchTextHome2;
-
+        binding.backBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (getActivity() != null) {
+                    getActivity().getSupportFragmentManager().popBackStack();
+                }
+            }
+        });
         search_BTN.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

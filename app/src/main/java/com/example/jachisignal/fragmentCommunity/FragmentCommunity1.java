@@ -116,6 +116,14 @@ public class FragmentCommunity1 extends Fragment {
         binding=FragmentCommunity1Binding.inflate(inflater,container,false);
         checkBox = binding.communityQuestionShow;
         update_BTN = binding.communityUpdate;
+        binding.backBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (getActivity() != null) {
+                    getActivity().getSupportFragmentManager().popBackStack();
+                }
+            }
+        });
 
         Spinner spin1_show = binding.spinnerShow;
         Spinner spin2_show = binding.spinner2Show;

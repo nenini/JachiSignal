@@ -50,7 +50,12 @@ public class LeisureWritingActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         binding = ActivityLeisureWritingBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
-
+        binding.backBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
         FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
 
         db = FirebaseFirestore.getInstance();

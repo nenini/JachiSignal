@@ -31,7 +31,12 @@ public class FindPasswordActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         ActivityFindPasswordBinding binding=ActivityFindPasswordBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
-
+        binding.backBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
         auth=FirebaseAuth.getInstance();
         firestore=FirebaseFirestore.getInstance();
         binding.passwordFindBtn.setOnClickListener(new View.OnClickListener() {

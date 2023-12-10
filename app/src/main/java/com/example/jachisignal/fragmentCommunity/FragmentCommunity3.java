@@ -114,8 +114,14 @@ public class FragmentCommunity3 extends Fragment {
 
         search_BTN = binding.searchBtnRecipe;
         frag3_search_text= binding.searchText;
-
-
+        binding.backBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (getActivity() != null) {
+                    getActivity().getSupportFragmentManager().popBackStack();
+                }
+            }
+        });
 
         search_BTN.setOnClickListener(new View.OnClickListener() {
             @Override

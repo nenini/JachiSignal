@@ -58,7 +58,12 @@ public class CommunityWritingActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
          binding = ActivityCommunityWritingBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
-
+        binding.backBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
         Spinner spin1 = binding.spinner;
         Spinner spin2 = binding.spinner2;
 

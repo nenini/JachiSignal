@@ -48,7 +48,12 @@ public class RecipeWritingActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         binding = ActivityRecipeWritingBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
-
+        binding.backBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
         FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
 
         db = FirebaseFirestore.getInstance();

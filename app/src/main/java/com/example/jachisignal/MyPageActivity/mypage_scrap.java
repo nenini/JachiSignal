@@ -9,6 +9,7 @@ import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.View;
 import android.view.ViewGroup;
 
 import com.example.jachisignal.AppUser;
@@ -52,7 +53,12 @@ public class mypage_scrap extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         ActivityMypageScrapBinding binding=ActivityMypageScrapBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
-
+        binding.backBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
         FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
         db = FirebaseFirestore.getInstance();
         DocumentReference docRef = db.collection("users").document(user.getEmail());

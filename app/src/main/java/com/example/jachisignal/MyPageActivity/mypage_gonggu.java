@@ -56,6 +56,12 @@ public class mypage_gonggu extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         ActivityMypageGongguBinding binding=ActivityMypageGongguBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
+        binding.backBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
         FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
         db = FirebaseFirestore.getInstance();
         DocumentReference docRef = db.collection("users").document(user.getEmail());

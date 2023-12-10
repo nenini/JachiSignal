@@ -100,7 +100,14 @@ public class FragmentHome3 extends Fragment {
         binding= FragmentHome3Binding.inflate(inflater,container,false);
         search_BTN = binding.searchBtnHome3;
         home3_search_text = binding.searchTextHome3;
-
+        binding.backBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (getActivity() != null) {
+                    getActivity().getSupportFragmentManager().popBackStack();
+                }
+            }
+        });
         search_BTN.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

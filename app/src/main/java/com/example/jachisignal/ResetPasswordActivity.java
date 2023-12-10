@@ -32,7 +32,12 @@ public class ResetPasswordActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         ActivityResetPasswordBinding binding = ActivityResetPasswordBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
-
+        binding.backBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
         FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
 
         db = FirebaseFirestore.getInstance();

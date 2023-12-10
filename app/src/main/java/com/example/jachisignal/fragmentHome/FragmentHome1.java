@@ -92,7 +92,14 @@ public class FragmentHome1 extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         binding = FragmentHome1Binding.inflate(inflater, container, false);
-
+        binding.backBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (getActivity() != null) {
+                    getActivity().getSupportFragmentManager().popBackStack();
+                }
+            }
+        });
         search_BTN = binding.searchBtnHome1;
         home1_search_text = binding.searchTextHome1;
 
