@@ -55,7 +55,7 @@ public class BottomSheet extends BottomSheetDialogFragment {
         binding.moneyListRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
         binding.moneyListRecyclerView.setAdapter(adapter);
 
-        binding.date.setText(year+"년 "+month+"월 "+dayOfMonth+"일");
+        binding.date.setText(year+"년 "+(month+1)+"월 "+dayOfMonth+"일");
         return binding.getRoot();
     }
 
