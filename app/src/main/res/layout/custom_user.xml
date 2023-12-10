@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:background="@drawable/pink_page">
+
+    <LinearLayout
+        android:layout_gravity="center_horizontal"
+        android:gravity="center_horizontal"
+        android:layout_width="300dp"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <ImageView
+                android:id="@+id/closeClick_img"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/close"/>
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <androidx.cardview.widget.CardView
+                android:id="@+id/tag_img"
+                android:layout_gravity="center"
+                android:layout_below="@+id/category"
+                android:layout_marginStart="5dp"
+                android:layout_marginTop="6dp"
+                app:cardElevation="0dp"
+                app:cardCornerRadius="15dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+
+                <ImageView
+                    android:id="@+id/user_inf_img"
+                    android:layout_width="70dp"
+                    android:layout_height="70dp"
+                    android:src="@drawable/yellow_page" />
+            </androidx.cardview.widget.CardView>
+            <LinearLayout
+                android:layout_marginStart="15dp"
+                android:layout_marginTop="15dp"
+                android:orientation="vertical"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+
+                <TextView
+                    android:id="@+id/user_inf_nickname"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="닉네임"
+                    android:textStyle="bold"
+                    android:textSize="20dp"
+                    android:textColor="#3c567b"/>
+                <LinearLayout
+                    android:orientation="horizontal"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+                    <TextView
+                        android:id="@+id/Hz_num"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="50"
+                        android:textStyle="bold"
+                        android:textSize="20dp"
+                        android:textColor="#3c567b"/>
+                    <TextView
+                        android:id="@+id/Hz"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Hz"
+                        android:textStyle="bold"
+                        android:textSize="20dp"
+                        android:textColor="#3c567b"/>
+                </LinearLayout>
+            </LinearLayout>
+
+        </LinearLayout>
+    </LinearLayout>
+    <TextView
+        android:id="@+id/text1"
+        android:layout_marginTop="25dp"
+        android:layout_width="match_parent"
+        android:layout_height="35dp"
+        android:text="ttt"
+        android:textColor="#3c567b" />
+    <TextView
+        android:id="@+id/text2"
+        android:layout_marginTop="25dp"
+        android:layout_width="match_parent"
+        android:layout_height="35dp" />
+    <TextView
+        android:id="@+id/text3"
+        android:layout_marginTop="25dp"
+        android:layout_width="match_parent"
+        android:layout_height="35dp" />
+
+
+</LinearLayout>
