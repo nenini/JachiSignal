@@ -300,8 +300,8 @@ public class Post_Inside_Recipe extends AppCompatActivity {
     }
 
     private void showCustomDialog() {
-        Dialog dialog = new Dialog(Post_Inside_Recipe.this); // 다이얼로그 생성
-        dialog.setContentView(R.layout.custom_user); // 사용자 지정 다이얼로그 레이아웃 설정
+        Dialog dialog = new Dialog(Post_Inside_Recipe.this);
+        dialog.setContentView(R.layout.custom_user);
 
         ImageView dialogImageView = dialog.findViewById(R.id.user_inf_img);
         TextView dialogUserNickname = dialog.findViewById(R.id.user_inf_nickname);

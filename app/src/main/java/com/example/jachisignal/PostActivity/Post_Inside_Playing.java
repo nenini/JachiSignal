@@ -3,7 +3,9 @@ package com.example.jachisignal.PostActivity;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
+import android.app.Dialog;
 import android.content.ClipData;
 import android.content.ClipboardManager;
 import android.content.Context;
@@ -15,6 +17,8 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
@@ -25,7 +29,10 @@ import com.example.jachisignal.Doc.LeisureDoc;
 import com.example.jachisignal.Doc.NestedChat;
 import com.example.jachisignal.Doc.NestedChatHolder;
 import com.example.jachisignal.Doc.RecipeDoc;
+import com.example.jachisignal.Doc.UserInfHolder;
+import com.example.jachisignal.Doc.UserInfHolderLeisure;
 import com.example.jachisignal.R;
+import com.example.jachisignal.WritingActivity.LeisureWritingActivity;
 import com.example.jachisignal.databinding.ActivityPostInsidePlayingBinding;
 import com.example.jachisignal.databinding.ActivityPostInsideRecipeBinding;
 import com.firebase.ui.firestore.FirestoreRecyclerAdapter;
@@ -55,6 +62,13 @@ public class Post_Inside_Playing extends AppCompatActivity {
     ActivityPostInsidePlayingBinding binding;
     private FirestoreRecyclerAdapter adapter;
     private FirestoreRecyclerAdapter adapterNestedChat;
+
+    private FirestoreRecyclerAdapter adapter_user;
+
+    String Id;
+    String writeID;
+
+    int writeSize;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -280,6 +294,109 @@ public class Post_Inside_Playing extends AppCompatActivity {
                     }
                 });
 
+            }
+        });
+
+        binding.nicknameLeisure.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                showCustomDialog();
+
+            }
+        });
+    }
+
+    private void showCustomDialog() {
+        Dialog dialog = new Dialog(Post_Inside_Playing.this);
+        dialog.setContentView(R.layout.custom_user);
+
+        ImageView dialogImageView = dialog.findViewById(R.id.user_inf_img);
+        TextView dialogUserNickname = dialog.findViewById(R.id.user_inf_nickname);
+        ImageView dialogCloseClick = dialog.findViewById(R.id.closeClick_img);
+        TextView dialogHz = dialog.findViewById(R.id.hz);
+
+
+        db = FirebaseFirestore.getInstance();
+
+        DocumentReference docRef = db.collection("leisureWritings").document(documentName);
+        docRef.get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
+            @Override
+            public void onSuccess(DocumentSnapshot documentSnapshot) {
+                writeID = leisureDoc.getWriteId();
+                leisureDoc = documentSnapshot.toObject(LeisureDoc.class);
+                int writeSize = appUser.getMyWrite().size();
+                dialogHz.setText(writeSize + " HZ");
+                dialogUserNickname.setText(leisureDoc.getNickname());
+                DocumentReference docRef2 = db.collection("users").document(leisureDoc.getWriteId());
+                docRef2.get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
+                    @Override
+                    public void onSuccess(DocumentSnapshot documentSnapshot) {
+                        appUser = documentSnapshot.toObject(AppUser.class);
+                        if(appUser.getImg()!=null){
+                            String uri = appUser.getImg();
+                            FirebaseStorage storage = FirebaseStorage.getInstance();
+                            StorageReference gsReference = storage.getReferenceFromUrl(uri); // from gs://~~~
+                            gsReference.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
+                                @Override
+                                public void onSuccess(Uri uri) {
+                                    Glide.with(Post_Inside_Playing.this).load(uri).into(dialogImageView);}
+                            });
+                        }
+                    }
+                });
+                RecyclerView dialogRecentPostsRecyclerView = dialog.findViewById(R.id.user_inf_recyclerView);
+
+                Query query = FirebaseFirestore.getInstance()
+                        .collection("leisureWritings")
+                        .whereEqualTo("writeId",writeID)
+                        .orderBy("timestamp", Query.Direction.DESCENDING)
+                        .limit(3);
+
+                FirestoreRecyclerOptions<LeisureDoc> options = new FirestoreRecyclerOptions.Builder<LeisureDoc>()
+                        .setQuery(query, LeisureDoc.class)
+                        .build();
+
+                adapter_user = new FirestoreRecyclerAdapter<LeisureDoc, UserInfHolderLeisure>(options) {
+                    @Override
+                    protected void onBindViewHolder(@NonNull UserInfHolderLeisure holder, int position, @NonNull LeisureDoc model) {
+                        holder.bind(model);
+                        holder.itemView.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+                                Log.d("KSM", "Gggg");
+                                String title = holder.getmTitle().getText().toString();
+
+                                Log.d("KSM", "eeeee");
+                                Intent intent = new Intent(v.getContext(), Post_Inside_Playing.class);
+                                intent.putExtra("COLLECTION","leisureWritings");
+                                Log.d("KSM", title);
+                                intent.putExtra("DOCUMENT",title);
+                                Log.d("KSM", title);
+                                startActivity(intent);
+                            }
+                        });
+                    }
+                    @NonNull
+                    @Override
+                    public UserInfHolderLeisure onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+                        Log.d("ksh", "onCreateViewHolder: 들어옴");
+                        View view= LayoutInflater.from(parent.getContext())
+                                .inflate(R.layout.item_user_inf,parent,false);
+                        return new UserInfHolderLeisure(view);
+                    }
+                };
+                adapter_user.startListening();
+
+                dialogRecentPostsRecyclerView.setLayoutManager(new LinearLayoutManager(Post_Inside_Playing.this));
+                dialogRecentPostsRecyclerView.setAdapter(adapter_user);
+
+                dialogCloseClick.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        dialog.dismiss();
+                    }
+                });
+                dialog.show();
             }
         });
     }

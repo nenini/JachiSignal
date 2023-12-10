@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
@@ -14,6 +15,8 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
+import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.example.jachisignal.AppUser;
@@ -22,6 +25,9 @@ import com.example.jachisignal.Doc.ChatHolder;
 import com.example.jachisignal.Doc.JachiDoc;
 import com.example.jachisignal.Doc.NestedChat;
 import com.example.jachisignal.Doc.NestedChatHolder;
+import com.example.jachisignal.Doc.RecipeDoc;
+import com.example.jachisignal.Doc.UserInfHolder;
+import com.example.jachisignal.Doc.UserInfHolderJachi;
 import com.example.jachisignal.R;
 import com.example.jachisignal.databinding.ActivityPostInsideJachitemBinding;
 import com.firebase.ui.common.ChangeEventType;
@@ -54,7 +60,12 @@ public class Post_Inside_Jachitem extends AppCompatActivity {
     private FirestoreRecyclerAdapter adapter;
 
     private FirestoreRecyclerAdapter adapterNestedChat;
+    private FirestoreRecyclerAdapter adapter_user;
 
+    String Id;
+    String writeID;
+
+    int writeSize;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -264,6 +275,109 @@ public class Post_Inside_Jachitem extends AppCompatActivity {
             }
         });
 
+        binding.nicknameJachitem.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                showCustomDialog();
+
+            }
+        });
+
+    }
+
+    private void showCustomDialog() {
+        Dialog dialog = new Dialog(Post_Inside_Jachitem.this);
+        dialog.setContentView(R.layout.custom_user);
+
+        ImageView dialogImageView = dialog.findViewById(R.id.user_inf_img);
+        TextView dialogUserNickname = dialog.findViewById(R.id.user_inf_nickname);
+        ImageView dialogCloseClick = dialog.findViewById(R.id.closeClick_img);
+        TextView dialogHz = dialog.findViewById(R.id.hz);
+
+
+        db = FirebaseFirestore.getInstance();
+
+        DocumentReference docRef = db.collection("jachitemWritings").document(documentName);
+        docRef.get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
+            @Override
+            public void onSuccess(DocumentSnapshot documentSnapshot) {
+                writeID = jachiDoc.getWriteId();
+                jachiDoc = documentSnapshot.toObject(JachiDoc.class);
+                int writeSize = appUser.getMyWrite().size();
+                dialogHz.setText(writeSize + " HZ");
+                dialogUserNickname.setText(jachiDoc.getNickname());
+                DocumentReference docRef2 = db.collection("users").document(jachiDoc.getWriteId());
+                docRef2.get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
+                    @Override
+                    public void onSuccess(DocumentSnapshot documentSnapshot) {
+                        appUser = documentSnapshot.toObject(AppUser.class);
+                        if(appUser.getImg()!=null){
+                            String uri = appUser.getImg();
+                            FirebaseStorage storage = FirebaseStorage.getInstance();
+                            StorageReference gsReference = storage.getReferenceFromUrl(uri); // from gs://~~~
+                            gsReference.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
+                                @Override
+                                public void onSuccess(Uri uri) {
+                                    Glide.with(Post_Inside_Jachitem.this).load(uri).into(dialogImageView);}
+                            });
+                        }
+                    }
+                });
+                RecyclerView dialogRecentPostsRecyclerView = dialog.findViewById(R.id.user_inf_recyclerView);
+
+                Query query = FirebaseFirestore.getInstance()
+                        .collection("jachitemWritings")
+                        .whereEqualTo("writeId",writeID)
+                        .orderBy("timestamp", Query.Direction.DESCENDING)
+                        .limit(3);
+
+                FirestoreRecyclerOptions<JachiDoc> options = new FirestoreRecyclerOptions.Builder<JachiDoc>()
+                        .setQuery(query, JachiDoc.class)
+                        .build();
+
+                adapter_user = new FirestoreRecyclerAdapter<JachiDoc, UserInfHolderJachi>(options) {
+                    @Override
+                    protected void onBindViewHolder(@NonNull UserInfHolderJachi holder, int position, @NonNull JachiDoc model) {
+                        holder.bind(model);
+                        holder.itemView.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+                                Log.d("KSM", "Gggg");
+                                String title = holder.getmTitle().getText().toString();
+
+                                Log.d("KSM", "eeeee");
+                                Intent intent = new Intent(v.getContext(), Post_Inside_Jachitem.class);
+                                intent.putExtra("COLLECTION","jachitemWritings");
+                                Log.d("KSM", title);
+                                intent.putExtra("DOCUMENT",title);
+                                Log.d("KSM", title);
+                                startActivity(intent);
+                            }
+                        });
+                    }
+                    @NonNull
+                    @Override
+                    public UserInfHolderJachi onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+                        Log.d("ksh", "onCreateViewHolder: 들어옴");
+                        View view= LayoutInflater.from(parent.getContext())
+                                .inflate(R.layout.item_user_inf,parent,false);
+                        return new UserInfHolderJachi(view);
+                    }
+                };
+                adapter_user.startListening();
+
+                dialogRecentPostsRecyclerView.setLayoutManager(new LinearLayoutManager(Post_Inside_Jachitem.this));
+                dialogRecentPostsRecyclerView.setAdapter(adapter_user);
+
+                dialogCloseClick.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        dialog.dismiss();
+                    }
+                });
+                dialog.show();
+            }
+        });
     }
 
     private void downloadImageTo(String uri) {
