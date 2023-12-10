@@ -35,10 +35,15 @@ android {
     viewBinding{
         enable=true
     }
+    buildFeatures {
+        viewBinding = true
+    }
 }
 
 dependencies {
     implementation("androidx.swiperefreshlayout:swiperefreshlayout:1.1.0")
+    implementation("androidx.legacy:legacy-support-v4:1.0.0")
+    implementation("androidx.recyclerview:recyclerview:1.3.0")
 
     annotationProcessor("com.github.bumptech.glide:compiler:4.16.0")
 
