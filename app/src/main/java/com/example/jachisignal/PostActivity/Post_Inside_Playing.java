@@ -200,7 +200,7 @@ public class Post_Inside_Playing extends AppCompatActivity {
                                                 adapterNestedChat.startListening();
                                                 Log.d(TAG, "흠ㅏ");
                                             }
-                                        }, 1000);
+                                        }, 2000);
                                     }
                                 });
                             }

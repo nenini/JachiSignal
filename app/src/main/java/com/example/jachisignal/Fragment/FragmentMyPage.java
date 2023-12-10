@@ -3,16 +3,30 @@ package com.example.jachisignal.Fragment;
 import android.content.Intent;
 import android.os.Bundle;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.CalendarView;
+import android.widget.Switch;
 
+import com.example.jachisignal.BottomSheet;
+import com.example.jachisignal.Doc.Doc;
+import com.example.jachisignal.R;
+import com.example.jachisignal.databinding.CalendarBottomSheetBinding;
 import com.example.jachisignal.databinding.FragmentMyPageBinding;
 import com.example.jachisignal.MyPageActivity.mypage_gonggu;
 import com.example.jachisignal.MyPageActivity.mypage_mywrite;
 import com.example.jachisignal.MyPageActivity.mypage_scrap;
+import com.example.jachisignal.databinding.ItemBinding;
+import com.google.android.material.bottomsheet.BottomSheetDialog;
+
+import java.util.List;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -21,6 +35,7 @@ import com.example.jachisignal.MyPageActivity.mypage_scrap;
  */
 public class FragmentMyPage extends Fragment {
     FragmentMyPageBinding binding;
+    private BottomSheetDialog dialog;
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -89,6 +104,15 @@ public class FragmentMyPage extends Fragment {
             }
         });
         return binding.getRoot();
+    }
+
+    @Override
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+        binding.calendarView.setOnDateChangeListener((CalendarView view1, int year, int month, int dayOfMonth) -> {
+            BottomSheet bottomSheet = new BottomSheet(year,month,dayOfMonth);
+            bottomSheet.show(getActivity().getSupportFragmentManager(), null);
+        });
     }
 
 }
