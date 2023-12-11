@@ -55,37 +55,42 @@
 
             </LinearLayout>
             <LinearLayout
+                android:layout_marginBottom="15dp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:gravity="right">
-                <CheckBox
-                    android:id="@+id/community_question_show"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="질문글만 보기"
-                    android:textStyle="bold"
-                    android:textColor="#3c567b"/>
-
+                android:orientation="horizontal">
                 <LinearLayout
-                    android:weightSum="1"
-                    android:orientation="horizontal"
+                    android:layout_weight="@integer/material_motion_duration_long_1"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    >
-                    <Spinner
-
-                        android:layout_width="80dp"
+                    android:orientation="vertical">
+                    <CheckBox
+                        android:id="@+id/community_question_show"
+                        android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:id="@+id/spinner_show"
+                        android:text="질문글만 보기"
+                        android:textStyle="bold"
+                        android:textColor="#3c567b"/>
 
-                        />
-                    <Spinner
-                        android:layout_width="80dp"
+                    <LinearLayout
+                        android:weightSum="1"
+                        android:orientation="horizontal"
+                        android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:id="@+id/spinner2_show"
+                        >
+                        <Spinner
+                            android:layout_weight="1"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:id="@+id/spinner_show" />
+                        <Spinner
+                            android:layout_weight="1"
 
-                        />
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:id="@+id/spinner2_show" />
+                    </LinearLayout>
+
                 </LinearLayout>
 
                 <Button
