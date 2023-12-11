@@ -102,11 +102,12 @@
                 android:layout_height="wrap_content"
                 android:orientation="horizontal">
                 <TextView
+                    android:textSize="18dp"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:textColor="#3C567B"
                     android:textStyle="bold"
-                    android:text="제품명 : "/>
+                    android:text="장소 : "/>
                 <TextView
                     android:id="@+id/place_leisure"
                     android:paddingTop="10dp"
@@ -122,6 +123,7 @@
                 android:layout_height="wrap_content"
                 android:orientation="horizontal">
                 <TextView
+                    android:textSize="18dp"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:textColor="#3C567B"
