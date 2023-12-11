@@ -46,6 +46,7 @@ public class mypage_scrap extends AppCompatActivity {
     private LeisureDoc leisureDoc;
     private CommunityDoc communityDoc;
     private JachiDoc jachiDoc;
+    DocumentReference docRef;
 
 
     @Override
@@ -61,7 +62,7 @@ public class mypage_scrap extends AppCompatActivity {
         });
         FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
         db = FirebaseFirestore.getInstance();
-        DocumentReference docRef = db.collection("users").document(user.getEmail());
+       docRef = db.collection("users").document(user.getEmail());
         docRef.get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
             @Override
             public void onSuccess(DocumentSnapshot documentSnapshot) {
@@ -72,11 +73,21 @@ public class mypage_scrap extends AppCompatActivity {
                 binding.refreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
                     @Override
                     public void onRefresh() {
-                        updateRecyclerView(user_scrap);
-                        // 종료
-                        if (binding.refreshLayout != null) {
-                            binding.refreshLayout.setRefreshing(false);
-                        }
+                        DocumentReference docRef1= db.collection("users").document(user.getEmail());
+                        docRef1.get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
+                            @Override
+                            public void onSuccess(DocumentSnapshot documentSnapshot) {
+                                appUser = documentSnapshot.toObject(AppUser.class);
+                                List<String> user_scrap=appUser.getScrap();
+                                updateRecyclerView(user_scrap);
+                                // 종료
+                                if (binding.refreshLayout != null) {
+                                    binding.refreshLayout.setRefreshing(false);
+                                }
+                            }
+                        });
+
+
                     }
                 });
             }
@@ -202,8 +213,6 @@ public class mypage_scrap extends AppCompatActivity {
         }
     }
     private void updateRecyclerView(List<String> user_myScrap) {
-        // RecyclerView를 업데이트하는 코드를 여기에 추가하세요.
-        // 예를 들어, 어댑터를 초기화하고 사용자의 쓴 글 목록으로 다시 채우는 코드를 넣을 수 있습니다.
         init();
         processUserScrap(0, user_myScrap);
     }
