@@ -88,18 +88,20 @@ public class Post_Inside_Playing extends AppCompatActivity {
 
         db = FirebaseFirestore.getInstance();
 
-        DocumentReference docRef = db.collection(collectionName).document(documentName);
+        DocumentReference docRef = db.collection("leisureWritings").document(documentName);
         docRef.get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
             @Override
             public void onSuccess(DocumentSnapshot documentSnapshot) {
                 leisureDoc = documentSnapshot.toObject(LeisureDoc.class);
-                binding.placeLeisure.setText(leisureDoc.getPlace());
-                binding.meetingTimeLeisure.setText(leisureDoc.getDate());
-                binding.nicknameLeisure.setText(leisureDoc.getNickname());
-                binding.heartCountLeisure.setText(Integer.toString(leisureDoc.getLikeList().size()) + "개");
-                binding.textLeisure.setText(leisureDoc.getText());
-                binding.titleLeisure.setText(leisureDoc.getContentTitle());
-                binding.peopleCountLeisure.setText(leisureDoc.getJoinList().size()+"/"+leisureDoc.getPeopleCount());
+                if (leisureDoc != null){
+                    binding.meetingTimeLeisure.setText(leisureDoc.getDate());
+                    binding.nicknameLeisure.setText(leisureDoc.getNickname());
+                    binding.heartCountLeisure.setText(Integer.toString(leisureDoc.getLikeList().size()) + "개");
+                    binding.textLeisure.setText(leisureDoc.getText());
+                    binding.titleLeisure.setText(leisureDoc.getContentTitle());
+                    binding.peopleCountLeisure.setText(leisureDoc.getJoinList().size()+"/"+leisureDoc.getPeopleCount());
+                    binding.placeLeisure.setText(leisureDoc.getSpace());
+                }
                 DocumentReference docRef2 = db.collection("users").document(leisureDoc.getWriteId());
                 docRef2.get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
                     @Override

@@ -41,6 +41,7 @@ import com.example.jachisignal.CustomDialog;
 import com.example.jachisignal.FindPasswordActivity;
 import com.example.jachisignal.MainActivity;
 import com.example.jachisignal.MyPageActivity.mypage_scrap;
+import com.example.jachisignal.NaviActivity;
 import com.example.jachisignal.R;
 import com.example.jachisignal.ReportActivity;
 import com.example.jachisignal.ResetPasswordActivity;
@@ -157,6 +158,9 @@ public class FragmentSetting extends Fragment {
                 signOut();
                 Intent intent = new Intent(getActivity(), MainActivity.class);
                 startActivity(intent);
+                if (getActivity() != null && getActivity() instanceof NaviActivity) {
+                    getActivity().finish();
+                }
             }
         });
         binding.information.setOnClickListener(new View.OnClickListener() {

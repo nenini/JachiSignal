@@ -23,7 +23,7 @@ public class LeisureDoc {
     private List<String> likeList;
     private List<String> joinList;
     private String writeId;
-    private String place;
+    private String space;
     private String date;
     private String peopleCount;
     private String chatLink;
@@ -31,7 +31,7 @@ public class LeisureDoc {
 
     @ServerTimestamp
     private Timestamp timestamp; // server timestamp
-    public LeisureDoc(String nickname, String id, String writeId, String contentTitle, String text, String createAt, String category, String imageLink, List<String> likeList,List<String> scrapList,List<String> joinList, String place, String date, String peopleCount, String chatLink,ArrayList<String> contentArray) {
+    public LeisureDoc(String nickname, String id, String writeId, String contentTitle, String text, String createAt, String category, String imageLink, List<String> likeList,List<String> scrapList,List<String> joinList, String space, String date, String peopleCount, String chatLink,ArrayList<String> contentArray) {
         this.nickname=nickname;
         this.id = id;
         this.likeList = likeList;
@@ -41,7 +41,7 @@ public class LeisureDoc {
         this.category = category;
         this.contentTitle = contentTitle;
         this.imageLink = imageLink;
-        this.place=place;
+        this.space=space;
         this.date=date;
         this.peopleCount=peopleCount;
         this.chatLink=chatLink;
@@ -101,8 +101,8 @@ public class LeisureDoc {
     public String getId() {
         return id;
     }
-    public String getPlace() {
-        return place;
+    public String getSpace() {
+        return space;
     }
 
     public String getDate() {
@@ -161,8 +161,8 @@ public class LeisureDoc {
     public void setNickname(String nickname) {
         this.nickname = nickname;
     }
-    public void setPlace(String space) {
-        this.place = place;
+    public void setSpace(String space) {
+        this.space = space;
     }
 
     public void setDate(String date) {
