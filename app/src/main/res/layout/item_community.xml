@@ -41,6 +41,7 @@
             android:textStyle="bold"
             android:textColor="#3c567b" />
         <TextView
+            android:maxLines="2"
             android:id="@+id/community_text"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
