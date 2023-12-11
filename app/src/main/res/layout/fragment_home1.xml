@@ -56,19 +56,18 @@
 
             <LinearLayout
                 android:gravity="right"
-
                 android:orientation="horizontal"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:weightSum="1">
                 <Spinner
-                    android:layout_width="100dp"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:id="@+id/spinner_gonggu_show"
                     android:layout_weight="0.2"
                     />
                 <Spinner
-                    android:layout_width="100dp"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:id="@+id/spinner2_gonggu_show"
                     android:layout_weight="0.2"

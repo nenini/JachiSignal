@@ -57,6 +57,12 @@ public class GongguWritingActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         binding = ActivityGongguWritingBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
+        binding.backBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
 
         Spinner spin1 = binding.spinnerGonggu;
         Spinner spin2 = binding.spinner2Gonggu;
