@@ -172,8 +172,6 @@ public class FragmentSetting extends Fragment {
             }
         });
 
-
-
         /**/
         user = FirebaseAuth.getInstance().getCurrentUser();
 

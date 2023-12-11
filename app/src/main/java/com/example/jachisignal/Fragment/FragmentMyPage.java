@@ -1,6 +1,8 @@
 package com.example.jachisignal.Fragment;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -14,6 +16,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.CalendarView;
 import android.widget.Switch;
+import android.widget.TextView;
 
 import com.example.jachisignal.BottomSheet;
 import com.example.jachisignal.Doc.Doc;
@@ -24,8 +27,13 @@ import com.example.jachisignal.MyPageActivity.mypage_gonggu;
 import com.example.jachisignal.MyPageActivity.mypage_mywrite;
 import com.example.jachisignal.MyPageActivity.mypage_scrap;
 import com.example.jachisignal.databinding.ItemBinding;
+import com.google.android.material.behavior.SwipeDismissBehavior;
 import com.google.android.material.bottomsheet.BottomSheetDialog;
 
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -37,6 +45,10 @@ public class FragmentMyPage extends Fragment {
     FragmentMyPageBinding binding;
     private BottomSheetDialog dialog;
 
+    SharedPreferences moneyPrefs;
+    int totalConsumption=0;
+    int year, month;
+
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
@@ -45,6 +57,7 @@ public class FragmentMyPage extends Fragment {
     // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
+
 
     public FragmentMyPage() {
         // Required empty public constructor
@@ -103,6 +116,18 @@ public class FragmentMyPage extends Fragment {
                 startActivity(intent);
             }
         });
+
+        /*-- 이번 달 소비 금액 구하기 --*/
+        Calendar c = Calendar.getInstance();
+        year = c.get(Calendar.YEAR);
+        month = c.get(Calendar.MONTH);
+
+
+        for(int i=1; i<=31; i++) {
+            moneyPrefs = getActivity().getSharedPreferences(year + "_" + month + "_" + i, Context.MODE_PRIVATE);
+            totalConsumption += moneyPrefs.getInt("total",0);
+        }
+        binding.consumptionTxt.setText(totalConsumption+"원");
         return binding.getRoot();
     }
 
@@ -110,9 +135,17 @@ public class FragmentMyPage extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         binding.calendarView.setOnDateChangeListener((CalendarView view1, int year, int month, int dayOfMonth) -> {
-            BottomSheet bottomSheet = new BottomSheet(year,month,dayOfMonth);
+            BottomSheet bottomSheet = new BottomSheet(year,month,dayOfMonth,this);
             bottomSheet.show(getActivity().getSupportFragmentManager(), null);
         });
     }
 
+    public void update(){
+        int totalConsumption=0;
+        for(int i=1; i<=31; i++) {
+            moneyPrefs = getActivity().getSharedPreferences(year + "_" + month + "_" + i, Context.MODE_PRIVATE);
+            totalConsumption += moneyPrefs.getInt("total",0);
+        }
+        binding.consumptionTxt.setText(totalConsumption+"원");
+    }
 }

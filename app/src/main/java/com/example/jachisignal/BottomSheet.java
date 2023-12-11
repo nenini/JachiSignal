@@ -1,6 +1,7 @@
 package com.example.jachisignal;
 
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -23,17 +24,24 @@ import com.google.android.material.bottomsheet.BottomSheetDialogFragment;
 import java.util.ArrayList;
 import java.util.List;
 
-public class BottomSheet extends BottomSheetDialogFragment {
+public class BottomSheet extends BottomSheetDialogFragment{
+//    private OnDismissListener dismissListener;
+//    public interface OnDismissListener {
+//        void onDismiss(boolean isSwitchOn);
+//    }
+
     int year, month, dayOfMonth;
     CalendarBottomSheetBinding binding;
     List<Doc> list;
     SharedPreferences moneyPrefs;
+    FragmentMyPage fragmentMyPage;
     MyAdapter adapter = new MyAdapter();
     int listSize;
-    public BottomSheet(int year, int month, int dayOfMonth){
+    public BottomSheet(int year, int month, int dayOfMonth, FragmentMyPage fragmentMyPage){
         this.dayOfMonth = dayOfMonth;
         this.month = month;
         this.year = year;
+        this.fragmentMyPage = fragmentMyPage;
     }
     public BottomSheet(){}
     @Nullable
@@ -78,6 +86,9 @@ public class BottomSheet extends BottomSheetDialogFragment {
                 editor.putString("item"+listSize,item).commit();
                 editor.putInt("money"+listSize,money).commit();
                 Toast.makeText(this.getActivity(), "가계부에 추가되었습니다.", Toast.LENGTH_SHORT).show();
+                int total = moneyPrefs.getInt("total",0);
+                editor.putInt("total",total+money).commit();
+                fragmentMyPage.update();
                 dismiss();
             }
         });
@@ -123,4 +134,5 @@ public class BottomSheet extends BottomSheetDialogFragment {
             return list.size();
         }
     }
+
 }
