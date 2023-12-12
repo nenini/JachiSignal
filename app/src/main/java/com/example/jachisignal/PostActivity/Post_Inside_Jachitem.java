@@ -57,6 +57,8 @@ public class Post_Inside_Jachitem extends AppCompatActivity {
     ActivityPostInsideJachitemBinding binding;
     String uid = getUidOfCurrentUser();
     AppUser appUser;
+    AppUser appUser2;
+
     private FirestoreRecyclerAdapter adapter;
 
     private FirestoreRecyclerAdapter adapterNestedChat;
@@ -99,8 +101,8 @@ public class Post_Inside_Jachitem extends AppCompatActivity {
                 docRef2.get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
                     @Override
                     public void onSuccess(DocumentSnapshot documentSnapshot) {
-                        appUser = documentSnapshot.toObject(AppUser.class);
-                        if(appUser.getImg()!=null){downloadImageToUser(appUser.getImg());}
+                        appUser2 = documentSnapshot.toObject(AppUser.class);
+                        if(appUser2.getImg()!=null){downloadImageToUser(appUser2.getImg());}
                     }
                 });
                 if (jachiDoc.getImageLink() != null) {
@@ -430,7 +432,7 @@ public class Post_Inside_Jachitem extends AppCompatActivity {
         docRef.get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
             @Override
             public void onSuccess(DocumentSnapshot documentSnapshot) {
-                appUser = documentSnapshot.toObject(AppUser.class);
+                AppUser appUser = documentSnapshot.toObject(AppUser.class);
                 //눌렸는데 uid가 있었던 경우->uid 삭제
                 if (jachiDoc.getScrapList().contains(uid)) {
                     jachiDoc.getScrapList().remove(uid);

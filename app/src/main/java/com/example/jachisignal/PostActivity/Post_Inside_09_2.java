@@ -109,7 +109,7 @@ public class Post_Inside_09_2 extends AppCompatActivity {
                 docRef2.get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
                     @Override
                     public void onSuccess(DocumentSnapshot documentSnapshot) {
-                        appUser = documentSnapshot.toObject(AppUser.class);
+                        AppUser appUser = documentSnapshot.toObject(AppUser.class);
                         if(appUser.getImg()!=null){downloadImageToUser(appUser.getImg());}
                     }
                 });
